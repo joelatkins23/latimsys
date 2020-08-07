@@ -1,6 +1,6 @@
 <?php
 ob_start();
-include(dirname(__FILE__).'/res/pdf_demo.php');
+// include(dirname(__FILE__).'/res/pdf_demo.php');
 	require_once('conn.php');
 
 	$id = $_GET['id'];
