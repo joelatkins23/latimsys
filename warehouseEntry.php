@@ -73,8 +73,7 @@
 		$agent_name=$rowagent['name'];
 		$agent_email=$rowagent['email'];
 	}
-
-	require ('tc-barcode/vendor/autoload.php');
+	require_once(dirname(__FILE__).'/tc-barcode/vendor/autoload.php');
 	$barcode = new \Com\Tecnick\Barcode\Barcode();
 	$targetPath = "barcode/";
     
