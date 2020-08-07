@@ -1,0 +1,67 @@
+*{font-family: "Be Vietnam", sans-serif;}
+
+.ron-red{display: inline-block;
+    *display: inline;
+    vertical-align: middle;
+    margin: 0;
+    padding: 0;
+    width: 20px;
+    height: 20px;
+    background: url(plugins/icheck/flat/red.png) no-repeat;
+    border: none;
+    cursor: pointer;}
+
+.form_1{width:40%; position:relative; left:50%; margin-left:-20%; margin-top:50px; height:auto;background:white;}
+
+.form_1_submit{background:#555555; color:white; font-weight:600;  border:none; border-radius:2px; position:relative; top:-44px; float:right; width:100px; height:40px;}
+
+.form_2{width:90%; position:relative; min-height:400px; left:50%; margin-left:-45%; margin-top:50px; height:auto;background:white;}
+
+.form_2_submit{background:#555555; color:white; font-weight:500; font-size:18px;  border:none; border-radius:2px; position:relative; top:-44px; float:right; width:100px; height:40px;}
+
+
+.searchPage{width:60%; position:relative; left:50%; margin-left:-30%; background:white; padding:40px;}
+
+.deleteAccountBtn{background:#CE0000; color:white; border:none; width:60px; height:30px; font-weight:500; float:right; position:relative; left:50px;}
+
+
+
+.z1{text-align:center; position:relative;  top:16px; color:black; font-weight:500;}
+.z2{font-size:12px; font-weight:500;}
+.z3{text-align:center; position:relative; font-size:12px; top:6px; color:black; font-weight:500;}
+.z4{margin-left:15px; text-align:justify; position:relative; font-size:12px; top:6px; color:black; font-weight:500;}
+.z5{text-align:center; font-size:10px; position:relative; top:16px; color:black; font-weight:500;}
+.z6{text-align: center; vertical-align: middle;}
+.z7{font-weight:bolder; font-size:12px;}
+.z8{text-align:center; font-size:10px; position:relative; top:16px; color:black; font-weight:500;}
+.z9{position:relative; margin-top:-30px;}
+.z10{color:black; font-size:24px; position:relative; top:27px; left:25px;}
+.z11{font-size:12px; background:none; width:80px; color:black; border:none; height:25px; position:relative; top:17px;}
+.z12{font-size:11px; background:#E2E2E2; width:60px; position:relative; left:8px; color:black; border-radius:3px; border:none; height:18px; position:relative; top:13px;}
+.z13{margin-left:10px; margin-top:2px; background-color:rgb(0,0,0,0); color:#B80008; font-size:16px; border:none;}
+.z15{margin-left:10px; margin-top:2px; background-color:rgb(0,0,0,0); color:#B80008; font-size:16px; border:none;}
+.z16{position:absolute; top:15px; right:130px;}
+.z17{font-weight:400; position:relative; left:85px; font-size:13px; color:black;}
+.z18{width:150px; font-size:13px;}
+.z19{position:absolute; top:50px; right:50px; font-size:13px;}
+
+
+
+
+
+
+@media (max-width: 680px) {
+
+	.form_1{width:100%; position:relative; left:50%; margin-left:-50%; margin-top:50px; height:auto;background:white;}
+
+	.form_1_submit{top:-44px; left:0px; float:right; width:100px; height:40px;}
+
+	.searchPage{width:90%; position:relative; left:50%; margin-left:-45%; padding:40px;}
+
+	.deleteAccountBtn{left:45px;}
+
+
+}
+
+
+
