@@ -28,7 +28,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Latim Cargo & Trading | WareHouse Create</title>
+    <title>Latim Cargo & Trading | Pre Loading Plan</title>
     <link rel="icon" type="image/x-icon" href="icoplane.ico" />
     <!-- CSS -->
     <link href='plugins/select2/select2.css' rel='stylesheet' type='text/css'>
@@ -78,24 +78,23 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Loading Guide 
+        Pre Loading Plan
         <small>Create</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Create Loading Guide</li>
+        <li class="active">Create Pre Loading Plan</li>
       </ol>
     </section>
-
     <section class="content">   
       <div class="row" style="margin: 0px;"> 
         <div class="col-md-offset-1 col-md-10 shadow2" style="background: white;margin-top:50px">
           <div class="row" style="border-bottom:1px solid #555555; padding:20px;">
             <div class="col-md-10">
-              <h3 style="text-align:center; color:black; font-weight:400;  font-size:20px; ">CREATE LOADING GUIDE</h3>
+              <h3 style="text-align:center; color:black; font-weight:400;  font-size:20px; ">CREATE PRE LOADING PLAN</h3>
             </div>
             <div class="col-md-2" style="margin-top:15px;">
-              <button type="button"  id="inculde_warehouse" class="btn btn-danger"><i class="fa fa-plus"></i>Add WareHouse</button>
+              <button type="button"  id="inculde_warehouse" class="btn btn-danger"><i class="fa fa-plus"></i>&nbsp;ADD JOB ORDERS</button>
             </div>
           </div> 
           <form  id="loading_guide_form" action="./warehouse_loading_curd.php" method="post" >
@@ -198,7 +197,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 <div class="col-md-12" >
                   <table id='warehouse_reciept_lists' style="width:100%;" class="table">
                     <thead>
-                      <tr class="text-center" style="background-color:#B80008 !important;">
+                      <tr class="text-center" style="background-color:#B80008 !important;color:white">
                           <th class="text-center" style="color:white">Number</th>
                           <th class="text-center" style="color:white">Reference</th>
                           <th class="text-center" style="color:white">Date</th>
@@ -334,8 +333,8 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 <script>
   $(".sidebar-menu li a").removeClass('active');
   $(".treeview").removeClass('active');
-  $("#loadingguide_list").addClass("active");
-  $("#loadingguide_list #create").addClass("active");
+  $("#pre_loading_plan").addClass("active");
+  $("#pre_loading_plan #create").addClass("active");
   $('input[type="file"]').imageuploadify();
     $(".select2").select2();    
     $('.form_datetime').datetimepicker();

@@ -76,16 +76,28 @@
           </li>
 
           <li id="loadingguide_list" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
-          <a href="#" style="height:25px; position:relative; top:-10px;">
-            <i class="fa fa-home"></i> <span style="font-size:11px; ">Loading Guide</span>
-            <span class="pull-right-container" style="top:22px;">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a id="create" href="createLodingGuide.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Create</a></li>
-            <li><a id="search" href="searchLodingGuide.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Search</a></li>
-          </ul>
+            <a href="#" style="height:25px; position:relative; top:-10px;">
+              <i class="fa fa-home"></i> <span style="font-size:11px; ">Loading Guide</span>
+              <span class="pull-right-container" style="top:22px;">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a id="create" href="createLodingGuide.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Create</a></li>
+              <li><a id="search" href="searchLodingGuide.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Search</a></li>
+            </ul>
+          </li>
+          <li id="pre_loading_plan" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
+            <a href="#" style="height:25px; position:relative; top:-10px;">
+              <i class="fa fa-home"></i> <span style="font-size:11px; ">PRE LOADING PLAN</span>
+              <span class="pull-right-container" style="top:22px;">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a id="create" href="createPreLodingPlan.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Create</a></li>
+              <li><a id="search" href="searchPreLodingPlan.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Search</a></li>
+            </ul>
           </li>
           <center><div style="width:100%; height:20px; position:relative; top:0px; background:#CECAC6; color:#630000; font-weight:600; font-size:14px;">JOB ORDERS</div></center>
 

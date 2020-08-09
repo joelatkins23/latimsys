@@ -72,10 +72,8 @@
     
     if (! is_dir($targetPath)) {
         mkdir($targetPath, 0777, true);
-    }
-	$MRP = $id;
-	$data=strtotime($fecha);
-	$productData = $id;
+	}
+	$productData = str_pad($id, 4, '0', STR_PAD_LEFT);
 	// echo $data;
     $barcode = new \Com\Tecnick\Barcode\Barcode();
     $bobj = $barcode->getBarcodeObj('C128', "{$productData}", 150, 30, 'black', array(
@@ -88,9 +86,9 @@
     $imageData = $bobj->getPngData();
     $timestamp = time();
     
-	file_put_contents($targetPath . $id . '.png', $imageData);
+	file_put_contents($targetPath . 'warehouse_'.$id.'.png', $imageData);
 	
-	$img=$targetPath . $id . '.png';
+	$img=$targetPath .'warehouse_'.$id.'.png';
 
 	$content = ob_get_clean();
 	$content = '
@@ -147,7 +145,7 @@
 				</div>
 			</div>
 			<div style="float:left;width:300px;display: inline;">				
-				<img src="'.$img.'" alt="" >
+				<img style="text-align:right;margin-left:10px;" src="'.$img.'" alt=""  >
 				<h2 style="margin-bottom:10px;margin-top:-160px; ">WAREHOUSE RECEIPT</h2>
 				<table style="width:100%">
 					<tr>

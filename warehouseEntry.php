@@ -84,7 +84,8 @@
 	$data=strtotime($fecha);
 	$productData = $id;
 	// echo $data;
-    $barcode = new \Com\Tecnick\Barcode\Barcode();
+	$barcode = new \Com\Tecnick\Barcode\Barcode();
+	$productData = str_pad($id, 4, '0', STR_PAD_LEFT);
     $bobj = $barcode->getBarcodeObj('C128', "{$productData}", 150, 30, 'black', array(
         0,
         0,

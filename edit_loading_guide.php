@@ -206,17 +206,17 @@ $email = $_SESSION['username'];
                             <table id='warehouse_reciept_lists' style="width:100%;" class="table">
                                 <thead>
                                     <tr class="text-center" style="background-color:#B80008 !important;color:white">
-                                        <th class="text-center">Number</th>
-                                        <th class="text-center">Reference</th>
-                                        <th class="text-center">Date</th>
-                                        <th class="text-center">Dest</th>                          
-                                        <th class="text-center">Pieces</th>
-                                        <th class="text-center">Weight</th>
-                                        <th class="text-center">Volume</th>
-                                        <th class="text-center">Shipper</th>
-                                        <th class="text-center">Consignee</th>
+                                        <th class="text-center" style="color:white">Number</th>
+                                        <th class="text-center" style="color:white">Reference</th>
+                                        <th class="text-center" style="color:white">Date</th>
+                                        <th class="text-center" style="color:white">Dest</th>                          
+                                        <th class="text-center" style="color:white">Pieces</th>
+                                        <th class="text-center" style="color:white">Weight</th>
+                                        <th class="text-center" style="color:white">Volume</th>
+                                        <th class="text-center" style="color:white">Shipper</th>
+                                        <th class="text-center" style="color:white">Consignee</th>
                                         <?php if($status=='unlock'){ ?>
-                                        <th class="text-center">Action</th>
+                                        <th class="text-center" style="color:white">Action</th>
                                         <?php } ?>
                                     </tr>
                                 </thead>
