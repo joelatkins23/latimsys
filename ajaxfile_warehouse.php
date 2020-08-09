@@ -162,7 +162,7 @@ $data = array();
 // echo $empQuery;
 
 while ($row = mysqli_fetch_assoc($empRecords)) {
-        $shortcut='<a href="#" onclick="editwarehouse('.$row['id'].')"><i class="fa fa-edit action"></i></a>';
+        $shortcut='<a href="#" onclick="editwarehouse('.$row['id'].')"><i class="fa fa-edit action"></i></a><a href="./warehousePDF.php?id='.$row['id'].'" target="blank"><i class="fa fa-file-pdf-o action"></i></a>';
         $t = strtotime($row['fecha']); date('d/m/y',$t);
         if($row['instination']=='Air door to door' || $row['instination']=='Air Service'){
             $instination='<img src="./img/air.png" style="width: 50px;">';

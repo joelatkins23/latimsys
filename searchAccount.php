@@ -126,6 +126,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                     <div class="col-md-12">
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-user"></i>&nbsp;Edit Account</a></li>
+                            <li><a data-toggle="tab" href="#joborder"><i class="fa fa-files-o"></i>&nbsp;JobOrder</a></li>
                             <li><a data-toggle="tab" href="#warehouse"><i class="fa fa-files-o"></i>&nbsp;WareHouse</a></li>
                             <li><a data-toggle="tab" href="#quotation"><i class="fa fa-home"></i>&nbsp;Quotation</a></li>
                         </ul>
@@ -241,6 +242,58 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                                         </div>
                                     </div>
                                 </form>
+                            </div>
+                            <div id="joborder" class="tab-pane fade">
+                                <div class="row" >
+                                    <div class="col-md-12" >
+                                        <h3 style="text-align:center; color:black; font-weight:400; font-size:20px;padding-top: 20px;" >SEARCHER JOB ORDER</h3>
+                                    </div>
+                                </div>           
+                                <div class="row" style="margin-top:20px">                                   
+                                    <div class="col-md-12" style="margin-top:20px;">
+                                        <form clsss="row text-center" action="#" id="filter_joborder">
+                                            <div class="col-md-offset-3 col-md-2">                        
+                                                <div class=" input-group">
+                                                    <div class="input-group-addon"><i class="fa fa-calendar input-fa"></i></div>
+                                                    <input type="text" class="form-control" data-provide="datepicker" id="from"
+                                                    data-date-format="yyyy-mm-dd" laceholder="To" value="1990-01-01"   autocomplete="off"  placeholder="From">
+                                                </div>                          
+                                            </div>
+                                            <div class="col-md-2">                        
+                                                <div class=" input-group">
+                                                    <input t type="text" class="form-control" data-provide="datepicker" id="to"
+                                                        data-date-format="yyyy-mm-dd" laceholder="To" value="<?php echo date('Y-m-d') ?>"   autocomplete="off"  placeholder="To">
+                                                </div>                    
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group row">                            
+                                                    <button  type="submit" class="btn btn-success "><i class="fa fa-search"></i>&nbsp;Filter</button>                                
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-12">                  
+                                        <div class="table-responsive">
+                                            <table id='joborderTable' style="width:100%;" class='display dataTable'>
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th>Date</th>
+                                                        <th>Job#</th>
+                                                        <th>Customer Name</th>
+                                                        <th style="width:200px;">Supplier Company</th>
+                                                        <th>Service</th>
+                                                        <th>Ship To:</th>
+                                                        <th>Agent Name</th>
+                                                        <th>Status</th>
+                                                        <th>Tracking</th>
+                                                        <th>WR #</th>
+                                                        <th>Shortcut</th>
+                                                    </tr>
+                                                </thead>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div> 
                             </div>
                             <div id="warehouse" class="tab-pane fade">
                                 <div class="row" >
@@ -421,6 +474,18 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     <div class="modal-dialog">
     </div>
 </div> 
+<div id="editJobOrder" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+    </div>
+</div>
+<div id="addwr" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    </div>
+</div>
+<div id="addtracking" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+    </div>
+</div>
     <script> 
     $(".sidebar-menu li a").removeClass('active');
     $(".treeview").removeClass('active');
@@ -434,7 +499,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     $('.form_datetime').datetimepicker();
    
     $(".select2").select2();
-    var client_id='', supplier_bill_consignee_id='';
+    var client_id='', supplier_bill_consignee_id='', supplier_client_id='';
     var table=$('#empTable').DataTable({
         "paging": true,
         "lengthChange": true,
@@ -470,8 +535,10 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     function editaccount(id){
         supplier_bill_consignee_id=id;
         client_id=id;
+        supplier_client_id=id;        
         warehousetable.ajax.reload();
         quotationTable.ajax.reload();
+        joborderTable.ajax.reload();
         $.ajax({
             url: './curd.php',
             dataType: 'text',
@@ -1218,7 +1285,214 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
         });
         quotationTable.ajax.reload();
     });
+    // search Job order
+        var joborderTable = $('#joborderTable').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            'processing': true,
+            'serverSide': true,
+            'serverMethod': 'post',
+            "order": [
+                [1, "desc"]
+            ],
+            'columnDefs': [{
+                orderable: false,
+                targets: [8, 9, 10]
+            }],
+            'ajax': {
+                'url': 'ajaxfile_account_cn.php',
+                "data": function(d) {
+                    d.from = Getfrom_joborder();
+                    d.to = Getto_joborder();
+                    d.supplier_client_id = Get_supplier_client_id();
+                }
+            },
+            'columns': [{
+                data: 'fecha'
+            }, {
+                data: 'id'
+            }, {
+                data: 'customer_name'
+            }, {
+                data: 'supplier_company'
+            }, {
+                data: 'service'
+            }, {
+                data: 'customer_city'
+            }, {
+                data: 'agent_name'
+            }, {
+                data: 'status'
+            }, {
+                data: 'tracking'
+            }, {
+                data: 'wr'
+            }, {
+                data: 'shortcut'
+            }]
+        });
+    function Getfrom_joborder(){
+        return $("#filter_joborder #from").val();
+    }
 
+    function Getto_joborder(){
+        return $("#filter_joborder #to").val();
+    }
+    function Get_supplier_client_id(){
+        return supplier_client_id;
+    }
+    $("#filter_joborder").submit(function(e) { 
+        e.preventDefault();     
+        swal({
+        title: "Date Fiter!",
+        text: "Data filtered successful!",
+        icon: "success",
+        });
+        joborderTable.ajax.reload();
+    });
+    function editJobOrder(id) {
+        $.get('editorder.php?id=' + id, function(response) {
+            $('#editJobOrder .modal-dialog').html(response);
+            $("#edit_order").submit(function(e) {
+                event.preventDefault(); //prevent default action 
+                var post_url = $(this).attr("action"); //get form action url
+                var form_data = $(this).serialize(); //Encode form elements for submission
+
+                $.post(post_url, form_data, function(response) {
+                    $("#editJobOrder").modal('hide');
+                    joborderTable.ajax.reload(null, false);
+                    swal({
+                        title: "JobOrder!",
+                        text: "JobOrder deleted successful!!",
+                        icon: "success",
+                    });
+                });
+            });
+            $("#delete_order").submit(function(e) {
+                event.preventDefault(); //prevent default action 
+                var post_url = $(this).attr("action"); //get form action url
+                var form_data = $(this).serialize(); //Encode form elements for submission
+
+                $.post(post_url, form_data, function(response) {
+                    $("#editJobOrder").modal('hide');
+                    joborderTable.ajax.reload(null, false);
+                    swal({
+                        title: "JobOrder Update!",
+                        text: "JobOrder updated successful!",
+                        icon: "error",
+                    });
+                });
+            });
+        });
+        $("#editJobOrder").modal('show');
+    }
+    function viewNotes(id) {
+            $.get('createnote.php?id=' + id, function(response) {
+                $('#viewNotes .modal-dialog').html(response);
+                $("#create_order").submit(function(e) {
+                    event.preventDefault(); //prevent default action 
+                    var post_url = $(this).attr("action"); //get form action url
+                    var form_data = $(this).serialize(); //Encode form elements for submission
+
+                    $.post(post_url, form_data, function(response) {
+
+                        $("#viewNotes").modal('hide');
+                        joborderTable.ajax.reload(null, false);
+                        swal({
+                            title: "New Notes!",
+                            text: "New Notes created successful!",
+                            icon: "success",
+                        });
+                    });
+                });
+            });
+            $("#viewNotes").modal('show');
+        }
+
+        function addwr(id) {
+            $.get('addwr2.php?id=' + id, function(response) {
+                $('#addwr .modal-dialog').html(response);
+                $("#add_wr").submit(function(e) {
+                    event.preventDefault(); //prevent default action 
+                    var post_url = $(this).attr("action"); //get form action url
+                    var form_data = $(this).serialize(); //Encode form elements for submission
+
+                    $.post(post_url, form_data, function(response) {
+
+                        $("#addwr").modal('hide');
+                        joborderTable.ajax.reload(null, false);
+                        swal({
+                            title: "NEW WR!",
+                            text: "New WR created successful!",
+                            icon: "success",
+                        });
+                    });
+                });
+                $("#delete_wr").submit(function(e) {
+                    event.preventDefault(); //prevent default action 
+                    var post_url = $(this).attr("action"); //get form action url
+                    var form_data = $(this).serialize(); //Encode form elements for submission
+
+                    $.post(post_url, form_data, function(response) {
+                        $("#addwr").modal('hide');
+                        joborderTable.ajax.reload(null, false);
+                        swal({
+                            title: "WR!",
+                            text: "WR deleted successful!",
+                            icon: "error",
+                        });
+                    });
+                });
+            });
+            $("#addwr").modal('show');
+        }
+
+        function addtracking(id) {
+            $.get('addtracking.php?id=' + id, function(response) {
+                $('#addtracking .modal-dialog').html(response);
+                $("#add_tracking").submit(function(e) {
+                    event.preventDefault(); //prevent default action 
+                    var post_url = $(this).attr("action"); //get form action url
+                    var form_data = $(this).serialize(); //Encode form elements for submission
+
+                    $.post(post_url, form_data, function(response) {
+                        $("#addtracking").modal('hide');
+                        swal({
+                            title: "New Tracking!",
+                            text: "New Tracking created successful!",
+                            icon: "success",
+                        });
+                        joborderTable.ajax.reload(null, false);
+
+                    });
+                });
+
+            });
+            $("#addtracking").modal('show');
+        }
+
+        function tracking_delete(id) {
+            $.ajax({
+                    method: 'GET',
+                    url: "./curd.php",
+                    data: {
+                        delete_tracking: id,
+                    }
+                })
+                .done(function(response) {
+                    swal({
+                        title: "Tracking!",
+                        text: "Tracking deleted successful!",
+                        icon: "success",
+                    });
+                    $("#addtracking .tr_" + id).remove();
+                    joborderTable.ajax.reload(null, false);
+                })
+        }
     $(document).ready(function () {
       $("#state").select2({
         tags: true

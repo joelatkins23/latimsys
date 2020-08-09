@@ -91,6 +91,8 @@ if(isset($_POST["editorder"]) && !empty($_POST["editorder"])){
     $agent_id= $_POST['agent_id'];    
     $supplier_id= $_POST['supplier_id']; 
     $client_id= $_POST['client_id']; 
+    $supplier_company=$_POST['supplier_company'];
+    $supplier_name=$_POST['supplier_name'];
     $supplier_telf1=$_POST['supplier_telf1'];
     $supplier_telf2=$_POST['supplier_telf2'];
     $supplier_qq=$_POST['supplier_qq'];
@@ -101,6 +103,8 @@ if(isset($_POST["editorder"]) && !empty($_POST["editorder"])){
     $supplier_city=$_POST['supplier_city'];
     $supplier_state=$_POST['supplier_state'];
     $supplier_country=$_POST['supplier_country'];
+    $customer_company=$_POST['customer_company'];
+    $customer_name=$_POST['customer_name'];
     $customer_telf1=$_POST['customer_telf1'];
     $customer_telf2=$_POST['customer_telf2'];
     $customer_qq=$_POST['customer_qq'];
@@ -127,14 +131,13 @@ if(isset($_POST["editorder"]) && !empty($_POST["editorder"])){
                         qq='$customer_qq',
                         wechat='$customer_wechat',
                         address_1='$customer_address1',
-                        address_2='$customer_address2',
-                        city='$customer_city',
-                        state='$customer_state',
-                        country='$customer_country',
+                        address_2='$customer_address2',                        
                         email='$customer_email'
                         WHERE id='$client_id' ");
 
     $queryModel = mysqli_query($connect, "UPDATE accounts SET
+                        company='$supplier_company',
+                        name='$supplier_name',
                         telf1='$supplier_telf1',
                         telf2='$supplier_telf2',
                         qq='$supplier_qq',

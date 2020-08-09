@@ -61,8 +61,6 @@ while ($rowcustomer = mysqli_fetch_array($consulta_customer)){
   
    
 }
-echo "cutomer_name".$customer_name;
-echo "customer_company".$customer_company;
 ?>
 
 <!-- Modal content-->
@@ -98,7 +96,7 @@ echo "customer_company".$customer_company;
                         <div class="col-md-12">
                             <div class=" input-group">
                                 <div class="input-group-addon"><i class="fa fa-user input-fa"></i></div>
-                                <input type="text" name="customer_name" class="form-control" value="<?php echo $customer_name; ?>" disabled placeholder="">
+                                <input type="text" name="customer_name" class="form-control" value="<?php echo $customer_name; ?>"  placeholder="">
                             </div>
                         </div>
                     </div>
@@ -106,7 +104,7 @@ echo "customer_company".$customer_company;
                         <div class="col-md-12">
                             <div class=" input-group">
                                 <div class="input-group-addon"><i class="fa fa-briefcase input-fa"></i></div>
-                                <input type="text" name="customer_company" class="form-control" value="<?php echo $customer_company; ?>" disabled placeholder="Company Name">
+                                <input type="text" name="customer_company" class="form-control" value="<?php echo $customer_company; ?>"  placeholder="Company Name">
                             </div>
                         </div>
                     </div>
@@ -211,8 +209,7 @@ echo "customer_company".$customer_company;
                         <div class="col-md-12">
                             <div class=" input-group">
                                 <div class="input-group-addon"><i class="fa fa-briefcase input-fa"></i></div>
-                                <input type="text" class="form-control"  value="<?php echo $supplier_company; ?>" disabled placeholder="Company Name">
-                                <input type="hidden" value="<?php echo $supplier_company; ?>" name="supplier_company">
+                                <input type="text" class="form-control"  value="<?php echo $supplier_company; ?>" name="supplier_company"  placeholder="Company Name">
                             </div>
                         </div>
                     </div>
@@ -220,8 +217,7 @@ echo "customer_company".$customer_company;
                         <div class="col-md-12">
                             <div class=" input-group">
                                 <div class="input-group-addon"><i class="fa fa-user input-fa"></i></div>
-                                <input type="text" class="form-control" value="<?php echo $supplier_name; ?>" disabled placeholder="Contact Person">
-                                <input type="hidden" value="<?php echo $supplier_name; ?>" name="supplier_name">
+                                <input type="text" class="form-control" value="<?php echo $supplier_name; ?>" name="supplier_name"  placeholder="Contact Person">
                             </div>
                         </div>
                     </div>
