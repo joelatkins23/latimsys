@@ -71,19 +71,19 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
         <div class="content-wrapper">
             <section class="content-header">
                 <h1>
-                    Loading Guide
+                   Pre Loading Plan
                     <small>Search</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Search Loading Guide</li>
+                    <li class="active">Search Pre Loading Plan</li>
                 </ol>
             </section>
             <section class="content">
                 <div class="searchPage shadow2" style="background:white; width:90%; margin-left:-45%;">
                     <div class="row" style="border-bottom: 1px solid #000; margin-left: 0; margin-right: 0;">
                         <div class="col-md-12">
-                            <h3 class="text-center">Search Loading Guide</h3>
+                            <h3 class="text-center">Search Pre Loading Plan</h3>
                         </div>
                     </div>
                     <div class="row">
@@ -98,9 +98,6 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                                             <th>Agent</th>
                                             <th>Line</th>
                                             <th>Type</th>
-                                            <th>Pieces</th>
-                                            <th>Weight</th>
-                                            <th>Volume</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -113,75 +110,71 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             </section>
         </div>
     </div>
-
-    <div id="edit_loading_guide" class="modal fade" role="dialog" style="    overflow: auto;">
+    <div id="edit_pre_loading_plan" class="modal fade" role="dialog" style="overflow: auto;">
         <div class="modal-dialog modal-lg">
         </div>
     </div>
-    <div id="warehouse_for_loading" class="modal fade" role="dialog">
+    <div id="joborders_for_loading" class="modal fade" role="dialog" >
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">WareHouse List</h4>
+                    <h4 class="modal-title">JobOrders List</h4>   
                 </div>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12" style="margin-top:20px;">
                             <form clsss="row text-center" action="#" id="filter">
-                                <div class="col-md-offset-3 col-md-2">
+                                <div class="col-md-offset-3 col-md-2">                        
                                     <div class=" input-group">
                                         <div class="input-group-addon"><i class="fa fa-calendar input-fa"></i></div>
                                         <input type="text" class="form-control" data-provide="datepicker" id="from"
-                                            data-date-format="yyyy-mm-dd" laceholder="To" value="1990-01-01"
-                                            autocomplete="off" placeholder="From">
-                                    </div>
+                                        data-date-format="yyyy-mm-dd" laceholder="To" value="1990-01-01"   autocomplete="off"  placeholder="From">
+                                    </div>                          
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2">                        
                                     <div class=" input-group">
                                         <input t type="text" class="form-control" data-provide="datepicker" id="to"
-                                            data-date-format="yyyy-mm-dd" laceholder="To"
-                                            value="<?php echo date('Y-m-d') ?>" autocomplete="off" placeholder="To">
-                                    </div>
+                                            data-date-format="yyyy-mm-dd" laceholder="To" value="<?php echo date('Y-m-d') ?>"   autocomplete="off"  placeholder="To">
+                                    </div>                    
                                 </div>
                                 <div class="col-md-2">
-                                    <div class="form-group row">
-                                        <button type="submit" class="btn btn-success "><i
-                                                class="fa fa-search"></i>&nbsp;Filter</button>
+                                    <div class="form-group row">                            
+                                        <button  type="submit" class="btn btn-success "><i class="fa fa-search"></i>&nbsp;Filter</button>                                
                                     </div>
                                 </div>
                                 <div class="col-md-3 text-right">
-                                    <button id="add_loadings_warelists" type="button" class="btn btn-danger "><i
-                                            class="fa fa-save"></i>&nbsp;Add Warehouse</button>
+                                    <button id="add_loadings_joborderslists"  type="button" class="btn btn-danger "><i class="fa fa-save"></i>&nbsp;Add JobOrders</button>                                
                                 </div>
                             </form>
                         </div>
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <table id='warehousetable' style="width:100%;" class='display dataTable'>
+                                <table id='jobordersTable' style="width:100%;" class='display dataTable'>
                                     <thead>
                                         <tr class="text-center">
-                                            <th>Number</th>
-                                            <th>Reference</th>
-                                            <th>Date</th>
-                                            <th>Dest</th>
-                                            <th>Pieces</th>
-                                            <th>Weight</th>
-                                            <th>Volume</th>
-                                            <th>Shipper</th>
-                                            <th>Consignee</th>
-                                            <th>Action</th>
+                                            <th class="text-center" style="color:white">Date</th>
+                                            <th class="text-center" style="color:white">JOB</th>
+                                            <th class="text-center" style="color:white">Customer<br>Name</th>
+                                            <th class="text-center" style="color:white">Supplier<br>Company</th>                          
+                                            <th class="text-center" style="color:white">Service</th>
+                                            <th class="text-center" style="color:white">Ship To</th>
+                                            <th class="text-center" style="color:white">Agent<br>Name</th>
+                                            <th class="text-center" style="color:white">Status</th>
+                                            <th class="text-center" style="color:white">Tracking#</th>
+                                            <th class="text-center" style="color:white">WR#</th>
+                                            <th class="text-center" style="color:white">ShortCut</th>
+                                            <th class="text-center" style="color:white">Action</th>
                                         </tr>
                                     </thead>
                                 </table>
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>        
             </div>
         </div>
     </div>
-
     <script>
         $(".sidebar-menu li a").removeClass('active');
         $(".treeview").removeClass('active');
@@ -191,138 +184,122 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
         $('#datepicker').datepicker({
             autoclose: true
         });
-        function editloadingguide(id) {
-            $.get('edit_loading_guide.php?id=' + id, function (response) {
-                $('#edit_loading_guide .modal-dialog').html(response);
+        function editpreloadingplan(id) {
+            $.get('edit_pre_loading_plan.php?id=' + id, function (response) {
+                $('#edit_pre_loading_plan .modal-dialog').html(response);
 
-                $("#inculde_warehouse").on("click", function (e) {
+                $("#inculde_joborders").on("click", function (e) {
                     table2.ajax.reload();
-                    $("#warehouse_for_loading").modal('show');
+                    $("#joborders_for_loading").modal('show');
                 });
                 $("input[name='status']").on("change", function (e) {
-                    $.post("./warehouse_loading_curd.php",
+                    $.post("./joborder_loading_curd.php",
                         {
                             id: $("input[name='id']").val(),
-                            loading_guide_status: 'update',
+                            pre_loading_plan_status: 'update',
                             status: e.target.value,
                         },
                         function (data, status) {
-                            $('#edit_loading_guide').modal('hide');
+                            $('#edit_pre_loading_plan').modal('hide');
                             table.ajax.reload(null, false);
                             swal({
-                                title: "Loading Guide!",
-                                text: "Loading Guide Status updated successful!",
+                                title: "Pre Loading Plan!",
+                                text: "Pre Loading Plan Status updated successful!",
                                 icon: "success",
                             });
                         });
                 });
-                $("#add_loadings_warelists").on("click", function (e) {
-                    var checks_warehouse = $("input[name='all_warehouselist']").val();
-                    if (checks_warehouse == '') {
-                        checks_warehouse = [];
+                $("#add_loadings_joborderslists").on("click", function (e) {
+                    var checks_joborders = $("input[name='all_joborderslist']").val();
+                    if (checks_joborders == '') {
+                        checks_joborders = [];
                     } else {
-                        checks_warehouse = checks_warehouse.split(",");
+                        checks_joborders = checks_joborders.split(",");
                     }
-                    $("#warehousetable tbody tr [name='jobCheck[]']:checked").each(function (e, ele) {
-                        if (checks_warehouse.indexOf(ele.value) !== -1) {
-                            alert("The WareHouse already Include!");
+                    $("#jobordersTable tbody tr [name='jobCheck[]']:checked").each(function (e, ele) {
+                        if (checks_joborders.indexOf(ele.value) !== -1) {
+                            alert("The Job Order already Include!");
                         } else {
-                            checks_warehouse.push(ele.value);
+                            checks_joborders.push(ele.value);
                         }
                     })
-                    if (checks_warehouse.length > 0) {
+                    if (checks_joborders.length > 0) {
                         $.ajax({
                             method: 'POST',
-                            url: "./warehouse_loading_curd.php",
+                            url: "./joborder_loading_curd.php",
                             data: {
-                                checks_warehouse: checks_warehouse,
-                                warehouse_list: 'get'
+                                checks_joborders: checks_joborders,
+                                joborders_list: 'get'
                             }
                         })
                             .done(function (response) {
                                 var data = JSON.parse(response);
-                                $("#warehouse_reciept_lists tbody").html(data.html);
-                                $("input[name='all_total_pieces']").val(data.all_total_pieces);
-                                $("input[name='all_total_weight']").val(data.all_total_weight);
-                                $("input[name='all_total_volume']").val(data.all_total_volume);
-                                $("input[name='all_total_charg_weight']").val(data.all_total_weight);
-                                $("input[name='all_warehouselist']").val(data.all_warehouselist);
-                                $("#all_total_pieces").text(data.all_total_pieces);
-                                $("#all_total_weight").text(data.all_total_weight);
-                                $("#all_total_volume").text(data.all_total_volume);
-                                $("#all_total_charg_weight").text(data.all_total_weight);
+                                $("#joborders_lists tbody").html(data.html);                      
+                                $("input[name='all_joborderslist']").val(data.all_joborderslist);
                                 table2.ajax.reload(null, false);
-                                $("#warehouse_for_loading").modal('hide');
+                                $("#joborders_for_loading").modal('hide');
                             })
                     } else {
                         alert("Please check checkbox!!")
 
                     }
                 });
-                $("#update_loading_guide").submit(function (e) {
+                $("#update_pre_loading_plan").submit(function (e) {
                     event.preventDefault();
                     var post_url = $(this).attr("action"); //get form action url
                     var form_data = $(this).serialize(); //Encode form elements for submission                            
                     $.post(post_url, form_data, function (response) {
                         if (response) {
                             swal({
-                                title: "Loading Guide!",
-                                text: "Loading Guide Updated successful!",
+                                title: "Pre Loading Plan!",
+                                text: "Pre Loading Plan Updated successful!",
                                 icon: "success",
                             });
-                            $('#edit_loading_guide').modal('hide');
+                            $('#edit_pre_loading_plan').modal('hide');
                             table.ajax.reload(null, false);
                         }
                     });
                 });
-                $("#delete_loading_guide").submit(function (e) {
+                $("#delete_pre_loading_plan").submit(function (e) {
                     event.preventDefault();
                     var post_url = $(this).attr("action"); //get form action url
                     var form_data = $(this).serialize(); //Encode form elements for submission                            
                     $.post(post_url, form_data, function (response) {
                         if (response) {
                             swal({
-                                title: "Loading Guide!",
-                                text: "Loading Guide Deleted successful!",
+                                title: "Pre Loading Plan!",
+                                text: "Pre Loading Plan Deleted successful!",
                                 icon: "error",
                             });
-                            $('#edit_loading_guide').modal('hide');
+                            $('#edit_pre_loading_plan').modal('hide');
                             table.ajax.reload(null, false);
                         }
                     });
                 });
             });
-            $('#edit_loading_guide').modal('show');
+            $('#edit_pre_loading_plan').modal('show');
         }
-        function onwarehousedelete_loading(key, id) {
-            var checks_warehouse = $("input[name='all_warehouselist']").val();
-            checks_warehouse = checks_warehouse.split(",");
-            var index = checks_warehouse.indexOf(id.toString());
+        function onjobordersdelete_loading(key, id) {
+            var checks_joborders = $("input[name='all_joborderslist']").val();
+            checks_joborders = checks_joborders.split(",");
+            var index = checks_joborders.indexOf(id.toString());
             if (index > -1) {
-                checks_warehouse.splice(index, 1);
+                checks_joborders.splice(index, 1);
             }            
             $.ajax({
                 method: 'POST',
-                url: "./warehouse_loading_curd.php",
+                url: "./joborder_loading_curd.php",
                 data: {
-                    checks_warehouse: checks_warehouse,
-                    warehouse_delete: 'get',
-                    loadingguide_id: $("input[name='id']").val(),
+                    checks_joborders: checks_joborders,
+                    joborder_delete: 'get',
+                    pre_loading_plan_id: $("input[name='id']").val(),
                     id: id
                 }
             })
                 .done(function (response) {
                     var data = JSON.parse(response);
-                    $("#warehouse_reciept_lists tbody").html(data.html);
-                    $("input[name='all_total_pieces']").val(data.all_total_pieces);
-                    $("input[name='all_total_weight']").val(data.all_total_weight);
-                    $("input[name='all_total_volume']").val(data.all_total_volume);
-                    $("input[name='all_total_charg_weight']").val(data.all_total_weight);
-                    $("input[name='all_warehouselist']").val(data.all_warehouselist);
-                    $("#all_total_pieces").text(data.all_total_pieces);
-                    $("#all_total_weight").text(data.all_total_weight);
-                    $("#all_total_volume").text(data.all_total_volume);
-                    $("#all_total_charg_weight").text(data.all_total_weight);
+                    $("#joborders_lists tbody").html(data.html);                
+                    $("input[name='all_joborderslist']").val(data.all_joborderslist);                 
                 })
         }
         function ConfirmDelete() {
@@ -344,10 +321,10 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             ],
             'columnDefs': [{
                 orderable: false,
-                targets: [8, 9, 10]
+                targets: [6,7]
             }],
             'ajax': {
-                'url': 'ajaxfile_loadingguide.php'
+                'url': 'ajaxfile_preloadingplan.php'
             },
             'columns': [{
                 data: 'id'
@@ -361,14 +338,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                 data: 'line'
             }, {
                 data: 'type'
-            }, {
-                data: 'all_total_pieces'
-            }, {
-                data: 'all_total_weight'
-            },
-            {
-                data: 'all_total_volume'
-            },
+            }, 
             {
                 data: 'status'
             },
@@ -377,7 +347,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             }]
         });
         var from = '', to = '', checklist = '';
-        var table2 = $('#warehousetable').DataTable({
+        var table2 = $('#jobordersTable').DataTable({
             "paging": true,
             "lengthChange": true,
             "searching": true,
@@ -388,39 +358,43 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             'serverSide': true,
             'serverMethod': 'post',
             "order": [
-                [0, "asc"]
+                [1, "desc"]
             ],
             'columnDefs': [{
                 orderable: false,
                 targets: [9]
             }],
             'ajax': {
-                'url': 'ajaxfile_warehouse_for_loading.php',
+                'url': 'ajaxfile_joborders_for_loading.php',
                 "data": function (d) {
                     d.from = Getfrom();
                     d.to = Getto();
                     d.checklist = Getchecklist();
                 }
             },
-            'columns': [{
+            'columns': [ {
+                data: 'fecha'
+            },{
                 data: 'id'
             }, {
-                data: 'reference_id'
+                data: 'customer_name'
+            },{
+                data: 'supplier_company'
+            },   {
+                data: 'service'
             }, {
-                data: 'fecha'
+                data: 'customer_city'
             }, {
-                data: 'destination'
+                data: 'agent_name'
             }, {
-                data: 'total_pieces'
-            }, {
-                data: 'total_weight'
-            }, {
-                data: 'total_volume'
-            }, {
-                data: 'supplier_id'
-            }, {
-                data: 'consignee_id'
-            }, {
+                data: 'status'
+            },{
+                data: 'tracking'
+            },{
+                data: 'wr'
+            },{
+                data: 'shortcut'
+            },{
                 data: 'action'
             }]
         });
@@ -431,8 +405,8 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             return $("#to").val();
         }
         function Getchecklist() {
-            if ($("input[name='all_warehouselist']").length) {
-                return $("input[name='all_warehouselist']").val();
+            if ($("input[name='all_joborderslist']").length) {
+                return $("input[name='all_joborderslist']").val();
             } else {
                 return '';
             }

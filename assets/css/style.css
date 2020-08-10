@@ -8,6 +8,10 @@ body {
     margin-bottom: 20px;
 }
 
+.modal-content {
+    border-radius: 5px !important;
+}
+
 @media (min-width: 1440px) {
     #editaccount .modal-lg {
         width: 1300px;
@@ -107,6 +111,7 @@ a {
 .add_btn {
     padding: 0px !important;
     border-color: #B80008 !important;
+    background-color: #B80008 !important;
 }
 
 .add_btn button {
@@ -216,35 +221,6 @@ table th {
 [hidden],
 template {
     display: none !important;
-}
-
-.add_btn {
-    padding: 0px !important;
-    border-color: #B80008 !important;
-}
-
-.add_btn button {
-    border-radius: 0px !important;
-    border: 0px !important;
-}
-
-.control-label {
-    padding-top: 10px;
-    font-weight: 300;
-    font-size: 16px;
-}
-
-.span_custom {
-    background-color: #B80008 !important;
-    color: #fff;
-    min-width: 92px;
-    border-color: #B80008 !important;
-}
-
-.card {
-    border: 1px solid #D2D6DE;
-    padding: 15px;
-    margin-bottom: 20px;
 }
 
 .col-item {
