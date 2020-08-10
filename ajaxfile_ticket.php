@@ -116,17 +116,17 @@ $totalRecordwithFilter = $records['allcount'];
 ## Fetch records
 if ($level=='Seller' && $type=='PENDING') {     
     if ($to!='' && $from!='') {
-        $empQuery = "select a.*,b.name as agentname from tickets a left join agents b  on a.agent_id=b.id  WHERE a.email='$email' AND a.status='PENDING' AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+        $empQuery = "select a.*,b.name as agentname from tickets a left join agents b  on a.agent_id=b.id  WHERE b.email='$email' AND a.status='PENDING' AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
-        $empQuery = "select a.*,b.name as agentname from tickets a left join agents b  on a.agent_id=b.id  WHERE a.email='$email'  AND a.status='PENDING' and 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+        $empQuery = "select a.*,b.name as agentname from tickets a left join agents b  on a.agent_id=b.id  WHERE b.email='$email'  AND a.status='PENDING' and 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
     }  
   }elseif($level=='Seller' && $type!='PENDING'){
     if ($to!='' && $from!='') {
-        $empQuery = "select a.*,b.name as agentname from tickets a left join agents b  on a.agent_id=b.id  WHERE a.email='$email'  AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+        $empQuery = "select a.*,b.name as agentname from tickets a left join agents b  on a.agent_id=b.id  WHERE b.email='$email'  AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
-        $empQuery = "select a.*,b.name as agentname from tickets a left join agents b  on a.agent_id=b.id  WHERE a.email='$email'  and 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+        $empQuery = "select a.*,b.name as agentname from tickets a left join agents b  on a.agent_id=b.id  WHERE b.email='$email'  and 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
     } 
    
     
