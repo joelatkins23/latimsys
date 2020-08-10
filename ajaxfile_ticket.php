@@ -61,13 +61,13 @@ if ($level=='Seller' && $type=='PENDING') {
     }
     
 }
-if (($level=='Administrator' || $level=='Master') && $type=='PENDING') { 
+if (($level=='Administrator' || $level=='master') && $type=='PENDING') { 
     if ($to!='' && $from!='') {
         $sel = mysqli_query($connect,"select count(*) as allcount from tickets a left join agents b  on a.agent_id=b.id where a.status='PENDING' AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' ");
     }else{
         $sel = mysqli_query($connect,"select count(*) as allcount from tickets a left join agents b  on a.agent_id=b.id where a.status='PENDING' ");   
     }
-}elseif(($level=='Administrator' || $level=='Master') && $type!='PENDING'){
+}elseif(($level=='Administrator' || $level=='master') && $type!='PENDING'){
     if ($to!='' && $from!='') {
         $sel = mysqli_query($connect,"select count(*) as allcount from tickets a left join agents b  on a.agent_id=b.id where DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' ");
     }else{
@@ -93,14 +93,14 @@ if ($level=='Seller' && $type=='PENDING') {
     }   
     
 }
-if (($level=='Administrator' || $level=='Master') && $type=='PENDING') { 
+if (($level=='Administrator' || $level=='master') && $type=='PENDING') { 
     if ($to!='' && $from!='') {
         $sel = mysqli_query($connect,"select count(*) as allcount from tickets a left join agents b  on a.agent_id=b.id where  a.status='PENDING' AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." ");
     }else{
         $sel = mysqli_query($connect,"select count(*) as allcount from tickets a left join agents b  on a.agent_id=b.id where  a.status='PENDING' and 1 ".$searchQuery." ");   
     }    
    
-}elseif(($level=='Administrator' || $level=='Master') && $type!='PENDING'){
+}elseif(($level=='Administrator' || $level=='master') && $type!='PENDING'){
     if ($to!='' && $from!='') {
         $sel = mysqli_query($connect,"select count(*) as allcount from tickets a left join agents b  on a.agent_id=b.id where  DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." ");
     }else{
@@ -131,7 +131,7 @@ if ($level=='Seller' && $type=='PENDING') {
    
     
 }
-if ( ($level=='Administrator' || $level=='Master') && $type=='PENDING') {
+if ( ($level=='Administrator' || $level=='master') && $type=='PENDING') {
         if ($to!='' && $from!='') {
             $empQuery = "select a.*,b.name as agentname from tickets a left join agents b  on a.agent_id=b.id  WHERE a.status='PENDING' AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
@@ -140,7 +140,7 @@ if ( ($level=='Administrator' || $level=='Master') && $type=='PENDING') {
         }   
         
 
-    }elseif(($level=='Administrator' || $level=='Master') && $type!='PENDING'){
+    }elseif(($level=='Administrator' || $level=='master') && $type!='PENDING'){
         if ($to!='' && $from!='') {
             $empQuery = "select a.*,b.name as agentname from tickets a left join agents b  on a.agent_id=b.id  WHERE  DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
