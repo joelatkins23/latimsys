@@ -50,13 +50,13 @@ if ($level=='Seller') {
                     on a.agent_id=c.id 
                     where c.email='$email' 
                     AND  1 and a.branch='' AND 
-                    DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' ");
+                    DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and a.selected=0 ");
     }else{
         $sel = mysqli_query($connect,"select count(*) as allcount from joborders a
                     left join agents c 
                     on a.agent_id=c.id 
                     where  1 and c.email='$email' 
-                    AND a.branch='' ");   
+                    AND a.branch='' and a.selected=0 ");   
     }
    
   }elseif($level!='Seller'){
@@ -65,12 +65,12 @@ if ($level=='Seller') {
                                 left join agents c 
                                 on a.agent_id=c.id 
                                 where 1 and a.branch='' AND 
-                                DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' ");
+                                DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and a.selected=0 ");
     }else{
         $sel = mysqli_query($connect,"select count(*) as allcount from joborders a
                                 left join agents c 
                                 on a.agent_id=c.id 
-                                where  1 and a.branch='' ");   
+                                where  1 and a.branch='' and a.selected=0 ");   
     }  
    
 }
@@ -86,13 +86,13 @@ if ($level=='Seller') {
         left join accounts b on a.client_id =b.id 
         left join accounts c on a.supplier_id =c.id 
         left join agents d on a.agent_id=d.id 
-         WHERE 1 and d.email='$email' AND a.branch='' AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery."  ");
+         WHERE 1 and d.email='$email' AND a.branch='' AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." and a.selected=0 ");
     }else{
         $sel = mysqli_query($connect,"select count(*) as allcount from joborders a 
         left join accounts b on a.client_id =b.id 
         left join accounts c on a.supplier_id =c.id 
         left join agents d on a.agent_id=d.id 
-         WHERE  1 and d.email='$email' AND a.branch='' and 1 ".$searchQuery."");   
+         WHERE  1 and d.email='$email' AND a.branch='' and 1 ".$searchQuery." and a.selected=0 ");   
     }
    
   }elseif($level!='Seller'){
@@ -107,7 +107,7 @@ if ($level=='Seller') {
         left join accounts b on a.client_id =b.id 
         left join accounts c on a.supplier_id =c.id 
         left join agents d on a.agent_id=d.id 
-         WHERE  1 and a.branch='' and 1 ".$searchQuery."");   
+         WHERE  1 and a.branch='' and 1 ".$searchQuery." and a.selected=0");   
     }
    
 }
@@ -125,7 +125,7 @@ if ($level=='Seller') {
                     left join agents d on a.agent_id=d.id 
                     WHERE d.email='$email' 
                     AND a.branch='' AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' 
-                    and 1 ".$searchQuery." 
+                    and 1 ".$searchQuery." and a.selected=0 
                     order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
@@ -135,7 +135,7 @@ if ($level=='Seller') {
                     left join agents d on a.agent_id=d.id 
                     WHERE d.email='$email' 
                     AND a.branch='' 
-                    and 1 ".$searchQuery." 
+                    and 1 ".$searchQuery." and a.selected=0 
                     order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
     }
    
@@ -145,7 +145,7 @@ if ($level=='Seller') {
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
-                    WHERE   1 ".$searchQuery."  and a.branch='' AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' 
+                    WHERE   1 ".$searchQuery."  and a.branch='' AND DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to'  and a.selected=0 
                     order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
@@ -153,7 +153,7 @@ if ($level=='Seller') {
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
-                    WHERE   1 ".$searchQuery."  and a.branch=''                    
+                    WHERE   1 ".$searchQuery."  and a.branch='' and a.selected=0                     
                     order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
     }
    

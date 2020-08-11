@@ -43,10 +43,10 @@ if($searchValue != ''){
 ## Total number of records without filtering
 if ($to!='' && $from!='') {
     $sel = mysqli_query($connect,"select count(*) as allcount from warehouse a
-    left join accounts b on (a.supplier_id=b.id) where 1   and  DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and a.deleted=0 and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' )");
+    left join accounts b on (a.supplier_id=b.id) where 1   and  DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and a.deleted=0 and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' ) and a.selected=0  ");
 }else{
     $sel = mysqli_query($connect,"select count(*) as allcount from warehouse a
-    left join accounts b on (a.supplier_id=b.id) where 1   and a.deleted=0 and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' )");   
+    left join accounts b on (a.supplier_id=b.id) where 1   and a.deleted=0 and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' ) and a.selected=0  ");   
 }
 $records = mysqli_fetch_assoc($sel);
 $totalRecords = $records['allcount'];
@@ -54,10 +54,10 @@ $totalRecords = $records['allcount'];
 ## Total number of records with filtering
     if ($to!='' && $from!='') {
         $sel = mysqli_query($connect,"select count(*) as allcount from warehouse a
-        left join accounts b on (a.supplier_id=b.id) WHERE 1   and DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." and a.deleted=0 and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' )");
+        left join accounts b on (a.supplier_id=b.id) WHERE 1   and DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' and 1 ".$searchQuery." and a.deleted=0 and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' ) and a.selected=0  ");
     }else{
         $sel = mysqli_query($connect,"select count(*) as allcount from warehouse a
-        left join accounts b on (a.supplier_id=b.id) WHERE  1  ".$searchQuery." and a.deleted=0 and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' )");   
+        left join accounts b on (a.supplier_id=b.id) WHERE  1  ".$searchQuery." and a.deleted=0 and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' ) and a.selected=0  ");   
     }
 
 $records = mysqli_fetch_assoc($sel);
@@ -69,12 +69,12 @@ if ($to!='' && $from!='') {
     $empQuery = "select a.*, b.name as supplier_name,c.name as consignee_name from warehouse a
         left join accounts b on (a.supplier_id=b.id)
         left join accounts c on (a.consignee_id=c.id)
-    WHERE 1  and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' ) and DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' ".$searchQuery." and a.deleted=0 order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+    WHERE 1  and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' ) and a.selected=0   and DATE_FORMAT(a.fecha,'%Y-%m-%d') BETWEEN '$from' and '$to' ".$searchQuery." and a.deleted=0 order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
 }else{
     $empQuery = "select a.*, b.name as supplier_name,c.name as consignee_name from warehouse a
     left join accounts b on (a.supplier_id=b.id)
-    left join accounts c on (a.consignee_id=c.id) WHERE  1 and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' )  ".$searchQuery." and a.deleted=0 order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
+    left join accounts c on (a.consignee_id=c.id) WHERE  1 and a.selected=0   and (a.status='PRE-ALERT' or a.status='RECIBIDO EN BODEGA CHINA' )  ".$searchQuery." and a.deleted=0 order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 }
 $empRecords = mysqli_query($connect, $empQuery);
 $data = array();

@@ -88,7 +88,10 @@ if(isset($_POST["loading_guide_save"]) && !empty($_POST["loading_guide_save"])){
         $all_warehouselist = explode(",", $all_warehouselist);   
         $all_lists="[]";
     }
-    
+    $all_orderlist_arr=json_decode($all_lists);
+    foreach( $all_orderlist_arr as $key=>$arr){
+        $queryModel = mysqli_query($connect, "UPDATE warehouse SET selected=1 WHERE id='$arr' ") or die ('error');
+    }
     $queryModel = mysqli_query($connect, "INSERT INTO loading_guide(branch, agent_id, reference, line, type, loose_pieces, warehouse_list, all_total_pieces, all_total_weight, all_total_volume, all_total_charg_weight, status, fecha) 
     VALUES ('$branch','$agent_id', '$reference','$line', '$type','$losses_pieces', '$all_lists','$all_total_pieces', '$all_total_weight','$all_total_volume', '$all_total_charg_weight','unlock', '$fecha')") or die ("<meta http-equiv=\"refresh\" content=\"0;URL= ./warehouse_loading_curd.php\">");
      $last_id = mysqli_insert_id($connect);
@@ -123,6 +126,10 @@ if(isset($_POST["update_loading_guide"]) && !empty($_POST["update_loading_guide"
     }else{
         $all_warehouselist = explode(",", $all_warehouselist);   
         $all_lists="[]";
+    }
+    $all_orderlist_arr=json_decode($all_lists);
+    foreach( $all_orderlist_arr as $key=>$arr){
+        $queryModel = mysqli_query($connect, "UPDATE warehouse SET selected=1 WHERE id='$arr' ") or die ('error');
     }
     $consulta2 = mysqli_query($connect, "SELECT * FROM loading_guide WHERE id='$id'") or die ("Error al traer los datos222");
     while ($colrow = mysqli_fetch_array($consulta2)){
@@ -192,6 +199,7 @@ if(isset($_POST["warehouse_delete"]) && !empty($_POST["warehouse_delete"])){
     $ware_id=$_POST['id'];
     $date=date('Y-m-d H:i:s');
     $loadingguide_id=$_POST['loadingguide_id'];
+    $queryModel = mysqli_query($connect, "UPDATE warehouse SET selected=0 WHERE id='$ware_id'");
     $queryModel = mysqli_query($connect, "INSERT INTO loading_guide_note(agent_name, loadingguide_id, notes, fecha) VALUES ('$agent_name', '$loadingguide_id', 'WH - $ware_id Deleted', '$date')");
     foreach($checklist as $keyy=>$subarr){  
         $queryModel = mysqli_query($connect, "SELECT  a.*,  b.name AS supplier_name, c.name AS consignee_name FROM warehouse a LEFT JOIN accounts b ON (a.supplier_id=b.id) LEFT JOIN accounts c ON (a.consignee_id=c.id)  WHERE a.id='$subarr'") or die ('error');
@@ -233,6 +241,14 @@ if(isset($_POST["warehouse_delete"]) && !empty($_POST["warehouse_delete"])){
 }
 if(isset($_POST["delete_loading_guide"]) && !empty($_POST["delete_loading_guide"])){
     $id=$_POST['id'];  
+    $result = mysqli_query($connect, "SELECT * FROM loading_guide WHERE id='$id'");
+    while ($colrow = mysqli_fetch_array($result)){
+        $all_warehouselist=$colrow['warehouse_list'];
+    }
+    $all_warehouselist=json_decode($all_list);
+    foreach( $all_warehouselist as $key=>$arr){
+        $queryModel = mysqli_query($connect, "UPDATE warehouse SET selected=0 WHERE id='$arr' ") or die ('error');
+    }
     $queryModel = mysqli_query($connect, "DELETE FROM loading_guide WHERE id='$id'");
     $queryModel = mysqli_query($connect, "DELETE FROM loading_guide_note WHERE loadingguide_id='$id'") or die ('error');
      echo  true;

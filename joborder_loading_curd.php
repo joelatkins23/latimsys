@@ -122,7 +122,10 @@ if(isset($_POST["loading_plan_save"]) && !empty($_POST["loading_plan_save"])){
         $all_joborderslist = explode(",", $all_joborderslist);   
         $all_lists="[]";
     }
-    
+    $all_orderlist_arr=json_decode($all_lists);
+    foreach( $all_orderlist_arr as $key=>$arr){
+        $queryModel = mysqli_query($connect, "UPDATE joborders SET selected=1 WHERE id='$arr' ") or die ('error');
+    }
     $queryModel = mysqli_query($connect, "INSERT INTO pre_loading_plan(branch, agent_id, reference, line, type, loose_pieces, joborder_list, status, fecha) 
     VALUES ('$branch','$agent_id', '$reference','$line', '$type','$losses_pieces', '$all_lists','unlock', '$fecha')") or die ("<meta http-equiv=\"refresh\" content=\"0;URL= ./createPreLodingPlan.php\">");
      $last_id = mysqli_insert_id($connect);
@@ -154,6 +157,10 @@ if(isset($_POST["update_pre_loading_plan"]) && !empty($_POST["update_pre_loading
         $all_joborderslist = explode(",", $all_joborderslist);   
         $all_lists="[]";
     }
+    $all_orderlist_arr=json_decode($all_lists);
+    foreach( $all_orderlist_arr as $key=>$arr){
+        $queryModel = mysqli_query($connect, "UPDATE joborders SET selected=1 WHERE id='$arr' ") or die ('error');
+    }
     $consulta2 = mysqli_query($connect, "SELECT * FROM pre_loading_plan WHERE id='$id'") or die ("Error al traer los datos222");
     while ($colrow = mysqli_fetch_array($consulta2)){
 
@@ -176,7 +183,7 @@ if(isset($_POST["update_pre_loading_plan"]) && !empty($_POST["update_pre_loading
         if($losses_pieces!=$colrow['loose_pieces']){          
             $queryModel = mysqli_query($connect, "INSERT INTO pre_loading_plan_note(agent_name, pre_loading_plan_id, notes, fecha) VALUES ('$agent_name', '$id', 'Losses Pieces Change: $losses_pieces.', '$date')");
         }
-    }
+    }  
     $queryModel = mysqli_query($connect, 
 	"UPDATE pre_loading_plan SET 
         branch='$branch',
@@ -185,9 +192,8 @@ if(isset($_POST["update_pre_loading_plan"]) && !empty($_POST["update_pre_loading
         line='$line',
         type='$type',
         loose_pieces='$losses_pieces',
-        joborder_list='$all_lists',
-        WHERE id='$id'");
- 
+        joborder_list='$all_lists'
+        WHERE id='$id'"); 
      echo  true;
 }
 if(isset($_POST["joborder_delete"]) && !empty($_POST["joborder_delete"])){    
@@ -201,6 +207,7 @@ if(isset($_POST["joborder_delete"]) && !empty($_POST["joborder_delete"])){
     $joborder_id=$_POST['id'];
     $date=date('Y-m-d H:i:s');
     $pre_loading_plan_id=$_POST['pre_loading_plan_id'];
+    $queryModel = mysqli_query($connect, "UPDATE joborders SET selected=0 WHERE id='$joborder_id'");
     $queryModel = mysqli_query($connect, "INSERT INTO pre_loading_plan_note(agent_name, pre_loading_plan_id, notes, fecha) VALUES ('$agent_name', '$pre_loading_plan_id', 'JOB ORDER - $joborder_id Deleted', '$date')");
     foreach($checklist as $keyy=>$subarr){  
         $queryModel = mysqli_query($connect, "select a.id, a.fecha, a.status, a.service, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
@@ -282,7 +289,15 @@ if(isset($_POST["joborder_delete"]) && !empty($_POST["joborder_delete"])){
     echo json_encode($data);
 }
 if(isset($_POST["delete_pre_loading_plan"]) && !empty($_POST["delete_pre_loading_plan"])){
-    $id=$_POST['id'];  
+    $id=$_POST['id'];
+    $result = mysqli_query($connect, "SELECT * FROM pre_loading_plan WHERE id='$id'");
+    while ($colrow = mysqli_fetch_array($result)){
+        $all_list=$colrow['joborder_list'];
+    }
+    $all_orderlist_arr=json_decode($all_list);
+    foreach( $all_orderlist_arr as $key=>$arr){
+        $queryModel = mysqli_query($connect, "UPDATE joborders SET selected=0 WHERE id='$arr' ") or die ('error');
+    }
     $queryModel = mysqli_query($connect, "DELETE FROM pre_loading_plan WHERE id='$id'");
     $queryModel = mysqli_query($connect, "DELETE FROM pre_loading_plan_note WHERE pre_loading_plan_id='$id'") or die ('error');
      echo  true;
