@@ -19,13 +19,13 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 $email = $_SESSION['username'];
-
+echo $email;
  $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$email' ")
     or die ("Error al traer los Agent");
 
 
      while ($rowAgent = mysqli_fetch_array($consultaAgent)){
-
+        $agent_id=$rowAgent['id'];
         $agent_name=$rowAgent['name'];
         $phone=$rowAgent['phone'];
         $picture=$rowAgent['picture'];
@@ -231,7 +231,6 @@ $email = $_SESSION['username'];
                   LEFT JOIN `agents` d ON a.`agent_id`=d.`id` where a.id='$job_id_step1'") or die ("Error al traer los datos");
 
                     while ($row2 = mysqli_fetch_array($consulta2)){ 
-                        $agent_id=$row2['agent_id'];
                         $client_id=$row2['client_id'];
                         $supplier_id=$row2['supplier_id'];
                         $customer_company= $row2['c_company'];
@@ -275,19 +274,18 @@ $email = $_SESSION['username'];
                               <?php } ?> >
                                 <?php 
 
-                                $consultaList = mysqli_query($connect, "SELECT * FROM agents ORDER BY name asc ") or die ("Error al traer los datos");
+                                $consultaList = mysqli_query($connect, "SELECT * FROM agents ORDER BY id asc ") or die ("Error al traer los datos");
 
                                   while ($rowList = mysqli_fetch_array($consultaList)){ 
 
                                   $agent_List=$rowList['name']; ?>
                                     
 
-                                    <?php if ($agent_name!=$agent_List){ ?>
 
                                 <option 
                                 <?php if($agent_id==$rowList['id']){ echo "selected";} ?>
                                 value="<?php echo $rowList['id']; ?>"><?php echo $agent_List; ?></option> 
-                                <?php } }  ?>
+                                <?php }   ?>
                                 
                               </select>
                           </div>
@@ -425,7 +423,6 @@ $email = $_SESSION['username'];
                   LEFT JOIN `agents` d ON a.`agent_id`=d.`id` where a.id='$job_id_step1'") or die ("Error al traer los datos");
 
                     while ($row2 = mysqli_fetch_array($consulta2)){ 
-                        $agent_id=$row2['agent_id'];
                         $client_id=$row2['client_id'];
                         $supplier_id=$row2['supplier_id'];
                         $customer_company= $row2['c_company'];
@@ -483,12 +480,10 @@ $email = $_SESSION['username'];
                                   $agent_List=$rowList['name']; ?>
                                     
 
-                                    <?php if ($agent_name!=$agent_List){ ?>
 
                                       <option 
                                     <?php if($agent_id==$rowList['id']){ echo "selected";} ?>
                                     value="<?php echo $rowList['id']; ?>"><?php echo $agent_List; ?></option> 
-                                    <?php }  ?>
                                     <?php }  ?>
                               </select>
                           </div>
