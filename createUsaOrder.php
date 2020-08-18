@@ -99,24 +99,26 @@ $email = $_SESSION['username'];
     <link rel="icon" type="image/x-icon" href="icoplane.ico" />
     <!-- CSS -->
     <link href='plugins/select2/select2.css' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href=" https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link href='plugins/datatables/jquery.dataTables.css' rel='stylesheet' type='text/css'>    
-    <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css"> 
+    <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css">    
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="latimstyle.css">
     <link href='assets/css/style.css' rel='stylesheet' type='text/css'>
-    <!-- JS --> 
+    <link href='assets/css/imageuploadify.min.css' rel='stylesheet' type='text/css'>
+    <!-- JS -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="assets/js/jquery-3.3.1.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
-    <script src="plugins/select2/select2.js"></script>  
-    <script src="plugins/moment.min.js"></script>
-    <script src="./plugins/datepicker/bootstrap-datepicker.js"></script>    
-    <script src="dist/js/app.min.js"></script>
+    <script src="assets/js/imageuploadify.min.js"></script>
+    <script src="plugins/select2/select2.js"></script>    
+    <script src="plugins/moment.min.js"></script>    
+    <script src="./plugins/datepicker/bootstrap-datepicker.js"></script>
+    <script src="dist/js/app.min.js"></script> 
      
     <script>
     window.addEventListener("load", function(){

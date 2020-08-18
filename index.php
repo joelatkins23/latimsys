@@ -27,24 +27,26 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     <link rel="icon" type="image/x-icon" href="icoplane.ico" />  
     <!-- CSS -->
     <link href='plugins/select2/select2.css' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">    
+    <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href=" https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link href='plugins/datatables/jquery.dataTables.css' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css">
+    <link href='plugins/datatables/jquery.dataTables.css' rel='stylesheet' type='text/css'>    
+    <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css">    
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="latimstyle.css">
     <link href='assets/css/style.css' rel='stylesheet' type='text/css'>
+    <link href='assets/css/imageuploadify.min.css' rel='stylesheet' type='text/css'>
     <!-- JS -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="assets/js/jquery-3.3.1.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
-    <script src="plugins/select2/select2.js"></script>      
+    <script src="assets/js/imageuploadify.min.js"></script>
+    <script src="plugins/select2/select2.js"></script>    
     <script src="plugins/moment.min.js"></script>    
     <script src="./plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="dist/js/app.min.js"></script>
+    <script src="dist/js/app.min.js"></script>   
  
 
 </head>
@@ -277,6 +279,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                                 <th>Status</th>
                                 <th>Tracking</th>
                                 <th>WR #</th>
+                                <th>Attached</th>
                                 <th>Shortcut</th>
                                 <th>Action</th>
                             </tr>
@@ -307,10 +310,15 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
         <div class="modal-dialog">
         </div>
     </div> 
+    <div id="file_update" class="modal fade" role="dialog">
+        <div class="modal-dialog ">       
+        </div>
+    </div>
 <script> 
       $(".sidebar-menu li a").removeClass('active');
       $(".treeview").removeClass('active');
       $("#dashbord_list a").addClass("active");
+      $('input[type="file"]').imageuploadify();
 
       //Date picker
       $('#datepicker').datepicker({
@@ -347,34 +355,69 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                     }
                 },
                 'columns': [{
-                    data: 'fecha'
-                }, {
-                    data: 'id'
-                }, {
-                    data: 'customer_name'
-                }, {
-                    data: 'supplier_company'
-                }, {
-                    data: 'service'
-                }, {
-                    data: 'customer_city'
-                }, {
-                    data: 'agent_name'
-                }, {
-                    data: 'status'
-                },
-                {
-                    data: 'tracking'
-                },
-                {
-                    data: 'wr'
-                },
-                 {
-                    data: 'shortcut'
-                }, {
-                    data: 'action'
-                }, ]
+                data: 'fecha'
+            }, {
+                data: 'id'
+            }, {
+                data: 'customer_name'
+            }, {
+                data: 'supplier_company'
+            }, {
+                data: 'service'
+            }, {
+                data: 'customer_city'
+            }, {
+                data: 'agent_name'
+            }, {
+                data: 'status'
+            }, {
+                data: 'tracking'
+            }, {
+                data: 'wr'
+            },{
+                data: 'atteched'
+            }, {
+                data: 'shortcut'
+            }, {
+                data: 'action'
+            }, ]
+        });
+        function editattached(id){
+            $.get('edit_joborder_file.php?id=' + id, function(response) {
+                $('#file_update .modal-dialog').html(response);
+                $("#addfile").submit(function(e) {
+                    event.preventDefault(); //prevent default action 
+                    var post_url = $(this).attr("action"); //get form action url
+                    var fd = new FormData();
+                    var totalfiles = document.getElementById('image_file').files.length;
+                    for (var index = 0; index < totalfiles; index++) {
+                        fd.append("image_file[]", document.getElementById('image_file').files[index]);
+                    }
+                    fd.append( 'joborder_fileupload_id', $("input[name='joborder_fileupload_id']").val());
+                    fd.append( 'joborder_fileupload', 'add');
+                    fd.append( 'agent_name', $("input[name='agent_name']").val());
+                    $.ajax({
+                    url: './curd.php',
+                    data: fd,
+                    processData: false,
+                    cache: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(data){
+                        $("#file_body").html(data);  
+                        table.ajax.reload(null, false);
+                        $("#file_update").modal('hide');         
+                        swal({
+                            title: "File!",
+                            text: "New Files Uploaded successful!!",
+                            icon: "success",
+                        });      
+                    }
+                    });
+                });
             });
+            $("#file_update").modal('show');
+        }
         function editJobOrder(id) {
             $.get('editorder.php?id='+id,function(response){ 
                     $('#editJobOrder .modal-dialog').html(response); 

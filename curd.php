@@ -519,3 +519,57 @@ if(isset($_POST["update_user"]) && !empty($_POST["update_user"])){
     
 
 }
+if(isset($_POST["joborder_fileupload"]) && !empty($_POST["joborder_fileupload"])){
+    $joborder_id=$_POST["joborder_fileupload_id"];
+    $consulta2 = mysqli_query($connect, "SELECT * FROM joborders WHERE id='$joborder_id' ORDER BY id asc ") or die ("Error al traer los datos222");
+    while ($colrow = mysqli_fetch_array($consulta2)){  
+        $file_item=$colrow['atteched_files'];
+    }
+    $file_arr=json_decode($file_item);
+    if($file_arr==Null){
+       $arr='[]';
+       $new_arr=json_decode($arr);
+    }else{
+        $new_arr=$file_arr;
+    }
+    $ruta="./images/joborder/";
+    $uploadfile=[];
+    $fecha=date('Y-m-d H:i:s');
+    foreach($_FILES['image_file']['name'] as $key=>$item){
+        $uploadfile_temporal1=$_FILES['image_file']['tmp_name'][$key];
+        $extension1 = pathinfo($_FILES['image_file']['name'][$key], PATHINFO_EXTENSION);
+        $filename=$_FILES['image_file']['name'][$key];
+        $path_parts = pathinfo($filename);
+        $filename= $path_parts['filename'];
+        if ($uploadfile_temporal1=='') {
+        }else{
+            $uploadfile_nombre1=$ruta.time().$filename.'.'.$extension1; 
+            if (is_uploaded_file($uploadfile_temporal1)) 
+            { 
+                move_uploaded_file($uploadfile_temporal1,$uploadfile_nombre1); 
+            }         
+        }
+        
+        $uploadfile_nombre1='.'.$uploadfile_nombre1;
+        $file=explode('/', $uploadfile_nombre1);
+        $file=end($file);
+        $queryModel = mysqli_query($connect, "INSERT INTO joborder_atteched(agent_name, joborder_id, notes, fecha, file_name) VALUES ('$agent_name', '$joborder_id', 'File Add:  $file.', '$fecha','$file')");
+        array_push($new_arr,$uploadfile_nombre1);   
+        array_push($uploadfile,$uploadfile_nombre1);            
+    } 
+    $new_arr=json_encode($new_arr);
+    $queryModel = mysqli_query($connect, "UPDATE joborders SET atteched_files='$new_arr' WHERE id='$joborder_id' ") or die ('error');
+    $new_arr=json_decode($new_arr);
+    $html='';  
+    $consulta3 = mysqli_query($connect, "SELECT * FROM joborder_atteched WHERE id='$joborder_id' ORDER BY id desc ") or die ("Error al traer los datos222");
+    while ($colhtml = mysqli_fetch_array($consulta3)){ 
+    
+        $html.='<tr>';
+        $html.='<td class="text-left"><a href="./images/joborder/'.$colhtml['file_name'].'" class="file_download" target="blank" >'.$colhtml['file_name'].'</a></td>';
+        $html.='<td class="text-center">'.date_format(date_create($colhtml['fecha']),'m/d/Y H:i:s').'</td>';
+        $html.='<td class="text-center">'.$colhtml['agent_name'].'</td>';
+        $html.='<td class="text-center">'.$colhtml['notes'].'</td>';
+        $html.='</tr>';
+    }
+    echo $html;
+}

@@ -253,6 +253,7 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                           <th class="text-center" style="color:white">Status</th>
                           <th class="text-center" style="color:white">Tracking#</th>
                           <th class="text-center" style="color:white">WR#</th>
+                          <th class="text-center" style="color:white">Attached</th>
                           <th class="text-center" style="color:white">ShortCut</th>
                           <th class="text-center" style="color:white">Action</th>
                       </tr>
@@ -281,6 +282,10 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
     <div class="modal-dialog">
     </div>
 </div>
+<div id="file_update" class="modal fade" role="dialog">
+        <div class="modal-dialog ">       
+        </div>
+    </div>
 <script>
   $(".sidebar-menu li a").removeClass('active');
   $(".treeview").removeClass('active');
@@ -322,15 +327,15 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                   d.checklist = Getchecklist();
               }
           },
-        'columns': [ {
+          'columns': [{
                 data: 'fecha'
-            },{
+            }, {
                 data: 'id'
             }, {
                 data: 'customer_name'
-            },{
+            }, {
                 data: 'supplier_company'
-            },   {
+            }, {
                 data: 'service'
             }, {
                 data: 'customer_city'
@@ -338,16 +343,54 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                 data: 'agent_name'
             }, {
                 data: 'status'
-            },{
+            }, {
                 data: 'tracking'
-            },{
+            }, {
                 data: 'wr'
             },{
+                data: 'atteched'
+            }, {
                 data: 'shortcut'
-            },{
+            }, {
                 data: 'action'
-            }]
-      });
+            }, ]
+        });
+        function editattached(id){
+            $.get('edit_joborder_file.php?id=' + id, function(response) {
+                $('#file_update .modal-dialog').html(response);
+                $("#addfile").submit(function(e) {
+                    event.preventDefault(); //prevent default action 
+                    var post_url = $(this).attr("action"); //get form action url
+                    var fd = new FormData();
+                    var totalfiles = document.getElementById('image_file').files.length;
+                    for (var index = 0; index < totalfiles; index++) {
+                        fd.append("image_file[]", document.getElementById('image_file').files[index]);
+                    }
+                    fd.append( 'joborder_fileupload_id', $("input[name='joborder_fileupload_id']").val());
+                    fd.append( 'joborder_fileupload', 'add');
+                    fd.append( 'agent_name', $("input[name='agent_name']").val());
+                    $.ajax({
+                    url: './curd.php',
+                    data: fd,
+                    processData: false,
+                    cache: false,
+                    contentType: false,
+                    type: 'POST',
+                    success: function(data){
+                        $("#file_body").html(data);  
+                        table.ajax.reload(null, false);
+                        $("#file_update").modal('hide');         
+                        swal({
+                            title: "File!",
+                            text: "New Files Uploaded successful!!",
+                            icon: "success",
+                        });      
+                    }
+                    });
+                });
+            });
+            $("#file_update").modal('show');
+        }
       function Getfrom(){
             return $("#from").val();
       }

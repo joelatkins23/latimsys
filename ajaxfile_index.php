@@ -119,7 +119,7 @@ $totalRecordwithFilter = $records['allcount'];
 ## Fetch records
 if ($level=='Seller') { 
     if ($to!='' && $from!='') {
-        $empQuery = " select a.id, a.fecha, a.status, a.service, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status,a.service, a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -129,7 +129,7 @@ if ($level=='Seller') {
                     order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
-        $empQuery = " select a.id, a.fecha, a.status, a.service, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status,a.service, a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -141,7 +141,7 @@ if ($level=='Seller') {
     
 }elseif($level!='Seller'){
     if ($to!='' && $from!='') {
-        $empQuery = " select a.id, a.fecha, a.status, a.service, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status,a.service, a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -150,7 +150,7 @@ if ($level=='Seller') {
                     order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
-        $empQuery = " select a.id, a.fecha, a.status, a.service, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status,a.service, a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -223,7 +223,13 @@ while ($row = mysqli_fetch_assoc($empRecords)) {
 
     }
     $tracking.='</span><a onclick="addtracking('.$row['id'].')" href="#"><button type="button" class="btn btn-secondary btn-sm" style="color:black">+Tracking</button></a>';
-
+    $file_arr=json_decode($row['atteched_files']);
+    if($file_arr){
+        $brage_file='<span class="label label-success brage">'.count($file_arr).'</span>';
+    }else{
+        $brage_file='';
+    }
+    $atteched='<a href="#" onclick="editattached('.$row['id'].')"><i class="fa fa-file-o action"></i>'.$brage_file.'</a>';
     $agent=$row['agent_name'];
     if ($agent=='') {$agent=' ';}
     
@@ -238,6 +244,7 @@ while ($row = mysqli_fetch_assoc($empRecords)) {
                 "status"=>$status,
                 "tracking"=>$tracking,
                 "wr"=>$wr,
+                "atteched"=>$atteched,
                 "shortcut"=>$shortcut,
                 "action"=>$action
             );
