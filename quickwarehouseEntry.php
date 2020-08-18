@@ -10,6 +10,7 @@
   while ($extraido_email = mysqli_fetch_array($consulta_invoice)) {
 	
 		$client_id= $extraido_email['client_id'];
+		$supplier_id= $extraido_email['supplier_id'];	
 		$agent_id= $extraido_email['agent_id'];		
 		$service= $extraido_email['service'];
 		$commodity= $extraido_email['commodity'];
@@ -20,7 +21,27 @@
 		$fondo='';
     }
 
-	
+	$consulta_supplier = mysqli_query($connect, "SELECT * FROM accounts WHERE id='$supplier_id' ORDER BY id asc ") or die ("Error al traer los datos222");
+	while ($rowsupplier = mysqli_fetch_array($consulta_supplier)){  
+		$supplier_company=$rowsupplier['company'];
+		$supplier_name=$rowsupplier['name'];
+		$supplier_email=$rowsupplier['email'];
+		$supplier_address1=$rowsupplier['address_1'];
+		$supplier_address2=$rowsupplier['address_2'];
+		$supplier_city=$rowsupplier['city'];
+		$supplier_state=$rowsupplier['state'];
+		$supplier_country=$rowsupplier['country'];
+		$supplier_telf1=$rowsupplier['telf1'];
+		$supplier_telf2=$rowsupplier['telf2'];
+		$supplier_qq=$rowsupplier['qq'];
+		$supplier_wechat=$rowsupplier['wechat'];
+		$supplier_address= $supplier_address1.' '.$supplier_address2.' | '.$supplier_city.', '.$supplier_state.' - '.$supplier_country.'.';
+	    if ($supplier_telf1!='') {$supplier_telf1=' - Mobile: '.$supplier_telf1;}
+		if ($supplier_telf2!='') {$supplier_telf2=' - Office: '.$supplier_telf2;}
+		if ($supplier_qq!='') {$supplier_qq=' - QQ: '.$supplier_qq;}
+		if ($supplier_wechat!='') {$supplier_wechat=' - WeChat: '.$supplier_wechat;}
+		$supplier_telf=$supplier_telf1.$supplier_telf2.$supplier_qq.$supplier_wechat;
+	}
 
 	$consulta_customer = mysqli_query($connect, "SELECT * FROM accounts WHERE id='$client_id' ORDER BY id asc ") or die ("Error al traer los datos222");
 	while ($rowcustomer = mysqli_fetch_array($consulta_customer)){  
@@ -86,19 +107,23 @@
 	
     <style>
 		table {
-			border-collapse: collapse;
+		border-collapse: collapse;
 		}
+
 		table{
-			width:800px;
-			margin:0 auto;
+		width:800px;
+		margin:0 auto;
 		}
+
 		td{
-			border: 1px solid #e2e2e2;
-			padding: 10px; 
-			max-width:520px;
-			word-wrap: break-word;
+		border: 1px solid #e2e2e2;
+		padding: 10px; 
+		max-width:520px;
+		word-wrap: break-word;
 		}
-	</style>
+
+
+		</style>
 
 		';
         /* you css */
@@ -116,9 +141,27 @@
 				$content .= '<div style="float:right; position:relative; left:10px; top:-20px;">';
 				$content .= '<img src="./img/a.jpg" style="width:300px; position:absolute;  z-index:1; left:100px; top:60px;">';
 				$content .= '</div>';
+
+
 				$content .= '<div style="position:absolute; z-index:9999!important;  top:220px; left:345px; ">';
-				$content .= '<p style="font-size:13px; position:absolute;  ">'.$customer_name.' / '.$customer_company.'<br> [Customer Account #'.$client_id.'].'.'</p>';
+				$content .= '<p style="font-size:13px; position:absolute;  "></p>';
 				$content .= '</div>';
+				
+
+				$content .= '<div style="position:absolute; z-index:9999!important;  top:273px; left:345px; ">';
+				$content .= '<p style="font-size:13px; position:absolute;  "></p>';
+				$content .= '</div>';
+
+				
+
+				$content .= '<div style="position:absolute; z-index:9999!important;  top:280px; left:-40px; ">';
+				$content .= '<p style="font-size:13px; position:absolute;  "></p>';
+				if ($customer_country=='VE') {
+
+				}
+				$content .= '<img src="./img/venezuela.png" style="width:40px; position:absolute; top:0px; left:300px;">';
+				$content .= '</div>';
+
 				$content .= '<div style="border-top:2px solid black; position:relative;z-index:1; top:10px; left:-44px; width:756px;">';
 				$content .= '<img src="./img/b.jpg" style="width:600px; position:relative; z-index:1; left:100px; top:10px;">';
 				$content .= '</div>';
@@ -127,8 +170,8 @@
 				$content .= '<img src="./img/c.jpg" style="width:400px; position:relative; z-index:1; left:200px; top:10px;">';
 				$content .= '</div>';
 
-				$content .= '<div style="border-top:2px solid black; border-bottom:10px solid black;z-index:1; position:relative; top:10px; height:48px; left:-44px; width:756px;">';
-				$content .= '<img src="./img/dd.png" style="width:752px; position:relative; z-index:1; left:2px; top:1px;">';
+				$content .= '<div style="border-top:2px solid black; border-bottom:10px solid black;z-index:1; position:relative; top:10px; height:90px; left:-44px; width:756px;">';
+				$content .= '<img src="./img/d.png" style="width:752px; position:relative; z-index:1; left:2px; top:1px;">';
 				$content .= '</div>';
 
 				$content .= '<table style="margin-top:4px; margin-left:-42px;">';
@@ -177,7 +220,7 @@
 
 				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;"></td>';
 
-				$content .= '<td style="width:193px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;">  </td>';
+				$content .= '<td style="width:193px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;"></td>';
 
 				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;"></span></td>';
 
@@ -196,7 +239,7 @@
 
 				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;"></td>';
 
-				$content .= '<td style="width:193px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;">  </td>';
+				$content .= '<td style="width:193px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;"></td>';
 
 				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;"></span></td>';
 
@@ -213,7 +256,7 @@
 
 				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;"></td>';
 
-				$content .= '<td style="width:193px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;">  </td>';
+				$content .= '<td style="width:193px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;"></td>';
 
 				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;"></span></td>';
 
