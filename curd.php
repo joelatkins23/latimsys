@@ -562,8 +562,7 @@ if(isset($_POST["joborder_fileupload"]) && !empty($_POST["joborder_fileupload"])
     $new_arr=json_decode($new_arr);
     $html='';  
     $consulta3 = mysqli_query($connect, "SELECT * FROM joborder_atteched WHERE id='$joborder_id' ORDER BY id desc ") or die ("Error al traer los datos222");
-    while ($colhtml = mysqli_fetch_array($consulta3)){ 
-    
+    while ($colhtml = mysqli_fetch_array($consulta3)){     
         $html.='<tr>';
         $html.='<td class="text-left"><a href="./images/joborder/'.$colhtml['file_name'].'" class="file_download" target="blank" >'.$colhtml['file_name'].'</a></td>';
         $html.='<td class="text-center">'.date_format(date_create($colhtml['fecha']),'m/d/Y H:i:s').'</td>';
@@ -572,4 +571,31 @@ if(isset($_POST["joborder_fileupload"]) && !empty($_POST["joborder_fileupload"])
         $html.='</tr>';
     }
     echo $html;
+}
+if(isset($_GET["orders_files_delete"]) && !empty($_GET["orders_files_delete"])){
+    $id=$_GET["id"];
+    $joborder_id=$_GET["joborders_id"];
+    $consulta2 = mysqli_query($connect, "SELECT * FROM joborders WHERE id='$joborder_id' ORDER BY id asc ") or die ("Error al traer los datos222");
+    while ($colrow = mysqli_fetch_array($consulta2)){  
+        $file_item=$colrow['atteched_files'];
+    }
+    $consulta3 = mysqli_query($connect, "SELECT * FROM joborder_atteched WHERE id='$id' ORDER BY id asc ") or die ("Error al traer los datos222");
+    while ($row = mysqli_fetch_array($consulta3)){  
+        $file_name=$row['file_name'];
+    }
+    $file_name='../images/joborder/'.$file_name;
+
+    $file_arr=json_decode($file_item);
+    $new_arr=[];
+    foreach($file_arr as $key=>$item){
+        if($item!=$file_name){
+           array_push($new_arr,$item); 
+        }
+    }
+    $new_arr=json_encode($new_arr);
+    $queryModel = mysqli_query($connect, "UPDATE joborders SET atteched_files='$new_arr' WHERE id='$joborder_id'");
+    $queryModel = mysqli_query($connect, "DELETE FROM joborder_atteched WHERE id='$id'");
+    $file_name=str_replace('../','./', $file_name);
+    unlink($file_name);
+    echo true;
 }

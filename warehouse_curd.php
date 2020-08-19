@@ -333,8 +333,7 @@ if(isset($_POST["warehouse_fileupload"]) && !empty($_POST["warehouse_fileupload"
             { 
                 move_uploaded_file($uploadfile_temporal1,$uploadfile_nombre1); 
             }         
-        }
-        
+        }        
         $uploadfile_nombre1='.'.$uploadfile_nombre1;
         $file=explode('/', $uploadfile_nombre1);
         $file=end($file);

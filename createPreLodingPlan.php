@@ -391,6 +391,26 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
             });
             $("#file_update").modal('show');
         }
+        function orders_files_delete(joborders_id,id){
+            $.ajax({
+                method: 'GET',
+                url: "./curd.php",
+                data: {
+                    orders_files_delete:'delete',
+                    id:id,
+                    joborders_id:joborders_id,
+                    }
+                })
+                .done(function (response) {
+                    swal({
+                        title: "File!",
+                        text: "Files Deleted successful!!",
+                        icon: "error",
+                    });  
+                    $("#file_update #tr_orders_files_"+id).remove(); 
+                    table.ajax.reload( null, false );  
+                })            
+        }
       function Getfrom(){
             return $("#from").val();
       }

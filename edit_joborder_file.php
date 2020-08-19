@@ -46,6 +46,7 @@ or die ("Error al traer los Agent");
                             <th class="text-center">Date</th>
                             <th class="text-center">By</th>
                             <th class="text-center">Note</th>
+                            <th class="text-center">#</th>
                         </tr>
                     </thead>
                     <tbody id="file_body">
@@ -57,12 +58,12 @@ or die ("Error al traer los Agent");
                             $file_name= $rowNotes['file_name'];
                             $fecha_note= $rowNotes['fecha']; 
                             ?>                  
-                        <tr>
-                            
+                        <tr id="tr_orders_files_<?php echo  $rowNotes['id'];?>">                            
                             <td class="text-center"><a href="./images/joborder/<?php echo $file_name; ?>" class="file_download" target="blank" ><?php echo $file_name; ?></a></td>
                             <td class="text-center"><?php echo date_format(date_create($fecha_note),'m/d/Y H:i:s'); ?></td>
                             <td class="text-center"><?php echo $agent_name; ?></td>
                             <td class="text-center"><?php echo $notes; ?></td>
+                            <td class="text-center"><a href="#" onclick="orders_files_delete(<?php echo $id; ?>,<?php echo $rowNotes['id']; ?>)"><i class="fa fa-trash" style="color:red; font-size:20px;"></i></a></td>
                         </tr>
                         <?php } ?>
                     </tbody>
