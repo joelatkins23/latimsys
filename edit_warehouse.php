@@ -530,10 +530,11 @@ session_start();
                                             </div>
                                         </div>  
                                         <?php 
-                                        $consultaQuotations = mysqli_query($connect, "SELECT * FROM warehousecontents WHERE warehouse_id='$id'")
+                                        $consultaQuotations = mysqli_query($connect, "SELECT * FROM warehousecontents WHERE warehouse_id='$id' group by pieces_id")
                                             or die ("Error al traer los Quotations");
                                             $rowcount = mysqli_num_rows($consultaQuotations);
-                                            foreach($consultaQuotations as $key=>$rowQuotations){                           
+                                            foreach($consultaQuotations as $key=>$rowQuotations){  
+                                            $pieces_id = $rowQuotations['pieces_id'];                         
                                             $byBoxes_pieces = $rowQuotations['byBoxes_pieces'];
                                             $byBoxes_lenght = $rowQuotations['byBoxes_lenght'];
                                             $byBoxes_width = $rowQuotations['byBoxes_width'];
@@ -541,6 +542,7 @@ session_start();
                                             $byBoxes_weight = $rowQuotations['byBoxes_weight'];
                                         ?>                 
                                         <div class="item col">
+                                            <input type="hidden" name="pieces_id[]" value="<?php echo $pieces_id; ?>">
                                             <div class="form-group row">
                                                 <div class="col-md-2 col-item">
                                                     <input type="number" name="byBoxes_piecesx[]" value="<?php echo $byBoxes_pieces; ?>" required class="form-control">
@@ -555,14 +557,18 @@ session_start();
                                                     <input type="number" name="byBoxes_heightX[]" value="<?php echo $byBoxes_height; ?>" required class="form-control">
                                                 </div>
                                                 <div class="col-md-2 col-item">
-                                                    <input type="number" name="byBoxes_weightX[]" value="<?php echo $byBoxes_weight; ?>" required class="form-control">
+                                                    <input type="text" name="byBoxes_weightX[]" value="<?php echo $byBoxes_weight; ?>" required class="form-control">
                                                 </div>
                                                 
-                                                <div class="col-md-1 col-item">                                         
+                                                <div class="col-md-2 col-item">                                         
                                                 <?php if($key==0){ ?>
                                                         <button  type="button"  class="btn btn_plus">+</button>
+                                                        <a  href="./boxsimplePDF.php?id=<?php echo $pieces_id; ?>"  class="btn btn-pdf" data-toggle="tooltip" data-placement="top" title="Simple Label" target="blank"><i class="fa fa-files-o"></i></a>
+                                                        <a  href="./boxcourierPDF.php?id=<?php echo $pieces_id; ?>"  class="btn btn-pdf" data-toggle="tooltip" data-placement="top" title="Courier Label" target="blank"><i class="fa fa-file-pdf-o"></i></a>
                                                 <?php }else{ ?>
                                                     <button  type="button" class="btn btn_minus">-</button>
+                                                    <a  href="./boxsimplePDF.php?id=<?php echo $pieces_id; ?>"  class="btn btn-pdf" data-toggle="tooltip" data-placement="top" title="Simple Label" target="blank"><i class="fa fa-files-o"></i></a>
+                                                    <a  href="./boxcourierPDF.php?id=<?php echo $pieces_id; ?>"  class="btn btn-pdf" data-toggle="tooltip" data-placement="top" title="Courier Label" target="blank"><i class="fa fa-file-pdf-o"></i></a>
                                                 <?php } ?>                                       
                                                 </div>
                                             </div>
@@ -570,6 +576,7 @@ session_start();
                                         <?php } ?>
                                         <?php if(mysqli_num_rows($consultaQuotations)==0) { ?>
                                             <div class="item col">
+                                                <input type="hidden" name="pieces_id[]" value="">
                                                 <div class="form-group row">
                                                     <div class="col-md-2 col-item">
                                                         <input type="number" name="byBoxes_piecesx[]" value="" required class="form-control">
@@ -584,10 +591,10 @@ session_start();
                                                         <input type="number" name="byBoxes_heightX[]" value="" required class="form-control">
                                                     </div>
                                                     <div class="col-md-2 col-item">
-                                                        <input type="number" name="byBoxes_weightX[]" value="" required class="form-control">
+                                                        <input type="text" name="byBoxes_weightX[]" value="" required class="form-control">
                                                     </div>
                                                     
-                                                    <div class="col-md-1 col-item">                                         
+                                                    <div class="col-md-2 col-item">                                         
                                                         <button  type="button"  class="btn btn_plus">+</button>                                          
                                                     </div>
                                                 </div>

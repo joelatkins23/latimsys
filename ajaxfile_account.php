@@ -82,8 +82,15 @@ $data = array();
 
 while ($row = mysqli_fetch_assoc($empRecords)) {
    
-    $shortcut='<a href="#" onclick="editaccount('.$row['id'].')"><i class="fa fa-edit action"></i></a>';
-        $data[] = array(               
+   
+    if($row['type']=='Client'){
+        $shortcut='<a href="#" onclick="editaccount('.$row['id'].')"><i class="fa fa-edit action"></i></a><a href="./quickwarehouseEntry.php?id='.$row['id'].'" target=bank><i class="fa fa-file-pdf-o action"></i></a>';
+
+    }else{
+        $shortcut='<a href="#" onclick="editaccount('.$row['id'].')"><i class="fa fa-edit action"></i></a>';
+
+    }
+    $data[] = array(               
                 "id"=>$row["id"],
                 "type"=>$row['type'],
                 "name"=>$row['name'],

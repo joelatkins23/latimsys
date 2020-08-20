@@ -455,7 +455,7 @@ $email = $_SESSION['username'];
   <!-- Form -->
   </section>
 </div>
-<div id="editwarehouse" class="modal fade" role="dialog" style="    overflow: auto!important;">
+<div id="editwarehouse" class="modal fade" role="dialog" style="overflow: auto!important;">
     <div class="modal-dialog modal-lg">
     </div>
 </div>
@@ -694,6 +694,7 @@ $email = $_SESSION['username'];
               $("#by_boxes_content .btn_plus").on("click", function(e){
                 e.preventDefault();
                 var html='<div class="item col">';
+                    html+='<input type="hidden" name="pieces_id[]" value="">';
                     html+='<div class="form-group row">';
                     html+='<div class="col-md-2 col-item">';
                     html+='<input type="number"  name="byBoxes_piecesx[]" required class="form-control">';
@@ -708,9 +709,9 @@ $email = $_SESSION['username'];
                     html+='<input type="number"  name="byBoxes_heightX[]" required class="form-control">';
                     html+='</div>';
                     html+='<div class="col-md-2 col-item">';
-                    html+='<input type="number"  name="byBoxes_weightX[]" required class="form-control">';
+                    html+='<input type="text"  name="byBoxes_weightX[]" required class="form-control">';
                     html+='</div>';            
-                    html+='<div class="col-md-1 col-item">';
+                    html+='<div class="col-md-2 col-item">';
                     html+='<button  type="button" class="btn btn_minus">-</button>';
                     html+='</div>';
                     html+='</div>';
@@ -768,6 +769,7 @@ $email = $_SESSION['username'];
                 $("#warehouse_receipt_content .btn_plus").on("click", function(e){
                     e.preventDefault();
                     var html='<div class="item col">';
+                        html+='<input type="hidden" name="pieces_id[]" value="">';
                         html+='<div class="form-group row">';
                         html+='<div class="col-md-5 col-item">';
                         html+='<input type="text"  name="byBoxes_descriptionx[]"  class="form-control">';
@@ -799,8 +801,7 @@ $email = $_SESSION['username'];
                   $("#edit_warehouse_tab1").submit(function(e) {
                       event.preventDefault(); //prevent default action 
                       var post_url = $(this).attr("action"); //get form action url
-                      var form_data = $(this).serialize(); //Encode form elements for submission
-                      
+                      var form_data = $(this).serialize(); //Encode form elements for submission                      
                       $.post( post_url, form_data, function( response ) {  
                           table.ajax.reload( null, false );     
                           swal({
@@ -809,6 +810,7 @@ $email = $_SESSION['username'];
                               icon: "success",
                             });   
                       });
+                      $("#editwarehouse").modal('hide'); 
                   });
                   $("#edit_warehouse_tab2").submit(function(e) {
                       event.preventDefault(); //prevent default action 
@@ -816,12 +818,14 @@ $email = $_SESSION['username'];
                       var form_data = $(this).serialize(); //Encode form elements for submission
                       
                       $.post( post_url, form_data, function( response ) {  
-                          table.ajax.reload( null, false );     
+                          table.ajax.reload( null, false );   
+                            
                           swal({
                               title: "WareHouse!",
                               text: "WareHouse updated successful!!",
                               icon: "success",
-                            });   
+                            });  
+                            $("#editwarehouse").modal('hide'); 
                       });
                   });
                 $("#delete_warehouse").submit(function(e) {
@@ -961,11 +965,11 @@ $email = $_SESSION['username'];
     function total_calculator(){
         var total_pieces=0,total_weight=0, total_volume=0;
         $("#by_boxes_content .col").each(function(index,ele){
-          var pieces=$(this)[0].children[0].children[0].children[0].value;
-          var lenght=$(this)[0].children[0].children[1].children[0].value;
-          var width=$(this)[0].children[0].children[2].children[0].value;
-          var height=$(this)[0].children[0].children[3].children[0].value;
-          var weight=$(this)[0].children[0].children[4].children[0].value;
+          var pieces=$(this)[0].children[1].children[0].children[0].value;
+          var lenght=$(this)[0].children[1].children[1].children[0].value;
+          var width=$(this)[0].children[1].children[2].children[0].value;
+          var height=$(this)[0].children[1].children[3].children[0].value;
+          var weight=$(this)[0].children[1].children[4].children[0].value;
           total_pieces=total_pieces+parseInt(pieces);
           total_volume=total_volume+parseInt(lenght)*parseInt(width)*parseInt(height)/1000000;
           total_weight=total_weight+parseFloat(weight)*parseInt(pieces);

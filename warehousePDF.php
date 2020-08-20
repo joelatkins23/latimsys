@@ -73,9 +73,7 @@
     if (! is_dir($targetPath)) {
         mkdir($targetPath, 0777, true);
 	}
-	$productData = str_pad($id, 4, '0', STR_PAD_LEFT);
-	// echo $data;
-    $barcode = new \Com\Tecnick\Barcode\Barcode();
+	$productData = '999555'.$id;	
     $bobj = $barcode->getBarcodeObj('C128', "{$productData}", 150, 30, 'black', array(
         0,
         0,
@@ -190,37 +188,37 @@
 		<div style=" margin:0px 30px;">
 			<table style="width:100%">
 				<tr>
-					<td colspan="3" style="border-left:none;">
+					<td colspan="3" style="border-left:none;width:312px">
 						<p class="sm_text">RECEIVED FROM</p>
 						<p >'.$supplier_name.' '.$supplier_company.'</p>
 					</td>
-					<td>
+					<td style="width:168px;">
 						<p class="sm_text">DELIVERED BY</p>
 						<p >'.$delivered_by.'&nbsp;</p>
 					</td>
-					<td style="border-right:none;">
+					<td style="border-right:none;width:168px;">
 						<p class="sm_text" >TRACKING NUMBER</p>
 						<p >'.$tracking.'&nbsp;</p>
 					</td>
 				</tr>
 				<tr>
-					<td  style="border-left:none; width:15%">
+					<td  style="border-left:none; width:104px">
 						<p class="sm_text">FREIGHT RECEIVED</p>
 						<p >COLLECT </p>
 					</td>
-					<td  style="width:15%">
+					<td  style="width:104px">
 						<p class="sm_text">FREIGHT AMOUNT</p>
 						<p >0.00</p>
 					</td>
-					<td style="width:15%">
+					<td style="width:104px">
 						<p class="sm_text">COD AMOUNT</p>
 						<p >0.00</p>
 					</td>
-					<td w style="width:27%">
+					<td style="width:168px;">
 						<p class="sm_text">ENCOMIENDAS</p>
 						<p > - 0.00 [P]</p>
 					</td>
-					<td   style="border-right:none;width:28%">
+					<td   style="border-right:none;width:168px">
 						<p class="sm_text">ORIGIN/DESTINATION</p>
 						<p >'.$can.'/'.$destination.'&nbsp;</p>
 					</td>
@@ -247,7 +245,7 @@
 							<td style="width:9%;text-align:center">UNITS</td>
 							<td style="width:19%;text-align:center">REFERENCE</td>						
 						</tr>';
-					$consulta_content = mysqli_query($connect, "SELECT * FROM warehousecontents WHERE warehouse_id='$id' ");
+					$consulta_content = mysqli_query($connect, "SELECT * FROM warehousecontents WHERE warehouse_id='$id' group by pieces_id ");
 
 					while ($result_content = mysqli_fetch_array($consulta_content)) {
 					  
@@ -290,7 +288,7 @@
 					</table>
 				</div>
 			</div>
-			<div  style="float:left;width:140px;display: inline-block;">
+			<div  style="float:left;width:135px;display: inline-block;">
 				<p style="margin-top:-234px; margin-left:5px;font-weight:bold">PO:'.$po.'</p>
 				<p style="margin-bottom:40px;margin-left:5px;font-weight:bold">INVOICE:'.$invoice.'</p>
 				<table style="width:100%;margin-left:5px;">

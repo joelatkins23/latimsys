@@ -723,6 +723,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
               $("#by_boxes_content .btn_plus").on("click", function(e){
                 e.preventDefault();
                 var html='<div class="item col">';
+                    html+='<input type="hidden" name="pieces_id[]" value="">';
                     html+='<div class="form-group row">';
                     html+='<div class="col-md-2 col-item">';
                     html+='<input type="number"  name="byBoxes_piecesx[]" required class="form-control">';
@@ -737,9 +738,9 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                     html+='<input type="number"  name="byBoxes_heightX[]" required class="form-control">';
                     html+='</div>';
                     html+='<div class="col-md-2 col-item">';
-                    html+='<input type="number"  name="byBoxes_weightX[]" required class="form-control">';
+                    html+='<input type="text"  name="byBoxes_weightX[]" required class="form-control">';
                     html+='</div>';            
-                    html+='<div class="col-md-1 col-item">';
+                    html+='<div class="col-md-2 col-item">';
                     html+='<button  type="button" class="btn btn_minus">-</button>';
                     html+='</div>';
                     html+='</div>';
@@ -837,6 +838,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                               text: "WareHouse updated successful!!",
                               icon: "success",
                             });   
+                            $("#editwarehouse").modal('hide'); 
                       });
                   });
                   $("#edit_warehouse_tab2").submit(function(e) {
@@ -851,6 +853,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                               text: "WareHouse updated successful!!",
                               icon: "success",
                             });   
+                            $("#editwarehouse").modal('hide'); 
                       });
                   });
                 $("#delete_warehouse").submit(function(e) {
@@ -990,11 +993,11 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     function total_calculator(){
         var total_pieces=0,total_weight=0, total_volume=0;
         $("#by_boxes_content .col").each(function(index,ele){
-          var pieces=$(this)[0].children[0].children[0].children[0].value;
-          var lenght=$(this)[0].children[0].children[1].children[0].value;
-          var width=$(this)[0].children[0].children[2].children[0].value;
-          var height=$(this)[0].children[0].children[3].children[0].value;
-          var weight=$(this)[0].children[0].children[4].children[0].value;
+          var pieces=$(this)[0].children[1].children[0].children[0].value;
+          var lenght=$(this)[0].children[1].children[1].children[0].value;
+          var width=$(this)[0].children[1].children[2].children[0].value;
+          var height=$(this)[0].children[1].children[3].children[0].value;
+          var weight=$(this)[0].children[1].children[4].children[0].value;
           total_pieces=total_pieces+parseInt(pieces);
           total_volume=total_volume+parseInt(lenght)*parseInt(width)*parseInt(height)/1000000;
           total_weight=total_weight+parseFloat(weight)*parseInt(pieces);

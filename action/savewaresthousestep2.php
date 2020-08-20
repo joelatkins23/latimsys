@@ -46,11 +46,18 @@
 	$queryModel = mysqli_query($connect, "UPDATE warehouse SET image_url='$uploadfile',total_pieces='$total_pieces',total_weight='$total_weight',total_volume='$total_volume',total_charg_weight='$total_charg_weight' WHERE id='$warehouse_id' ") or die ('error');
 	
 	if(isset($_POST['byBoxes_piecesx']) && !empty($_POST['byBoxes_piecesx'])){
-        $queryModel = mysqli_query($connect, "DELETE FROM warehousecontents WHERE warehouse_id='$warehouse_id'");  
         foreach($_POST['byBoxes_piecesx'] as $key=>$item){
             if($_POST['byBoxes_piecesx'][$key]){
-                $querywarehousecontents = mysqli_query($connect, "INSERT INTO warehousecontents(warehouse_id, byBoxes_pieces, byBoxes_lenght, byBoxes_width, byBoxes_height, byBoxes_weight) 
-                VALUES ('$warehouse_id', '".$_POST['byBoxes_piecesx'][$key]."', '".$_POST['byBoxes_lenghtX'][$key]."', '".$_POST['byBoxes_widthX'][$key]."', '".$_POST['byBoxes_heightX'][$key]."', '".$_POST['byBoxes_weightX'][$key]."' )");
+                $lastpiecesModel = mysqli_query($connect, "SELECT MAX(pieces_id)max_id FROM warehousecontents") or die ('error');
+                while ($row = mysqli_fetch_array($lastpiecesModel)){
+                        $max_id=$row['max_id'];   
+                    }
+                $pieces_id=$max_id+1;
+                for($i=1; $i<=$_POST['byBoxes_piecesx'][$key];$i++){
+                    $querywarehousecontents = mysqli_query($connect, "INSERT INTO warehousecontents(warehouse_id,pieces_id, pieces_num, byBoxes_pieces, byBoxes_lenght, byBoxes_width, byBoxes_height, byBoxes_weight) 
+                VALUES ('$warehouse_id','$pieces_id', '$i', '".$_POST['byBoxes_piecesx'][$key]."', '".$_POST['byBoxes_lenghtX'][$key]."', '".$_POST['byBoxes_widthX'][$key]."', '".$_POST['byBoxes_heightX'][$key]."', '".$_POST['byBoxes_weightX'][$key]."' )");
+                }
+                
  
             }
         }
