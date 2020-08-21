@@ -70,18 +70,7 @@
 		$agent_name=$rowagent['name'];
 		$agent_email=$rowagent['email'];
 	}
-	$consultacontent = mysqli_query($connect, "SELECT * FROM `warehousecontents` WHERE pieces_id='$id' ORDER BY pieces_num ASC ");
 
-  while ($rowcontent = mysqli_fetch_array($consultacontent)) {
-	$warehouse_id=$rowcontent['warehouse_id'];
-	$pieces_num=$rowcontent['pieces_num'];
-	$pieces_id=$rowcontent['id'];
-	$byBoxes_pieces=$rowcontent['byBoxes_pieces'];
-	$byBoxes_lenght=$rowcontent['byBoxes_lenght'];
-	$byBoxes_width=$rowcontent['byBoxes_width'];
-	$byBoxes_height=$rowcontent['byBoxes_height'];
-	$byBoxes_weight=$rowcontent['byBoxes_weight'];	
-  }
 	require_once(dirname(__FILE__).'/tc-barcode/vendor/autoload.php');
 	$barcode = new \Com\Tecnick\Barcode\Barcode();
 	$targetPath = "barcode/";
@@ -89,22 +78,7 @@
     if (! is_dir($targetPath)) {
         mkdir($targetPath, 0777, true);
 	}
-	$productData = str_pad($pieces_id, 4, '0', STR_PAD_LEFT);
-	// echo $data;
-    $barcode = new \Com\Tecnick\Barcode\Barcode();
-    $bobj = $barcode->getBarcodeObj('C128', "{$productData}", 200, 80, 'black', array(
-        0,
-        0,
-        0,
-        0
-    ));
-    
-    $imageData = $bobj->getPngData();
-    $timestamp = time();
-    
-	file_put_contents($targetPath . 'warehouse_content'.$pieces_id.'.png', $imageData);
 	
-	$img=$targetPath .'warehouse_content'.$pieces_id.'.png';
 
 	$content = ob_get_clean();
 	$content = '
@@ -143,56 +117,89 @@
 			padding:5px;
 			margin:5px;
 		}
-	</style>
-	<div style="width:750px;position:relative; ">
-		<div style="margin:100px 30px;">
-			<table style="width:100%">
-				<tr>
-					<td style="width:440px;border-right:none;border-top:none">						
-						<p class="bold_text">PIECES('.$byBoxes_pieces.'&nbsp;UNITS)</p>
-					</td>
-					<td style="border-right:none;border-top:none;width:200px;">					
-						<p class="bold_text" style="text-align:right">'.$fecha.'</p>
-					</td>					
-				</tr>
-				<tr>
-					<td colspan="2" style="border-right:none;width:640px;">
-					<p class="bold_text" style="margin-bottom:0px;text-align:center;font-size:70px;">'.$instination.'&nbsp;</p>
-					</td>					
-				</tr>
-				
-				<tr>
-					<td colspan="2" style="border-right:none;width:640px;">
-						<br>
-						<p class="bold_text" style="margin-bottom:0px;text-align:center;font-size:40px;">'.$byBoxes_lenght.'&times;'.$byBoxes_width.'&times;'.$byBoxes_height.'&nbsp;-&nbsp;'.$byBoxes_weight.' K&nbsp;&nbsp;&nbsp;&nbsp;</p>
-					</td>					
-				</tr>
-				<tr>
-					<td colspan="2" style="border-right:none;width:640px;">
-						<p class="bg_text" style="margin-bottom:0px;text-align:center;">&nbsp;'.$warehouse_id.'&nbsp;</p>
-					</td>					
-				</tr>
-				<tr>
-					<td style="width:440px;">
-						<p class="small_text">Destination</p>
-						<p class="bold_text"  style="margin-top:0px;padding-top:0px;font-size:60px">'.$destination.'&nbsp;</p>
-					</td>
-					<td style="border-right:none;width:200px;">
-						<p class="small_text" >Total Pieces</p><br>
-						<p class="bold_text"  style="margin-top:0px;padding-top:0px;font-size:60px;">'.$pieces_num.'/'.$byBoxes_pieces.'</p>
-					</td>					
-				</tr>
-				<tr>
-					<td colspan="2" style="width:640px;border-right:none;">
-						<p class="small_text">Carton ID</p><br><br>
-						<p class="text" style="margin-top:0px;padding-top:0px;margin-left:30px">'.$pieces_id.'</p>
-						<img style="text-align:right;margin-left:10px;margin-left:30px" src="'.$img.'" alt=""  >
-					</td>							
-				</tr>				
-			</table>			
-		</div>		
-	</div>
+	</style>';
+	$consultacontent = mysqli_query($connect, "SELECT a.* FROM warehousecontents a  JOIN (SELECT * FROM warehousecontents WHERE pieces_id='$id' GROUP BY pieces_id) b ON a.warehouse_id=b.warehouse_id ORDER BY pieces_id, pieces_num");
+	$i=0;
+	while ($rowcontent = mysqli_fetch_array($consultacontent)) {
+		$i++;
+		if($id == $rowcontent['pieces_id']){		
+		$warehouse_id=$rowcontent['warehouse_id'];
+		$pieces_num=$rowcontent['pieces_num'];
+		$pieces_id=$rowcontent['id'];
+		$byBoxes_pieces=$rowcontent['byBoxes_pieces'];
+		$byBoxes_lenght=$rowcontent['byBoxes_lenght'];
+		$byBoxes_width=$rowcontent['byBoxes_width'];
+		$byBoxes_height=$rowcontent['byBoxes_height'];
+		$byBoxes_weight=$rowcontent['byBoxes_weight'];	
+		$consultawarehouse = mysqli_query($connect, "SELECT * FROM `warehousecontents` WHERE warehouse_id='$warehouse_id' ORDER BY pieces_id, pieces_num ASC ");
+		$rowcount=mysqli_num_rows($consultawarehouse);
+		$productData = str_pad($pieces_id, 4, '0', STR_PAD_LEFT);
+		// echo $data;
+		$barcode = new \Com\Tecnick\Barcode\Barcode();
+		$bobj = $barcode->getBarcodeObj('C128', "{$productData}", 200, 80, 'black', array(
+			0,
+			0,
+			0,
+			0
+		));
+		
+		$imageData = $bobj->getPngData();
+		$timestamp = time();
+		
+		file_put_contents($targetPath . 'warehouse_content'.$pieces_id.'.png', $imageData);
+		
+		$img=$targetPath .'warehouse_content'.$pieces_id.'.png';
+		$content.='<div style="width:750px;">
+					<div style="margin:80px 30px;">
+						<table style="width:100%">
+							<tr>
+								<td style="width:440px;border-right:none;border-top:none">						
+									<p class="bold_text">PIECES('.$byBoxes_pieces.'&nbsp;UNITS)</p>
+								</td>
+								<td style="border-right:none;border-top:none;width:200px;">					
+									<p class="bold_text" style="text-align:right">'.$fecha.'</p>
+								</td>					
+							</tr>
+							<tr>
+								<td colspan="2" style="border-right:none;width:640px;">
+								<p class="bold_text" style="margin-bottom:0px;text-align:center;font-size:70px;">'.$instination.'&nbsp;</p>
+								</td>					
+							</tr>
+							
+							<tr>
+								<td colspan="2" style="border-right:none;width:640px;">
+									<br>
+									<p class="bold_text" style="margin-bottom:0px;text-align:center;font-size:40px;">'.$byBoxes_lenght.'&times;'.$byBoxes_width.'&times;'.$byBoxes_height.'&nbsp;-&nbsp;'.$byBoxes_weight.' K&nbsp;&nbsp;&nbsp;&nbsp;</p>
+								</td>					
+							</tr>
+							<tr>
+								<td colspan="2" style="border-right:none;width:640px;">
+									<p class="bg_text" style="margin-bottom:0px;text-align:center;">&nbsp;'.$warehouse_id.'&nbsp;</p>
+								</td>					
+							</tr>
+							<tr>
+								<td style="width:440px;">
+									<p class="small_text">Destination</p>
+									<p class="bold_text"  style="margin-top:0px;padding-top:0px;font-size:60px">'.$destination.'&nbsp;</p>
+								</td>
+								<td style="border-right:none;width:200px;">
+									<p class="small_text" >Total Pieces</p><br>
+									<p class="bold_text"  style="margin-top:0px;padding-top:0px;font-size:60px;">'.$i.'/'.$rowcount.'</p>
+								</td>					
+							</tr>
+							<tr>
+								<td colspan="2" style="width:640px;border-right:none;">
+									<p class="small_text">Carton ID</p><br><br>
+									<p class="text" style="margin-top:0px;padding-top:0px;margin-left:30px">'.$pieces_id.'</p>
+									<img style="text-align:right;margin-left:10px;margin-left:30px" src="'.$img.'" alt=""  >
+								</td>							
+							</tr>				
+						</table>			
+					</div>		
+				</div>
  ';
+}
+}
  require_once(dirname(__FILE__).'/html2pdf/html2pdf.class.php');
 try
 {

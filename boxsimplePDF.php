@@ -5,8 +5,7 @@
 
 	$id = $_GET['id'];
 
- 	$consulta = mysqli_query($connect, "SELECT a.* FROM warehouse a 
-	 LEFT JOIN (SELECT * FROM warehousecontents GROUP BY pieces_id)  b ON a.id=b.warehouse_id WHERE b.pieces_id='$id' ");
+ 	$consulta = mysqli_query($connect, "SELECT * FROM warehouse  WHERE id='$id' ");
 
   while ($warehouse = mysqli_fetch_array($consulta)) {
 	
@@ -117,9 +116,11 @@
 			margin:5px;
 		}
 	</style>';
-	$consultacontent = mysqli_query($connect, "SELECT * FROM `warehousecontents` WHERE pieces_id='$id' ORDER BY pieces_num ASC ");
-
+	$consultacontent = mysqli_query($connect, "SELECT * FROM `warehousecontents` WHERE warehouse_id='$id' ORDER BY pieces_id, pieces_num ASC ");
+	$i=0;
+	$rowcount=mysqli_num_rows($consultacontent);
   while ($rowcontent = mysqli_fetch_array($consultacontent)) {
+	  $i++;
 	$warehouse_id=$rowcontent['warehouse_id'];
 	$pieces_num=$rowcontent['pieces_num'];
 	$pieces_id=$rowcontent['id'];
@@ -145,7 +146,7 @@
 	
 	$img=$targetPath .'warehouse_content'.$pieces_id.'.png';	
 	$content.='<div style="width:750px;position:relative; ">
-		<div style="margin:80px 30px;">
+		<div style="margin:80px 30px; margin-bottom:0px;">
 			<table style="width:100%">
 				<tr>
 					<td colspan="2" style="border-right:none;width:640px;">
@@ -193,7 +194,7 @@
 					</td>
 					<td style="border-right:none;width:180px;">
 						<p class="small_text "  style="text-align:center">'.$fecha.'</p><br><br><br><br>
-						<p class="bold_text"  style="font-size:50px;text-align:center">'.$pieces_num.'/'.$byBoxes_pieces.'</p>
+						<p class="bold_text"  style="font-size:50px;text-align:center">'.$i.'/'.$rowcount.'</p>
 					</td>					
 				</tr>
 			</table>

@@ -31,6 +31,7 @@ session_start();
                 </h4>
             </div>
             <div class="col-md-3 text-right">
+                <a  href="./boxsimplePDF.php?id=<?php echo $id; ?>"  class="btn btn-pdf" data-toggle="tooltip" data-placement="top" title="Simple Label" target="blank"><i class="fa fa-files-o"></i>&nbsp;Print</a>
                 <button class="btn btn-primary" onclick="addFile(<?php echo $id; ?>)"><i class="fa fa-files-o"></i>&nbsp;Add File</button>
             </div>
         </div>
@@ -563,11 +564,9 @@ session_start();
                                                 <div class="col-md-2 col-item">                                         
                                                 <?php if($key==0){ ?>
                                                         <button  type="button"  class="btn btn_plus">+</button>
-                                                        <a  href="./boxsimplePDF.php?id=<?php echo $pieces_id; ?>"  class="btn btn-pdf" data-toggle="tooltip" data-placement="top" title="Simple Label" target="blank"><i class="fa fa-files-o"></i></a>
                                                         <a  href="./boxcourierPDF.php?id=<?php echo $pieces_id; ?>"  class="btn btn-pdf" data-toggle="tooltip" data-placement="top" title="Courier Label" target="blank"><i class="fa fa-file-pdf-o"></i></a>
                                                 <?php }else{ ?>
                                                     <button  type="button" class="btn btn_minus">-</button>
-                                                    <a  href="./boxsimplePDF.php?id=<?php echo $pieces_id; ?>"  class="btn btn-pdf" data-toggle="tooltip" data-placement="top" title="Simple Label" target="blank"><i class="fa fa-files-o"></i></a>
                                                     <a  href="./boxcourierPDF.php?id=<?php echo $pieces_id; ?>"  class="btn btn-pdf" data-toggle="tooltip" data-placement="top" title="Courier Label" target="blank"><i class="fa fa-file-pdf-o"></i></a>
                                                 <?php } ?>                                       
                                                 </div>

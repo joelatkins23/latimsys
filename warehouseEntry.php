@@ -103,235 +103,211 @@
 	$content = ob_get_clean();
 	$content = '';
 
-	$content .= '
+	
+    $content .= '
 	
     <style>
+		
 		table {
-		border-collapse: collapse;
+			border-collapse: collapse;
+			display: table;
+			width:100%;
 		}
-
-		table{
-		width:800px;
-		margin:0 auto;
-		}
-
 		td{
-		border: 1px solid #e2e2e2;
-		padding: 10px; 
-		max-width:520px;
-		word-wrap: break-word;
+			border: 2px solid #000;
+			vertical-align: inherit;
+			padding: 5px 0px;
+			
 		}
-
-
+		p{
+			padding:0px;
+			margin:2px;
+		}
+		.small_text{
+			font-size:10px;
+		}
+		.sm_text{
+			font-size:12px;	
+		}
+		#box_pieces td{
+			border: 1px solid #333;
+			font-size:10px;
+			vertical-align: inherit;
+		}
+		h3{
+			font-weight:800;
+		}
+		h2,h3,h4{
+			margin-top:3px;
+			margin-bottom:0px;
+		}
 		</style>
-
-		';
-        /* you css */
-
-
-
-				$content .= '<div style="padding:42px;">';
-				$content .= '<div style=" position:relative; right:-430px; top:0px; margin-top:-35px; ">';
-				$content .= '<p><span style="font-weight:700; font-weight:bolder; font-size:16px;">Warehouse Entry N°</span> <span style="border-bottom:2px solid black; color:#B70007; font-size:18px;">'.$id.'</span>.</p>';
-				$content .= '<img src="'.$img.'"  style="margin-left:20px; position:relative; padding-left:30px;">';
-				$content .= '</div>';
-				$content .= '<div style="width:50%; height:300px;">';
-				$content .= '<img src="./img/logoChina.png" style="width:100px; height:120px; position:relative; top:-130px; float:left;">';
-
-				$content .= '<div style="float:right; position:relative; left:10px; top:-20px;">';
-				$content .= '<img src="./img/a.jpg" style="width:300px; position:absolute;  z-index:1; left:100px; top:60px;">';
-				$content .= '</div>';
-
-
-				$content .= '<div style="position:absolute; z-index:9999!important;  top:220px; left:345px; ">';
-				$content .= '<p style="font-size:13px; position:absolute;  ">'.$supplier_name.' / '.$supplier_company.'<br> [Supplier Account #'.$supplier_id.'].'.'</p>';
-				$content .= '</div>';
-				
-
-				$content .= '<div style="position:absolute; z-index:9999!important;  top:273px; left:345px; ">';
-				$content .= '<p style="font-size:13px; position:absolute;  ">'.$customer_name.' / '.$customer_company.'<br> [Customer Account #'.$client_id.'].'.'</p>';
-				$content .= '</div>';
-
-				
-
-				$content .= '<div style="position:absolute; z-index:9999!important;  top:280px; left:-40px; ">';
-				$content .= '<p style="font-size:13px; position:absolute;  ">'.$service.' to ['.$customer_city.', '.$customer_state.'].'.'</p>';
-				if ($customer_country=='VE') {
-
-				}
-				$content .= '<img src="./img/venezuela.png" style="width:40px; position:absolute; top:0px; left:300px;">';
-				$content .= '</div>';
-
-				$content .= '<div style="border-top:2px solid black; position:relative;z-index:1; top:10px; left:-44px; width:756px;">';
-				$content .= '<img src="./img/b.jpg" style="width:600px; position:relative; z-index:1; left:100px; top:10px;">';
-				$content .= '</div>';
-
-				$content .= '<div style="border-top:2px solid black; position:relative;z-index:1; top:10px; left:-44px; width:756px;">';
-				$content .= '<img src="./img/c.jpg" style="width:400px; position:relative; z-index:1; left:200px; top:10px;">';
-				$content .= '</div>';
-
-				$content .= '<div style="border-top:2px solid black; border-bottom:10px solid black;z-index:1; position:relative; top:10px; height:90px; left:-44px; width:756px;">';
-				$content .= '<img src="./img/d.png" style="width:752px; position:relative; z-index:1; left:2px; top:1px;">';
-				$content .= '</div>';
-
-				$content .= '<table style="margin-top:4px; margin-left:-42px;">';
-
-				$content .= '<tr>';
-
-				$content .= '<td style="width:75px; padding-top:-3px;  text-align:left; border:none; border-bottom:2px solid black; border-right:2px solid black;"><span style="font-size:12px; position:relative; top:0px; left:-7px;"><img style="width:40px;" src="./img/sm.jpg"><br>SHIPPING MARK</span></td>';
-
-				$content .= '<td style="width:193px; padding-top:-3px;  text-align:left; border:none; border-bottom:2px solid black; border-right:2px solid black;" ><span style="font-size:12px; position:relative; top:5px; left:-5px;"><img style="width:70px;" src="./img/cm.jpg"><br>COMMODITY</span> <img style="width:120px; position:relative; top:-24px; float:right" src="./img/cp.jpg"></td>';
-
-				$content .= '<td style="width:75px; padding-top:-3px;  text-align:left; border:none; border-bottom:2px solid black; border-right:2px solid black;" ><span style="font-size:12px; position:relative; top:5px; left:-5px;">VALUE ($)</span></td>';
-
-				$content .= '<td style="width:45px; padding-top:-3px;  text-align:left; border:none; border-bottom:2px solid black; border-right:2px solid black;" ><span style="font-size:12px; position:relative; top:2px; left:-5px;"><img style="width:36px;" src="./img/pk.jpg"><br>PACKAGES</span></td>';
-
-				$content .= '<td style="width:55px; padding-top:-3px;  text-align:left; border:none; border-bottom:2px solid black; border-right:2px solid black;" ><span style="font-size:12px; position:relative; top:5px; left:-5px;"><img style="width:70px;" src="./img/cm.jpg"><br>VOLUME</span></td>';
-				
-
-				$content .= '<td style="width:45px; padding-top:-3px;  text-align:left; border:none; border-bottom:2px solid black; " ><span style="font-size:12px; position:relative; top:5px; left:-5px;"><img style="width:70px;" src="./img/cm.jpg"><br>WEIGHT</span></td>';
-				$content .= '</tr>';
-
-				$content .= '</table>';
-
-
-
-				$content .= '<table style="margin-left:-42px;">';
-
-
-				$num_rows=0;
-
-				$consultaWarehouseEntry0 = mysqli_query($connect, "SELECT * FROM cargo_information WHERE jo_ID='$id' ")
-    			or die ("Error al traer los Quotations");
-
-    			while($row = mysqli_fetch_array($consultaWarehouseEntry0)){
-				$num_rows = mysqli_num_rows($consultaWarehouseEntry0);
-				}
-
-				$lineas=$num_rows;
-
-
-
-				
-
-				if ($lineas==0) {
-
-				$content .= '<tr>';
-
-				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;">'.''.'</td>';
-
-				$content .= '<td style="width:193px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;"> '.$commodity.' </td>';
-
-				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'. '' .'</span></td>';
-
-
-				$content .= '<td style="width:45px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'.''.'</span></td>';
-
-
-				$content .= '<td style="width:55px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'. '' .'</span></td>';
-
-				$content .= '<td style="width:45px; border:none; border-bottom:1px solid #e2e2e2;  font-size:11px; ">'. '' .'</td>';
-				$content .= '</tr>';
-
-
-
-				$content .= '<tr>';
-
-				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;">'.''.'</td>';
-
-				$content .= '<td style="width:193px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;"> '.$commodity.' </td>';
-
-				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'. '' .'</span></td>';
-
-
-				$content .= '<td style="width:45px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'.''.'</span></td>';
-
-
-				$content .= '<td style="width:55px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'. '' .'</span></td>';
-
-				$content .= '<td style="width:45px; border:none; border-bottom:1px solid #e2e2e2;  font-size:11px; ">'. '' .'</td>';
-				$content .= '</tr>';
-
-				$content .= '<tr>';
-
-				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;">'.''.'</td>';
-
-				$content .= '<td style="width:193px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;"> '.$commodity.' </td>';
-
-				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'. '' .'</span></td>';
-
-
-				$content .= '<td style="width:45px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'.''.'</span></td>';
-
-
-				$content .= '<td style="width:55px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'. '' .'</span></td>';
-
-				$content .= '<td style="width:45px; border:none; border-bottom:1px solid #e2e2e2;  font-size:11px; ">'. '' .'</td>';
-				$content .= '</tr>';
-
-
-					
-				}else{
-
-
-				$consultaWarehouseEntry = mysqli_query($connect, "SELECT * FROM cargo_information WHERE jo_ID='$id' ")
-    			or die ("Error al traer los Quotations");
-
-				while ($rowWarehouseEntry = mysqli_fetch_array($consultaWarehouseEntry)){
-
-					$shipping_mark = $rowWarehouseEntry['shipping_mark'];
-					$description = $rowWarehouseEntry['description'];
-					$packages = $rowWarehouseEntry['packages'];
-					$volume = $rowWarehouseEntry['volume'];
-					$weight = $rowWarehouseEntry['weight'];
-
-
-
-				$content .= '<tr>';
-				$content .= '<td style="width:120px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;">'.$shipping_mark.'</td>';
-
-				$content .= '<td style="width:193px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px;">'.$description.'</td>';
-
-
-				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'.$packages.'</span></td>';
-
-
-				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2; border-right:2px solid black; font-size:11px; "><span style="position:relative; left:0px;">'. $volume .'</span></td>';
-
-				$content .= '<td style="width:75px; border:none; border-bottom:1px solid #e2e2e2;  font-size:11px; ">'. $weight .'</td>';
-				$content .= '</tr>';
-
-
-					}
-				}
-
-
-				$content .= '</table>';
-
-
-				if ($lineas<3) {
-
-					$content .= '<div style="padding:42px; position:relative; top:-35px;">';
-						$content .= '<img style="width:560px;" src="./img/map.jpg">';
-						$content .= '</div>';
-				
-				}elseif($lineas<6) {
-
-					$content .= '<div style="padding:42px; position:relative; left:20px; top:-35px;">';
-						$content .= '<img style="width:530px;" src="./img/map.jpg">';
-						$content .= '</div>';
-				}else{
-
-					$content .= '<PAGE pagegroup="new" >';
-
-				$content .= '<div style="padding:42px; position:relative; top:10px;">';
-						$content .= '<img style="width:680px;" src="./img/map.jpg">';
-						$content .= '</div>';
-				$content .= '</PAGE>';
-
-				}
-				$content .= '</div>';
-				$content .= '</div>';
+		<div style="width:750px;">		
+			<div style="margin-left:30px; margin-right:30px;">
+				<table style="width:100%; margin-top:-30px;">
+					<tr>
+						<td style="width:150px;border:none">
+							<img src="./img/logoChina.png" alt="" style="width:100px; height:120px;">
+						</td>
+						<td style="width:300px;text-align:center;border:none">
+							<h3 style="margin-top:40px;">LATIMCARGO<br>广州市拉汀国际物流有限公司</h3>	
+						</td>
+						<td style="width:240px; text-align:right;border:none">
+							<h4 style="margin-top:40px;margin-bottom:0px;">Warehouse Entry N° <strong style="color:red">'.$id.'</strong></h4>					
+							<img style="text-align:right;padding-top:10px;" src="'.$img.'" alt=""  >	
+						</td>
+					</tr>
+				</table>
+								
+			</div>
+			<div style="margin-left:30px; margin-right:30px; margin-top:20px;">				
+				<table style="width:100%;">
+					<tr>
+						<td colspan="2" style="width:690px; text-align:center;border-left:none;border-right:none">
+							<h3 style="color:blue;text-align:center">务必带此单入仓，否则货物仓库拒收！</h3>
+							<h4 style="text-align:center">送货前请致电   13226678040  孙小姐 /13268116490 曹小姐 / 座机 020-31702153</h4>
+						</td>						
+					</tr>
+					<tr>
+						<td colspan="2" style="width:690px; text-align:center;border-left:none;border-right:none">
+							<h4 style="color:red;text-align:center">退税报送服务/Customer Serivec: (&nbsp;&nbsp;&nbsp;) 正规报送 (&nbsp;&nbsp;&nbsp;)  实单报送</h4>
+						</td>						
+					</tr>
+					<tr>
+						<td  style="width:345px;border-left:none">
+							<p class="sm_text">入仓单号</p>
+							<p >&nbsp;</p>
+						</td>
+						<td  style="width:345px;border-right:none">
+							<p class="sm_text"><span><img style="width:12px;" src="./img/star.png"></span>工厂英文名称/Supplier Information</p>
+							<p >'.$supplier_name.' / '.$supplier_company.'<br> [Supplier Account #'.$supplier_id.'].'.'</p>
+						</td>						
+					</tr>
+					<tr>
+						<td  style="width:345px;border-left:none;">						
+							<div style="width:300px;float:left;display:inline"><p >'.$service.' to ['.$customer_city.', '.$customer_state.'].'.'</p></div>
+							<div style="width:40px;float:left;;display:inline;text-align:center"><img src="./img/venezuela.png" style="width:40px;margin:auto"></div>
+						</td>
+						<td  style="width:345px;border-right:none">
+							<p class="sm_text"><span><img style="width:12px;" src="./img/star.png"></span>客户名字/Customer Name</p>
+							<p >'.$customer_name.' / '.$customer_company.'<br> [Customer Account #'.$client_id.'].'.'</p>
+						</td>						
+					</tr>
+				</table>				
+			</div>
+			<div style="margin-left:30px; margin-right:30px;border-top:3x solid #000">				
+				<table style="width:100%;">					
+					<tr>
+						<td  style="width:100px;border-left:none;">						
+							<p class="sm_text">唛头</p>
+							<p class="sm_text">SHIPPING MARK</p>
+						</td>
+						<td  style="width:166px;">
+							<p class="sm_text">中英文品名</p>
+							<p class="sm_text">COMMODITY</p>							
+						</td>						
+						<td  style="width:100px;">
+							<p class="sm_text">VAULE($)</p>
+						</td>
+						<td  style="width:100px;">
+							<p class="sm_text">件数</p>
+							<p class="sm_text">PACKAGES</p>
+						</td>
+						<td  style="width:100px;">
+							<p class="sm_text">中英文品名</p>
+							<p class="sm_text">VOLUME</p>
+						</td>
+						<td  style="width:100px;border-right:none">
+							<p class="sm_text">中英文品名</p>
+							<p class="sm_text">WEIGHT</p>
+						</td>						
+					</tr>
+					<tr>
+						<td  style="border-left:none;">						
+							<p>&nbsp;</p>
+						</td>
+						<td>
+							<p>'.$commodity.'</p>						
+						</td>						
+						<td>
+							<p>&nbsp;</p>
+						</td>
+						<td>
+							<p>&nbsp;</p>
+						</td>
+						<td>
+							<p>&nbsp;</p>
+						</td>
+						<td  style="border-right:none">	
+							<p>&nbsp;</p>						
+						</td>						
+					</tr>
+					<tr>
+						<td  style="border-left:none;">						
+							<p>&nbsp;</p>
+						</td>
+						<td>
+							<p>'.$commodity.'</p>						
+						</td>						
+						<td>
+							<p>&nbsp;</p>
+						</td>
+						<td>
+							<p>&nbsp;</p>
+						</td>
+						<td>
+							<p>&nbsp;</p>
+						</td>
+						<td  style="border-right:none">	
+							<p>&nbsp;</p>						
+						</td>						
+					</tr>
+					<tr>
+						<td  style="border-left:none;">						
+							<p>&nbsp;</p>
+						</td>
+						<td>
+							<p>'.$commodity.'</p>						
+						</td>						
+						<td>
+							<p>&nbsp;</p>
+						</td>
+						<td>
+							<p>&nbsp;</p>
+						</td>
+						<td>
+							<p>&nbsp;</p>
+						</td>
+						<td  style="border-right:none">	
+							<p>&nbsp;</p>						
+						</td>						
+					</tr>					
+				</table>				
+			</div>
+			<div style="margin-left:80px; margin-right:80px; margin-top:20px;">				
+				<table style="width:100%;">					
+					<tr>
+						<td  style="width:190px;border:none;">						
+							<img style="width:180px;" src="./img/waring.png">
+						</td>
+						<td  style="width:400px;border:none;">
+							<h4 ><span><img style="width:18px;" src="./img/star.png"></span>送货地址： 广州市白云区人和鎮蚌湖村相思街 2 号</h4>
+							<h4 >（鑫辉工业园劳）导航：鑫辉园</h4>
+							<h4 ><span><img style="width:18px;" src="./img/star.png"></span>海运入仓费： 70元/次，支付宝/微信支付， 不接受现金。</h4>
+							<h4 ><span><img style="width:18px;" src="./img/star.png"></span>上班时间：早上 9：00 晚上 18:00</h4>
+							<h4 style="color:red">国家节假日不上班， 周六日送货电话提前确认。</h4>
+							<h4 style="color:red">(WORKDAY: 9:00AM-10:00PM, MONDAY-FRIDAY)</h4>	
+							<h4 style="color:red">(DAY OFF: LEGAM HOLIDAY & WEEKEND)</h4>								
+						</td>				
+					</tr>
+					<tr>						
+						<td colspan="2" style="width:590px;border:none;">							
+							<img style="width:560px; margin-top:20px;" src="./img/map_2.png">				
+						</td>				
+					</tr>									
+				</table>				
+			</div>
+		</div>';
 
 				// echo $content;
 				// conversion HTML => PDF
@@ -339,9 +315,7 @@
 				try
 				{
 					$html2pdf = new HTML2PDF('P', 'A4', 'en');
-					$html2pdf->AddFont('freesans', 'normal', 'freesans.php');
-					$html2pdf->setDefaultFont('freesans');
-
+					$html2pdf->setDefaultFont('javiergb');
 					$html2pdf->pdf->SetDisplayMode('fullpage');
 					$html2pdf->writeHTML($content, isset($_GET['vuehtml']));
 					$html2pdf->Output('JobOrder_'.$id.'.pdf'); 
