@@ -52,7 +52,7 @@ $content='';
 <?php
 ob_start();
 include(dirname(__FILE__).'/res/pdf_demo.php');
-$content = ob_get_clean();
+// $content = ob_get_clean();
 
 // conversion HTML => PDF
 require_once(dirname(__FILE__).'/html2pdf.class.php');

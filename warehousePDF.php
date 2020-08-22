@@ -232,7 +232,7 @@
 		<div style="margin:10px 30px; border-top:2px solid #000; border-left:2px solid #000">			
 			<div style="float:left;width:540px;display: inline;">
 				<div style="border-right:2px solid #000; border-bottom:2px solid #000">
-					<table id="box_pieces" style="width:100%">
+					<table id="box_pieces" style="width:100%;max-width:100%">
 						<tr>
 							<td style="width:9%;text-align:center">PIECES</td>
 							<td style="width:9%;text-align:center">TYPE</td>

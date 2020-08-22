@@ -146,11 +146,11 @@
 			<div style="margin-left:30px; margin-right:30px;">
 				<table style="width:100%; margin-top:-30px;">
 					<tr>
-						<td style="width:150px;border:none;">
+						<td style="width:150px;border:none">
 							<img src="./img/logoChina.png" alt="" style="width:100px; height:120px;">
 						</td>
 						<td style="width:300px;text-align:center;border:none">
-							<img src="./img/a.jpg" alt="" style="width:300px; margin-top:30px;">
+							<h3 style="margin-top:40px;">LATIMCARGO<br>广州市拉汀国际物流有限公司</h3>	
 						</td>
 						<td style="width:240px; text-align:right;border:none">
 							<h4 style="margin-top:40px;margin-bottom:0px;">Warehouse Entry N° <strong style="color:red">'.$id.'</strong></h4>					
@@ -164,130 +164,145 @@
 				<table style="width:100%;">
 					<tr>
 						<td colspan="2" style="width:690px; text-align:center;border-left:none;border-right:none">
-							<img src="./img/b.jpg" alt="" style="width:690px">
+							<h3 style="color:blue;text-align:center">务必带此单入仓，否则货物仓库拒收！</h3>
+							<h4 style="text-align:center">送货前请致电   13226678040  孙小姐 /13268116490 曹小姐 / 座机 020-31702153</h4>
 						</td>						
 					</tr>
 					<tr>
 						<td colspan="2" style="width:690px; text-align:center;border-left:none;border-right:none">
-							<img src="./img/c.jpg" alt="" style="width:560px">
+							<h4 style="color:red;text-align:center">退税报送服务/Customer Serivec: (&nbsp;&nbsp;&nbsp;) 正规报送 (&nbsp;&nbsp;&nbsp;)  实单报送</h4>
 						</td>						
 					</tr>
 					<tr>
-						<td  style="width:345px;border-left:none;padding:0px">
-							<p class="sm_text"><img style="width:60px;" src="./img/text1.png"></p>
+						<td  style="width:345px;border-left:none">
+							<p class="sm_text">入仓单号</p>
 							<p >&nbsp;</p>
 						</td>
-						<td  style="width:345px;border-right:none;padding:0px">
-							<p class="sm_text"><img style="width:180px;" src="./img/text2.png"></p>
+						<td  style="width:345px;border-right:none">
+							<p class="sm_text"><span><img style="width:12px;" src="./img/star.png"></span>工厂英文名称/Supplier Information</p>
 							<p >'.$supplier_name.' / '.$supplier_company.'<br> [Supplier Account #'.$supplier_id.'].'.'</p>
 						</td>						
 					</tr>
 					<tr>
 						<td  style="width:345px;border-left:none;">						
 							<div style="width:300px;float:left;display:inline"><p >'.$service.' to ['.$customer_city.', '.$customer_state.'].'.'</p></div>
-							<div style="width:40px;float:left;display:inline;text-align:center"><img src="./img/venezuela.png" style="width:40px;margin:auto;margin-top:10px;"></div>
+							<div style="width:40px;float:left;;display:inline;text-align:center"><img src="./img/venezuela.png" style="width:40px;margin:auto"></div>
 						</td>
-						<td  style="width:345px;border-right:none;padding:0px">
-							<p class="sm_text"><img style="width:160px;" src="./img/text3.png"></p>
+						<td  style="width:345px;border-right:none">
+							<p class="sm_text"><span><img style="width:12px;" src="./img/star.png"></span>客户名字/Customer Name</p>
 							<p >'.$customer_name.' / '.$customer_company.'<br> [Customer Account #'.$client_id.'].'.'</p>
 						</td>						
 					</tr>
 				</table>				
 			</div>
 			<div style="margin-left:30px; margin-right:30px;border-top:3x solid #000">				
-				<table style="width:100%; max-width:690px;">					
+				<table style="width:100%;">					
 					<tr>
 						<td  style="width:100px;border-left:none;">						
-							<p class="sm_text"><img style="width:30px; height:20px" src="./img/text4.png"></p>
+							<p class="sm_text">唛头</p>
 							<p class="sm_text">SHIPPING MARK</p>
 						</td>
 						<td  style="width:166px;">
-							<p class="sm_text"><img style="width:60px; height:20px" src="./img/text5.png"></p>
+							<p class="sm_text">中英文品名</p>
 							<p class="sm_text">COMMODITY</p>							
 						</td>						
 						<td  style="width:100px;">
-							<p class="sm_text" style="margin-top:25px;">VAULE($)</p>
+							<p class="sm_text">VAULE($)</p>
 						</td>
 						<td  style="width:100px;">
-							<p class="sm_text"><img style="width:30px; height:20px" src="./img/text6.png"></p>
+							<p class="sm_text">件数</p>
 							<p class="sm_text">PACKAGES</p>
 						</td>
 						<td  style="width:100px;">
-							<p class="sm_text"><img style="width:60px; height:20px" src="./img/text5.png"></p>
+							<p class="sm_text">中英文品名</p>
 							<p class="sm_text">VOLUME</p>
 						</td>
 						<td  style="width:100px;border-right:none">
-							<p class="sm_text"><img style="width:60px; height:20px" src="./img/text5.png"></p>
+							<p class="sm_text">中英文品名</p>
 							<p class="sm_text">WEIGHT</p>
 						</td>						
 					</tr>
 					<tr>
-						<td  style="border-left:none;width:100px;">						
+						<td  style="border-left:none;">						
 							<p>&nbsp;</p>
 						</td>
-						<td style="width:166px;">
-							<span>'.$commodity.'</span>						
+						<td>
+							<p>'.$commodity.'</p>						
 						</td>						
-						<td style="width:100px;">
+						<td>
 							<p>&nbsp;</p>
 						</td>
-						<td style="width:100px;">
+						<td>
 							<p>&nbsp;</p>
 						</td>
-						<td style="width:100px;">
+						<td>
 							<p>&nbsp;</p>
 						</td>
-						<td  style="border-right:none;width:100px;">	
+						<td  style="border-right:none">	
 							<p>&nbsp;</p>						
 						</td>						
 					</tr>
 					<tr>
-						<td  style="border-left:none;width:100px;">						
+						<td  style="border-left:none;">						
 							<p>&nbsp;</p>
 						</td>
-						<td style="width:166px;">
-							<span>'.$commodity.'</span>						
+						<td>
+							<p>'.$commodity.'</p>						
 						</td>						
-						<td style="width:100px;">
+						<td>
 							<p>&nbsp;</p>
 						</td>
-						<td style="width:100px;">
+						<td>
 							<p>&nbsp;</p>
 						</td>
-						<td style="width:100px;">
+						<td>
 							<p>&nbsp;</p>
 						</td>
-						<td  style="border-right:none;width:100px;">	
+						<td  style="border-right:none">	
 							<p>&nbsp;</p>						
 						</td>						
 					</tr>
 					<tr>
-						<td  style="border-left:none;width:100px;">						
+						<td  style="border-left:none;">						
 							<p>&nbsp;</p>
 						</td>
-						<td style="width:166px;">
-							<span>'.$commodity.'</span>						
+						<td>
+							<p>'.$commodity.'</p>						
 						</td>						
-						<td style="width:100px;">
+						<td>
 							<p>&nbsp;</p>
 						</td>
-						<td style="width:100px;">
+						<td>
 							<p>&nbsp;</p>
 						</td>
-						<td style="width:100px;">
+						<td>
 							<p>&nbsp;</p>
 						</td>
-						<td  style="border-right:none;width:100px;">	
+						<td  style="border-right:none">	
 							<p>&nbsp;</p>						
 						</td>						
 					</tr>					
 				</table>				
 			</div>
 			<div style="margin-left:80px; margin-right:80px; margin-top:20px;">				
-				<table style="width:100%;">
+				<table style="width:100%;">					
+					<tr>
+						<td  style="width:190px;border:none;">						
+							<img style="width:180px;" src="./img/waring.png">
+						</td>
+						<td  style="width:400px;border:none;">
+							<h4 ><span><img style="width:18px;" src="./img/star.png"></span>送货地址： 广州市白云区人和鎮蚌湖村相思街 2 号</h4>
+							<h4 >（鑫辉工业园劳）导航：鑫辉园</h4>
+							<h4 ><span><img style="width:18px;" src="./img/star.png"></span>海运入仓费： 70元/次，支付宝/微信支付， 不接受现金。</h4>
+							<h4 ><span><img style="width:18px;" src="./img/star.png"></span>上班时间：早上 9：00 晚上 18:00</h4>
+							<h4 style="color:red">国家节假日不上班， 周六日送货电话提前确认。</h4>
+							<h4 style="color:red">(WORKDAY: 9:00AM-10:00PM, MONDAY-FRIDAY)</h4>	
+							<h4 style="color:red">(DAY OFF: LEGAM HOLIDAY & WEEKEND)</h4>								
+						</td>				
+					</tr>
 					<tr>						
-						<td style="width:590px;border:none;">							
-							<img style="width:560px; margin-top:20px;" src="./img/map.jpg">				
+						<td colspan="2" style="width:590px;border:none;">							
+							<img style="width:560px; margin-top:20px;" src="./img/map_2.png">				
 						</td>				
 					</tr>									
 				</table>				
