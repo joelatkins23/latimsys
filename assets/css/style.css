@@ -2,6 +2,66 @@ body {
     font-family: "Be Vietnam", sans-serif !important;
 }
 
+.sidebar-menu>li>a {
+    padding: 12px 5px 12px 12px !important;
+    display: block;
+}
+
+.sidebar-mini.sidebar-collapse .sidebar-menu>li>a>.fa {
+    font-size: 20px;
+}
+
+.sidebar-collapse .treeview-menu {
+    background: #910007 !important;
+}
+
+.dataTables_wrapper label {
+    font-weight: 500 !important;
+}
+
+.sidebar-mini.sidebar-collapse #quick_text {
+    display: none;
+}
+
+.sidebar-mini.sidebar-collapse center span {
+    display: none;
+}
+
+.sidebar-mini.sidebar-collapse .treeview-menu {
+    margin-top: -5px;
+}
+
+.table-bordered {
+    border: 1px solid #ddd !important;
+}
+
+.table-bordered>thead>tr>th,
+.table-bordered>tbody>tr>th,
+.table-bordered>tfoot>tr>th,
+.table-bordered>thead>tr>td,
+.table-bordered>tbody>tr>td,
+.table-bordered>tfoot>tr>td {
+    border: 1px solid #ddd!important;
+}
+
+.table>thead>tr>th {
+    vertical-align: bottom;
+    border-bottom: 1px solid #ddd !important;
+}
+
+.sidebar-mini.sidebar-collapse .sidebar-menu>li:hover>a>span {
+    top: 10px;
+    margin-left: -5px;
+    margin-top: -5px;
+    padding: 12px 5px 12px 20px;
+    background-color: #910007 !important;
+}
+
+
+/* .sidebar-mini.sidebar-collapse .sidebar-menu>li:hover>a>.pull-right-container {
+    top: -14px !important;
+} */
+
 .card {
     border: 1px solid #D2D6DE;
     padding: 15px;
@@ -117,7 +177,6 @@ a {
 .btn-pdf {
     background-color: #007F46;
     color: #fff;
-    font-weight: bold;
     border-radius: 0px;
 }
 
@@ -136,6 +195,13 @@ a {
     background-color: #B80008 !important;
     color: #fff;
     min-width: 92px;
+    border-color: #B80008 !important;
+}
+
+.span1_custom {
+    background-color: #B80008 !important;
+    color: #fff;
+    min-width: 110px;
     border-color: #B80008 !important;
 }
 

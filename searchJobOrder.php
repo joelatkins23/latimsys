@@ -117,7 +117,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                             <div class="col-md-2">
                                 <div class=" input-group">
                                     <div class="input-group-addon"><i class="fa fa-calendar input-fa"></i></div>
-                                    <input type="text" class="form-control" data-provide="datepicker" id="from" data-date-format="yyyy-mm-dd" laceholder="To" value="" autocomplete="off"  placeholder="From">
+                                    <input type="text" class="form-control" data-provide="datepicker" id="from" data-date-format="yyyy-mm-dd" laceholder="To" value="" autocomplete="off"  placeholder="From" >
                                 </div>
                             </div>
                             <div class="col-md-2">
@@ -186,7 +186,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
         $("#chinaorders_list").addClass("active");
         $("#chinaorders_list #search").addClass("active");
         $('input[type="file"]').imageuploadify();
-
+        
         //Date picker
         $('#datepicker').datepicker({
             autoclose: true
@@ -440,6 +440,8 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                 });
             });
             $("#addwr").modal('show');
+            $("#addwr input[name='wr']").focus();
+
         }
 
         function addtracking(id) {

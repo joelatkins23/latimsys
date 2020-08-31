@@ -26,7 +26,7 @@
           </li>
 
           <li style="border-bottom:1px solid gray; padding:5px;">
-              <span  style="text-align:center; color:white; ">Quick Searcher <img src="./img/chinaFlag.png" style="width:30px; position:relative; top:-3px; left:10px;"> </span>
+              <span  style="text-align:center; color:white; "><span id="quick_text">Quick Searcher</span> <img src="./img/chinaFlag.png" style="width:30px; position:relative; top:-3px; left:10px;"> </span>
               <form method="get" action="searcherJobOrder.php?">
               <input name="JO"  placeholder="J.O# / CLIENT or SUPPLIER NAME" style="width:100%; font-size:12px; text-align:center; border:1px solid gray; padding:15px;">
               <br><br>
@@ -34,7 +34,7 @@
           </li>
 
           <center>
-          <div style="width:100%; height:20px; position:relative; top:0px; background:#CECAC6; color:#630000; font-weight:600; font-size:14px;">CARGOS</div></center>
+          <div style="width:100%; height:20px;background:#CECAC6; "><span style=" color:#630000; font-weight:600; font-size:14px;">CARGOS</span></div></center>
           <li id="accounts_list" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
             <a href="#" style="height:25px; position:relative; top:-10px;">
               <i class="fa fa-users"></i> <span style="font-size:11px; ">Accounts</span>
@@ -99,7 +99,41 @@
               <li><a id="search" href="searchPreLodingPlan.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Search</a></li>
             </ul>
           </li>
-          <center><div style="width:100%; height:20px; position:relative; top:0px; background:#CECAC6; color:#630000; font-weight:600; font-size:14px;">JOB ORDERS</div></center>
+          <li id="bill_menu" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
+            <a href="#" style="height:25px; position:relative; top:-10px;">
+              <i class="fa fa-money"></i> <span style="font-size:11px; ">Bill</span>
+              <span class="pull-right-container" style="top:22px;">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="sub_menu_create"><a  href="#" style="font-size:11px;"><i class="fa fa-plus"></i>Create</a>
+                <ul class="treeview-menu">
+                  <li><a id="create_bills_menu" href="createBill.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Bills</a></li>
+                  <li><a id="create_payment_menu" href="createPayment.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Payment</a></li>
+                </ul>
+              </li>
+                <li><a class="sub_search_create" href="#" style="font-size:11px;"><i class="fa fa-plus"></i>Search</a>
+                  <ul class="treeview-menu">
+                    <li><a id="search_bills_menu" href="searchBill.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Bills</a></li>
+                    <li><a id="search_payment_menu" href="searchPayment.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Payment</a></li>
+                  </ul>
+              </li>
+            </ul>
+          </li>          
+          <li id="shipment" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
+            <a href="#" style="height:25px; position:relative; top:-10px;">
+              <i class="fa fa-ship"></i> <span style="font-size:11px; ">SHIPMENT</span>
+              <span class="pull-right-container" style="top:22px;">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a id="create" href="createShipment.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Create</a></li>
+              <li><a id="search" href="searchShipment.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Search</a></li>
+            </ul>
+          </li>
+          <center><div style="width:100%; height:20px; background:#CECAC6;"><span style=" color:#630000; font-weight:600; font-size:14px;">JOB ORDERS</span></div></center>
 
           <li id="chinaorders_list" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
             <a href="#" style="height:25px; position:relative; top:-10px;">
@@ -156,7 +190,7 @@
             </ul>
           </li>
 
-          <center><div style="width:100%; height:20px; position:relative; top:0px; background:#CECAC6; color:#630000; font-weight:600; font-size:14px;">SUPPORT AREA</div></center>
+          <center><div style="width:100%; height:20px;background:#CECAC6;"><span style="width:100%; color:#630000; font-weight:600; font-size:14px;">SUPPORT AREA</span></div></center>
           <li id="tickets_list" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
             <a href="#" style="height:25px; position:relative; top:-10px;"> 
               <i class="fa fa-info"></i> <span style="font-size:11px;">Tickets</span>
@@ -170,7 +204,7 @@
             </ul>
           </li>
           <?php if(isset($level) && $level=='master'){ ?>
-          <center><div style="width:100%; height:20px; position:relative; top:0px; background:#CECAC6; color:#630000; font-weight:600; font-size:14px;">USERS SETTINGS</div></center>
+          <center><div style="width:100%; height:20px;background:#CECAC6;"><span style="  color:#630000; font-weight:600; font-size:14px;">USERS SETTINGS</span></div></center>
           <li id="users_list" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
             <a href="#" style="height:25px; position:relative; top:-10px;"> 
               <i class="fa fa-user"></i> <span style="font-size:11px;">Users</span>

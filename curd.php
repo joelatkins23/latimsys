@@ -11,7 +11,6 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     $phone=$rowAgent['phone'];
     $picture=$rowAgent['picture'];
     $level=$rowAgent['level'];
-
     $noteBy=$rowAgent['name'];
     }
 if(isset($_POST["get_account"]) && !empty($_POST["get_account"])){
@@ -120,7 +119,9 @@ if(isset($_POST["editorder"]) && !empty($_POST["editorder"])){
     $remark= $_POST['remark'];
     $branch= $_POST['branch'];
     $wh_receipt= $_POST['wh_receipt'];
-    $queryModel = mysqli_query($connect, "UPDATE accounts SET
+    $fecha=date('Y-m-d H:i:s');
+    if($client_id){
+        $queryModel = mysqli_query($connect, "UPDATE accounts SET
                         company='$customer_company',
                         name='$customer_name',
                         city='$customer_city',
@@ -134,21 +135,44 @@ if(isset($_POST["editorder"]) && !empty($_POST["editorder"])){
                         address_2='$customer_address2',                        
                         email='$customer_email'
                         WHERE id='$client_id' ");
-
-    $queryModel = mysqli_query($connect, "UPDATE accounts SET
-                        company='$supplier_company',
-                        name='$supplier_name',
-                        telf1='$supplier_telf1',
-                        telf2='$supplier_telf2',
-                        qq='$supplier_qq',
-                        wechat='$supplier_wechat',
-                        address_1='$supplier_address1',
-                        address_2='$supplier_address2',
-                        city='$supplier_city',
-                        state='$supplier_state',
-                        country='$supplier_country',
-                        email='$supplier_email'
-                        WHERE id='$supplier_id' ");
+    }else{
+        $type='Client';
+        if ($customer_company=='' && $type=='Client') {
+            $customer_company = 'Particular';
+        }    
+        if ($customer_name=='' && $type=='Client') {
+            $customer_name = 'Pending';
+        }
+        $queryModel1 = mysqli_query($connect, "INSERT INTO accounts(company, name, address_1, address_2, city, state, country, telf1, telf2, qq, wechat, email, type, fecha) 
+        VALUES ('$customer_company', '$customer_name', '$customer_address1', '$customer_address2', '$customer_city', '$customer_state', '$customer_country', '$customer_telf1', '$customer_telf2', '$customer_qq', '$customer_wechat', '$customer_email', '$type', '$fecha')");
+    $client_id = mysqli_insert_id($connect);
+}
+    
+    if($supplier_id){
+        $queryModel = mysqli_query($connect, "UPDATE accounts SET
+            company='$supplier_company',
+            name='$supplier_name',
+            telf1='$supplier_telf1',
+            telf2='$supplier_telf2',
+            qq='$supplier_qq',
+            wechat='$supplier_wechat',
+            address_1='$supplier_address1',
+            address_2='$supplier_address2',
+            city='$supplier_city',
+            state='$supplier_state',
+            country='$supplier_country',
+            email='$supplier_email'
+            WHERE id='$supplier_id' ");
+    }else{ 
+        $type='Supplier';       
+        $agent_name = 'Supplier';
+        $sql="INSERT INTO accounts(agent, company, name, address_1, address_2, city, state, country, telf1, telf2, qq, wechat, email, type, fecha) 
+        VALUES ('$agent_name', '$supplier_company', '$supplier_name', '$supplier_address1', '$supplier_address2', '$supplier_city', '$supplier_state', '$supplier_country', '$supplier_telf1', '$supplier_telf2', '$supplier_qq', '$supplier_wechat', '$supplier_email', '$type', '$fecha')";
+        $queryModel1 = mysqli_query($connect, "INSERT INTO accounts(agent, company, name, address_1, address_2, city, state, country, telf1, telf2, qq, wechat, email, type, fecha) 
+        VALUES ('$agent_name', '$supplier_company', '$supplier_name', '$supplier_address1', '$supplier_address2', '$supplier_city', '$supplier_state', '$supplier_country', '$supplier_telf1', '$supplier_telf2', '$supplier_qq', '$supplier_wechat', '$supplier_email', '$type', '$fecha')");
+        $supplier_id = mysqli_insert_id($connect); 
+}
+    
 
     $queryModel = mysqli_query($connect, "UPDATE joborders SET agent_id='$agent_id', supplier_id='$supplier_id', client_id='$client_id', service='$service', commodity='$commodity', wh_receipt='$wh_receipt', remark='$remark',  branch='$branch' WHERE id='$jobId' ");
 
@@ -209,7 +233,7 @@ if(isset($_POST["addwr"]) && !empty($_POST["addwr"])){
         $dt = new DateTime($fecha);
         $fecha = $dt->format('Y-m-d H:i:s');
         $queryModel = mysqli_query($connect, "INSERT INTO receipt(jobOrderId, wr, fecha) VALUES ('$jobOrderId', '$wr', '$fecha')");
-        $queryModel2222 = mysqli_query($connect, "UPDATE joborders SET status='IN WAREHOUSE' WHERE id='$jobOrderId' ") or die ('error');
+        $queryModel2222 = mysqli_query($connect, "UPDATE joborders SET status='IN WAREHOUSE', wr='$wr' WHERE id='$jobOrderId' ") or die ('error');
         $queryModel2333 = mysqli_query($connect, "INSERT INTO notes(agent_name, jobOrderId, note, fecha)  VALUES ('$agent_name', '$jobOrderId', 'Updated to:  IN WAREHOUSE.', '$fecha')");
         return true;
         

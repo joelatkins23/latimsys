@@ -26,24 +26,28 @@ if(isset($_POST['jobCheckval']) && !empty($_POST['jobCheckval'])){
     $jobCheckval=[];
 }
 ## Search 
+$sql='';
 $searchQuery = " ";
 if($searchValue != ''){
      
     $filter_arr=explode(" ", $searchValue);
     foreach($filter_arr as $key=>$item1){    
-        $accented_array = array('Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E','Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U','Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c','è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o','ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
+            $accented_array = array('Š'=>'S', 'š'=>'s', 'Ž'=>'Z', 'ž'=>'z', 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A', 'Æ'=>'A', 'Ç'=>'C', 'È'=>'E', 'É'=>'E','Ê'=>'E', 'Ë'=>'E', 'Ì'=>'I', 'Í'=>'I', 'Î'=>'I', 'Ï'=>'I', 'Ñ'=>'N', 'Ò'=>'O', 'Ó'=>'O', 'Ô'=>'O', 'Õ'=>'O', 'Ö'=>'O', 'Ø'=>'O', 'Ù'=>'U','Ú'=>'U', 'Û'=>'U', 'Ü'=>'U', 'Ý'=>'Y', 'Þ'=>'B', 'ß'=>'Ss', 'à'=>'a', 'á'=>'a', 'â'=>'a', 'ã'=>'a', 'ä'=>'a', 'å'=>'a', 'æ'=>'a', 'ç'=>'c','è'=>'e', 'é'=>'e', 'ê'=>'e', 'ë'=>'e', 'ì'=>'i', 'í'=>'i', 'î'=>'i', 'ï'=>'i', 'ð'=>'o', 'ñ'=>'n', 'ò'=>'o', 'ó'=>'o', 'ô'=>'o', 'õ'=>'o','ö'=>'o', 'ø'=>'o', 'ù'=>'u', 'ú'=>'u', 'û'=>'u', 'ý'=>'y', 'þ'=>'b', 'ÿ'=>'y' );
 
             $item = strtr( $item1, $accented_array );
-            $searchQuery.= " and (a.id like '%".$item."%' or 
-            b.name like '%".$item."%' or
+            $searchQuery.= " and (a.id like '%".$item."%' or  
+            ( b.name like '%".$item1."%' or b.name like '%".$item."%')  or 
+            ( b.company like '%".$item."%' or  b.company like '%".$item1."%') or  
             a.customer_city like '%".$item."%' or 
-            c.company like '%".$item."%' or 
-            d.name like '%".$item."%' or  
+            c.company like '%".$item."%' or  c.company like '%".$item1."%' or 
+            d.name like '%".$item."%' or  d.name like '%".$item1."%' or  
             a.service like '%".$item."%' or  
             a.wh_receipt like '%".$item."%' or  
             a.status like '%".$item."%' or  
             a.fecha like '%".$item."%') ";
     }
+
+
 }
 
 ## Total number of records without filtering
@@ -240,7 +244,7 @@ $totalRecordwithFilter = $records['allcount'];
 ## Fetch records
 if ($level=='Seller' && $type=='quick') { 
     if ($to!='' && $from!='') {
-        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -250,7 +254,7 @@ if ($level=='Seller' && $type=='quick') {
                     AND (a.status='PENDING' OR a.status='READY TO CONTACT' OR a.status='CHECK NOTES' OR a.status='IN PROCESS' OR a.status='SHIPPED' OR a.status='CANCELED' OR (a.status='IN WAREHOUSE' AND a.fecha > '2020-01-01') ) order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
-        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -261,7 +265,7 @@ if ($level=='Seller' && $type=='quick') {
     }
 }elseif($level=='Seller' && $type=='all') {
     if ($to!='' && $from!='') {
-        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -271,7 +275,7 @@ if ($level=='Seller' && $type=='quick') {
                     order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
-        $empQuery = " select a.id, a.fecha, a.status,a.atteched_files, a.service, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status,a.atteched_files, a.service, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -283,7 +287,7 @@ if ($level=='Seller' && $type=='quick') {
     
 }elseif($level=='Seller' && $type=='warehouse') {
     if ($to!='' && $from!='') {
-        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -293,7 +297,7 @@ if ($level=='Seller' && $type=='quick') {
                     AND (a.status='IN WAREHOUSE') order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
-        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -304,7 +308,7 @@ if ($level=='Seller' && $type=='quick') {
     }    
 }elseif($level!='Seller' && $type=='quick'){
     if ($to!='' && $from!='') {
-        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -313,7 +317,7 @@ if ($level=='Seller' && $type=='quick') {
                     AND (a.status='PENDING' OR a.status='READY TO CONTACT' OR a.status='CHECK NOTES' OR a.status='IN PROCESS' OR a.status='SHIPPED' OR a.status='CANCELED' OR (a.status='IN WAREHOUSE' AND a.fecha > '2020-01-01') ) order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
-        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -323,7 +327,7 @@ if ($level=='Seller' && $type=='quick') {
     }
 }elseif($level!='Seller' && $type=='all') {
     if ($to!='' && $from!='') {
-        $empQuery = " select a.id, a.fecha, a.status, a.service, a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service, a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -332,7 +336,7 @@ if ($level=='Seller' && $type=='quick') {
                     order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
-        $empQuery = " select a.id, a.fecha, a.status, a.service, a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service, a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -343,7 +347,7 @@ if ($level=='Seller' && $type=='quick') {
     
 }elseif($level!='Seller' && $type=='warehouse') {  
     if ($to!='' && $from!='') {
-        $empQuery = " select a.id, a.fecha, a.status, a.service, a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service, a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -352,7 +356,7 @@ if ($level=='Seller' && $type=='quick') {
                     AND (a.status='IN WAREHOUSE') order by ".$columnName." ".$columnSortOrder." limit ".$row.",".$rowperpage;
 
     }else{
-        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
+        $empQuery = " select a.id, a.fecha, a.status, a.service,a.atteched_files, a.tracking, b.name as customer_name, b.company as customer_company, c.company as supplier_company,d.name as agent_name, a.customer_city from joborders a 
                     left join accounts b on a.client_id =b.id 
                     left join accounts c on a.supplier_id =c.id 
                     left join agents d on a.agent_id=d.id 
@@ -395,7 +399,7 @@ while ($row = mysqli_fetch_assoc($empRecords)) {
     }else{
         $brage=''; 
     }
-    $shortcut = '<a href="#" onclick="editJobOrder('.$row['id'].')"><i class="fa fa-edit action"></i></a><a href="#" onclick="viewNotes('.$row['id'].')"><i class="fa fa-file-o action"></i>'.$brage.'</a><a href="./downloadPDF.php?id='.$row['id'].'"    target="blank"><i class="fa fa-file-pdf-o action"></i></a>';
+    $shortcut = '<a href="#" onclick="editJobOrder('.$row['id'].')"><i class="fa fa-edit action"></i></a><a href="#" onclick="viewNotes('.$row['id'].')"><i class="fa fa-file-o action"></i>'.$brage.'</a><a href="./warehouseEntry.php?id='.$row['id'].'"    target="blank"><i class="fa fa-file-pdf-o action"></i></a>';
     $wr='';
     $consultaWR = mysqli_query($connect, "SELECT * FROM receipt WHERE jobOrderId='".$row['id']."' order by id desc limit 1 ") or die ("Error al traer los Agent");
         while ($rowWR = mysqli_fetch_assoc($consultaWR)){
@@ -403,7 +407,7 @@ while ($row = mysqli_fetch_assoc($empRecords)) {
             $wr.='<a href="https://latim.cargotrack.net/appl2.0/warehouse/detail.asp?id='.$WHReceipt.'&redir=../accounts/warehouse.asp?id=&redir_id=738" target="blank"><i class="fa fa-barcode" style="font-size: 30px;color: black;"></i></a><p>WR#'.$WHReceipt.'</p>';
         }
         $wr.='<a onclick="addwr('.$row['id'].')" href="#"><button type="button" class="btn btn-secondary btn-sm" style="color:black">ADD WR</button></a>';
-    $customer=$row['customer_name'];
+    $customer=$row['customer_name'].' / '.$row['customer_company'];
     if ($customer=='') {$customer=' ';}
 
     $trackingJob= $row['tracking'];
@@ -443,7 +447,7 @@ while ($row = mysqli_fetch_assoc($empRecords)) {
         $data[] = array(
                 "fecha"=>date('Y-m-d',$t),
                 "id"=>$row['id'],
-                "customer_name"=>utf8_encode($customer),
+                "customer_name"=>$customer,
                 "supplier_company"=>$supplier_company,
                 "service"=>$service,
                 "customer_city"=>$shipping,
@@ -462,7 +466,8 @@ $response = array(
     "draw" => intval($draw),
     "iTotalRecords" => $totalRecords,
     "iTotalDisplayRecords" => $totalRecordwithFilter,
-    "aaData" => $data
+    "aaData" => $data,
+    "sql" => $searchQuery
 );
 
 echo json_encode($response);

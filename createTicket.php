@@ -19,7 +19,6 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
 }
 
 $email = $_SESSION['username'];
-echo $email;
  $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$email' ")
     or die ("Error al traer los Agent");
 

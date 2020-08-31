@@ -40,7 +40,11 @@ or die ("Error al traer los Agent");
         $customer_if = $rowcustomer['name'];
         if ($customer_company!='') { $customer_if .= ', '.$customer_company; }  
     } 
- 
+    $WHReceipt='';
+    $consultaWR = mysqli_query($connect, "SELECT * FROM receipt WHERE jobOrderId='".$id."' order by id desc limit 1 ") or die ("Error al traer los Agent");
+    while ($rowWR = mysqli_fetch_assoc($consultaWR)){
+        $WHReceipt=$rowWR['wr'];
+    }
 ?>
 
 <!-- Modal content-->
@@ -90,10 +94,9 @@ or die ("Error al traer los Agent");
                 <div class="col-md-6" style="margin-top:50px">
                     <div class="form-group row">
                         <div class="col-md-12">                            
-                                <input name="wr" type="number" class="form-control" value="<?php echo $commodity; ?>"  >
+                            <input name="wr" type="number" class="form-control" value="<?php echo $WHReceipt; ?>"  autofocus>
                         </div>
                     </div>
-
                     <div class="form-group row">
                         <div class="col-md-12">
                             <button  type="submit" class="btn btn-success btn-block">save</button>

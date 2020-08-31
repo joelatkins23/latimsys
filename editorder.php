@@ -24,6 +24,18 @@ $email = $_SESSION['username'];
         $wh_receipt= $row['wh_receipt'];
         $remark= $row['remark'];
 }
+$supplier_company='';
+$supplier_name='';
+$supplier_email='';
+$supplier_address1='';
+$supplier_address2='';
+$supplier_city='';
+$supplier_state='';
+$supplier_country='';
+$supplier_telf1='';
+$supplier_telf2='';
+$supplier_qq='';
+$supplier_wechat='';
 $consulta_supplier = mysqli_query($connect, "SELECT * FROM accounts WHERE id='$supplier_id' ORDER BY id asc ") or die ("Error al traer los datos222");
 while ($rowsupplier = mysqli_fetch_array($consulta_supplier)){  
     $supplier_company=$rowsupplier['company'];
@@ -42,6 +54,18 @@ while ($rowsupplier = mysqli_fetch_array($consulta_supplier)){
   
    
 }
+$customer_company='';
+$customer_name='';
+$customer_email='';
+$customer_address1='';
+$customer_address2='';
+$customer_city='';
+$customer_state='';
+$customer_country='';
+$customer_telf1='';
+$customer_telf2='';
+$customer_qq='';
+$customer_wechat='';
 $consulta_customer = mysqli_query($connect, "SELECT * FROM accounts WHERE id='$client_id' ORDER BY id asc ") or die ("Error al traer los datos222");
 while ($rowcustomer = mysqli_fetch_array($consulta_customer)){  
 
