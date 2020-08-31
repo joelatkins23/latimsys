@@ -28,7 +28,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-    <title>Latim Cargo & Trading | Search Bills</title>
+    <title>Latim Cargo & Trading | Search Payments</title>
     <link rel="icon" type="image/x-icon" href="icoplane.ico" />
     <!-- CSS -->
     <link href='plugins/select2/select2.css' rel='stylesheet' type='text/css'>
@@ -75,19 +75,19 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
         <div class="content-wrapper">
             <section class="content-header">
                 <h1>
-                    Biils
+                    Payments
                     <small>Search</small>
                 </h1>
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                    <li class="active">Search Biils</li>
+                    <li class="active">Search Payments</li>
                 </ol>
             </section>
             <section class="content">
                 <div class="searchPage shadow2" style="background:white; width:90%; margin-left:-45%;">
                     <div class="row" style="border-bottom: 1px solid #000; margin-left: 0; margin-right: 0;">
                         <div class="col-md-12">                            
-                            <h3 class="text-center">Search Bills</h3>                          
+                            <h3 class="text-center">Search Payments</h3>                          
                         </div>
                     </div> 
                     <div class="row">
@@ -128,7 +128,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
         $(".treeview").removeClass('active');
         $("#bill_menu").addClass("active");
         $("#bill_menu .sub_search_create").addClass("active");
-        $("#bill_menu #search_bills_menu").addClass("active");
+        $("#bill_menu #search_payment_menu").addClass("active");
         $('input[type="file"]').imageuploadify();
         
         //Date picker
@@ -160,7 +160,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                 targets: [8, 9, 10, 11,12]
             }],
             'ajax': {
-                'url': 'ajaxfile_bill.php',
+                'url': 'ajaxfile_payment.php',
                 // "data": function(d) {
                 //     d.from = Getfrom();
                 //     d.to = Getto();

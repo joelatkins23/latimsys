@@ -113,7 +113,7 @@
                   <li><a id="create_payment_menu" href="createPayment.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Payment</a></li>
                 </ul>
               </li>
-                <li><a class="sub_search_create" href="#" style="font-size:11px;"><i class="fa fa-plus"></i>Search</a>
+                <li class="sub_search_create"><a  href="#" style="font-size:11px;"><i class="fa fa-plus"></i>Search</a>
                   <ul class="treeview-menu">
                     <li><a id="search_bills_menu" href="searchBill.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Bills</a></li>
                     <li><a id="search_payment_menu" href="searchPayment.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Payment</a></li>
