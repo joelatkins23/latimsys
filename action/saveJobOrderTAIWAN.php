@@ -79,6 +79,7 @@
 
           $payment=$_POST['payment'];
           $tracking=$_POST['tracking'];
+          $value=$_POST['value'];
 
           
 
@@ -133,8 +134,8 @@
                   WHERE id='$supp_id' ");
 
 
-$queryModel = mysqli_query($connect, "INSERT INTO joborders(id, customer_city, agent_id,  service, commodity, wh_receipt, remark, payment, status, fecha, branch, tracking, client_id, supplier_id) 
-                VALUES ('$invoice', '$customer_city','$agent_id',  '$service', '$commodity', '$wh_receipt', '$remark', '$payment', '$status', '$fecha' , '$branch', '$tracking', '$cus_id', '$supp_id')")
+$queryModel = mysqli_query($connect, "INSERT INTO joborders(id, customer_city, agent_id,  service, value, commodity, wh_receipt, remark, payment, status, fecha, branch, tracking, client_id, supplier_id) 
+                VALUES ('$invoice', '$customer_city','$agent_id',  '$service','$value', '$commodity', '$wh_receipt', '$remark', '$payment', '$status', '$fecha' , '$branch', '$tracking', '$cus_id', '$supp_id')")
 or die ("<meta http-equiv=\"refresh\" content=\"0;URL= ../createTAIWANOrder.php?message=ErrorSavingJobOrder\">");
 
 echo "<meta http-equiv=\"refresh\" content=\"0;URL= ../createTAIWANOrder.php?message=JobOrderSaved\">";

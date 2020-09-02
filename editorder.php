@@ -23,6 +23,7 @@ $email = $_SESSION['username'];
         $commodity= $row['commodity'];
         $wh_receipt= $row['wh_receipt'];
         $remark= $row['remark'];
+        $value= $row['value'];
 }
 $supplier_company='';
 $supplier_name='';
@@ -450,6 +451,14 @@ while ($rowcustomer = mysqli_fetch_array($consulta_customer)){
                             </div>
                         </div>
                     </div>
+                    <div class="form-group row">
+                      <div class="col-md-12">
+                          <div class="input-group">
+                              <div class="input-group-addon"><i class="fa fa-money input-fa"></i></div>
+                              <input type="text" name="value" class="form-control"  value="<?php echo $value ?>" placeholder="Value">
+                          </div>
+                      </div>
+                  </div>
                     <div class="form-group row">
                         <div class="col-md-12">
                             <label for="">Need Pick-Up?</label>

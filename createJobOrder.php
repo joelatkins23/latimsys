@@ -1396,6 +1396,14 @@ date_default_timezone_set('America/La_Paz');
                   </div>
                   <div class="form-group row">
                       <div class="col-md-12">
+                          <div class="input-group">
+                              <div class="input-group-addon"><i class="fa fa-money input-fa"></i></div>
+                              <input type="text" name="value" class="form-control"  value="" placeholder="Value">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group row">
+                      <div class="col-md-12">
                           <label for="">Need Pick-Up?</label>
                       </div>
                       <div class="col-md-12">
@@ -1422,9 +1430,9 @@ date_default_timezone_set('America/La_Paz');
                     </div>
                 </div>
                 <div class="col-md-12 text-right">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp;Save</button>
-                </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp;Save</button>
+                    </div>
                 </div>
               </div>
               </form>

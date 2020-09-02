@@ -118,6 +118,7 @@ if(isset($_POST["editorder"]) && !empty($_POST["editorder"])){
     $commodity= $_POST['commodity'];
     $remark= $_POST['remark'];
     $branch= $_POST['branch'];
+    $value= $_POST['value'];
     $wh_receipt= $_POST['wh_receipt'];
     $fecha=date('Y-m-d H:i:s');
     if($client_id){
@@ -174,7 +175,7 @@ if(isset($_POST["editorder"]) && !empty($_POST["editorder"])){
 }
     
 
-    $queryModel = mysqli_query($connect, "UPDATE joborders SET agent_id='$agent_id', supplier_id='$supplier_id', client_id='$client_id', service='$service', commodity='$commodity', wh_receipt='$wh_receipt', remark='$remark',  branch='$branch' WHERE id='$jobId' ");
+    $queryModel = mysqli_query($connect, "UPDATE joborders SET agent_id='$agent_id', supplier_id='$supplier_id', value='$value', client_id='$client_id', service='$service', commodity='$commodity', wh_receipt='$wh_receipt', remark='$remark',  branch='$branch' WHERE id='$jobId' ");
 
     if($queryModel){
         return true;

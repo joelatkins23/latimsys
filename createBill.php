@@ -53,10 +53,12 @@ $email = $_SESSION['username'];
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="latimstyle.css">
     <link href='assets/css/style.css' rel='stylesheet' type='text/css'>
+    <link href='assets/css/imageuploadify.min.css' rel='stylesheet' type='text/css'>
     <!-- JS -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="assets/js/jquery-3.3.1.min.js"></script>
     <script src="plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/imageuploadify.min.js"></script>
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script src="plugins/select2/select2.js"></script>  
@@ -130,7 +132,7 @@ $email = $_SESSION['username'];
                           <span class="input-group-addon span_custom">Currency</span>
                           <select name="currency" id="" class="form-control select2"  data-placeholder="Select Currency">
                               <option value="">Select Currency</option>
-                              <option value="us_dollar">USD - US Dollar</option>                           
+                              <option value="USD">USD - US Dollar</option>                           
                             </select> 
                         </div>
                       </div>
@@ -219,19 +221,12 @@ $email = $_SESSION['username'];
                     <div class="form-group row">
                       <div class="col-md-12">
                         <div class="input-group">
-                          <span class="input-group-addon span_custom">Amount</span>
-                          <input type="text" name="amount" class="form-control" placeholder="Amount">
+                          <span class="input-group-addon span_custom">Amount</span>                          
+                          <input type="text" name="amount" disabled class="form-control" placeholder="Amount">
+                          <input type="hidden" name="amount" disabled class="form-control" placeholder="Amount">
                         </div>
                       </div>
-                    </div>
-                    <div class="form-group row">
-                      <div class="col-md-12">
-                        <div class="input-group">
-                          <span class="input-group-addon span_custom">Paid</span>
-                          <input type="text" name="paid" class="form-control" value='0' placeholder="Paid">
-                        </div>
-                      </div>
-                    </div>
+                    </div>                    
                   </div>
                   <div class="col-md-6">
                     <div class="form-group row">
@@ -281,6 +276,26 @@ $email = $_SESSION['username'];
                         </div>
                       </div>                    
                     </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <table class="table file_table table-bordered" style="width:100%" >
+                            <thead>
+                              <tr>
+                                <th class="text-center"  style=" width:250px;background: #B80008;color:white">File Name</th>
+                                <th class="text-center"  style=" background: #B80008;color:white">Action</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                            </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <div class="form-group row" style="margin-top:30px;">
+                      <div class="col-md-offset-3 col-md-6">
+                        <button  type="button"class="btn btn-success file_upload_btn btn-lg"><i class="fa fa-cloud-upload"></i>&nbsp;File Upload</button>
+                      </div>                    
+                    </div>
                   </div>
                   <div class="col-md-12 text-right">
                     <button  type="button"class="btn btn-danger bills_td_add"><i class="fa fa-plus"></i>&nbsp;Add</button>
@@ -289,7 +304,7 @@ $email = $_SESSION['username'];
                     <div class="table-responsive">
                       <table  style="width:100%;" class='custom_table table table-bordered' >
                           <thead>
-                              <tr class="text-center">
+                              <tr class="text-center" >
                                   <th class="text-center">Date</th>
                                   <th class="text-center">File</th>
                                   <th class="text-center">House</th>
@@ -362,6 +377,29 @@ $email = $_SESSION['username'];
       </section>
   </div>
 </div>
+<div id="file_upload" class="modal fade" role="dialog">
+    <div class="modal-dialog ">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title"><i class="fa fa-files-o"></i>&nbsp; Add File</h4>
+        </div>
+        <div class="modal-body" style="margin:20px;">
+        <form action="./curd_bill.php" id="addfile" method="post" enctype="multipart/form-data">
+          <input type="hidden" id="bill_fileupload" name="bill_fileupload" value="add">
+          <div class="row">
+            <div class="col-md-12">
+                <input type="file" id="image_file" name="image_file[]"  class="file-upload" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"   multiple/> 
+            </div>
+            <div class="col-md-12 text-center" style="margin:20px auto;">
+              <button type="submit" class="btn btn-success"><i class="fa fa-cloud-upload"></i>&nbsp;Upload</button>
+            </div>
+          </div>
+        </form>
+        </div>        
+      </div>
+    </div>
+</div>
 <!-- Page script -->
 <script>
   $(".sidebar-menu li a").removeClass('active');
@@ -370,10 +408,74 @@ $email = $_SESSION['username'];
   $("#bill_menu .sub_menu_create").addClass("active");
   $("#bill_menu #create_bills_menu").addClass("active");
   $(".select2").select2();
+  $('input[type="file"]').imageuploadify();
   setTimeout(fade_out, 3000);
     function fade_out() {
       $("#mydiv").fadeOut().empty();
+     
     }
+  $(".file_upload_btn").on("click", function(){
+    $("#file_upload").modal("show");
+    
+  });
+  $("#addfile").submit(function(e) {
+      event.preventDefault(); //prevent default action 
+      var post_url = $(this).attr("action"); //get form action url
+      var fd = new FormData();
+      var totalfiles = document.getElementById('image_file').files.length;
+      for (var index = 0; index < totalfiles; index++) {
+          fd.append("image_file[]", document.getElementById('image_file').files[index]);
+      }
+      fd.append( 'bill_fileupload', 'add');
+      $.ajax({
+      url: './curd_bill.php',
+      data: fd,
+      processData: false,
+      cache: false,
+      contentType: false,
+      type: 'POST',
+      success: function(data){         
+          $("#file_upload").modal('hide');         
+            swal({
+                title: "File!",
+                text: "New Files Uploaded successful!!",
+                icon: "success",
+            }); 
+            $('input[type="file"]').val("");
+            $(".imageuploadify-container").remove();
+             var rep=JSON.parse(data); 
+             var html="";
+             for(var i=0; i<rep.length;i++){
+                html+='<tr>';
+                html+='<td class="" ><a href="./images/bills/'+rep[i].name+'" target="blank">'+rep[i].name+'</a><input type="hidden"  name="td_filename[]" value="'+rep[i].name+'"></td>';
+                html+='<td class="text-center"><i class="fa fa-trash action td_file_remove"></i></td>';               
+                html+='</tr>';
+             }
+             $(".file_table tbody").append(html);
+              $(".td_file_remove").on("click", function(e){
+                var name=$(this).parent('td').parent('tr').find("td:eq(0)").text();
+                $(this).parent('td').parent('tr').remove(); 
+                $.ajax({
+                    url: './curd_bill.php',
+                    data: {
+                      'deletefile':'delete',
+                      'name':name
+                    },
+                    type: 'POST',
+                    success: function(data){
+                      swal({
+                        title: "Delete!",
+                        text: "Files deleted successful!!",
+                        icon: "error",
+                      });
+                      
+                    }
+                  })
+              })
+               
+        }
+      });
+  });
   $(".bills_td_add").on("click", function(e){
     var gl_lists=<?php echo json_encode($post); ?>;
     var html="";

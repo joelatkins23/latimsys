@@ -119,8 +119,31 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             </section>
         </div>
     </div>
-    <div id="editBill" class="modal fade" role="dialog">
+    <div id="editBill" class="modal fade" role="dialog" style="overflow: auto;">
         <div class="modal-dialog modal-lg">
+        </div>
+    </div>
+    <div id="file_upload" class="modal fade" role="dialog" >
+        <div class="modal-dialog ">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><i class="fa fa-files-o"></i>&nbsp; Add File</h4>
+            </div>
+            <div class="modal-body" style="margin:20px;">
+            <form action="./curd_bill.php" id="addfile" method="post" enctype="multipart/form-data">
+            <input type="hidden" id="bill_fileupload" name="bill_fileupload" value="add">
+            <div class="row">
+                <div class="col-md-12">
+                    <input type="file" id="image_file" name="image_file[]" class="file-upload" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"   multiple/> 
+                </div>
+                <div class="col-md-12 text-center" style="margin:20px auto;">
+                <button type="submit" class="btn btn-success"><i class="fa fa-cloud-upload"></i>&nbsp;Upload</button>
+                </div>
+            </div>
+            </form>
+            </div>        
+        </div>
         </div>
     </div>    
     <script>
@@ -281,10 +304,97 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                       }); 
                   });
               });
-            });
-            $("#editBill").modal('show');
-        }
+              $(".file_upload_btn").on("click", function(){
+                $("#file_upload").modal("show");                
+              });
+              
+            $(".td_file_remove").on("click", function(e){
+                var name=$(this).parent('td').parent('tr').find("td:eq(0)").text();
+                var id=$(this).parent('td').parent('tr').find("input[name='td_fileid[]']").val();
+                $(this).parent('td').parent('tr').remove(); 
+                $.ajax({
+                    url: './curd_bill.php',
+                    data: {
+                    'deleteupdatefile':'delete',
+                    'name':name,
+                    'id':id
+                    },
+                    type: 'POST',
+                    success: function(data){
+                    swal({
+                        title: "Delete!",
+                        text: "Files deleted successful!!",
+                        icon: "error",
+                    });
+                    
+                    }
+                })
+            }) 
+        });
+        $("#editBill").modal('show');
         
+    }
+    $("#addfile").submit(function(e) {
+            event.preventDefault(); //prevent default action 
+            var post_url = $(this).attr("action"); //get form action url
+            var fd = new FormData();
+            var totalfiles = document.getElementById('image_file').files.length;
+            for (var index = 0; index < totalfiles; index++) {
+                fd.append("image_file[]", document.getElementById('image_file').files[index]);
+            }
+            fd.append( 'bill_fileupload', 'add');
+            $.ajax({
+            url: './curd_bill.php',
+            data: fd,
+            processData: false,
+            cache: false,
+            contentType: false,
+            type: 'POST',
+            success: function(data){         
+                $("#file_upload").modal('hide');         
+                    swal({
+                        title: "File!",
+                        text: "New Files Uploaded successful!!",
+                        icon: "success",
+                    }); 
+                    $('input[type="file"]').val("");
+                    $(".imageuploadify-container").remove();
+                    var rep=JSON.parse(data); 
+                    var html="";
+                    for(var i=0; i<rep.length;i++){
+                        html+='<tr>';
+                        html+='<td class="" ><a href="./images/bills/'+rep[i].name+'" target="blank">'+rep[i].name+'</a><input type="hidden"  name="td_filename[]" value="'+rep[i].name+'"></td>';
+                        html+='<td class="text-center"><i class="fa fa-trash action td_file_remove"></i></td>';   
+                        html+='<input type="hidden"  name="td_fileid[]" value="" >';             
+                        html+='</tr>';
+                }
+                $(".file_table tbody").append(html);
+                $(".td_file_remove").on("click", function(e){
+                    var name=$(this).parent('td').parent('tr').find("td:eq(0)").text();
+                    var id=$(this).parent('td').parent('tr').find("input[name='td_fileid[]']").val();
+                    $(this).parent('td').parent('tr').remove(); 
+                    $.ajax({
+                        url: './curd_bill.php',
+                        data: {
+                        'deleteupdatefile':'delete',
+                        'name':name,
+                        'id':id
+                        },
+                        type: 'POST',
+                        success: function(data){
+                        swal({
+                            title: "Delete!",
+                            text: "Files deleted successful!!",
+                            icon: "error",
+                        });
+                        
+                        }
+                    })
+                })
+                
+            }
+        });
+    });
     function selectRefresh() {
         $('.select2').select2({   
             allowClear: true,

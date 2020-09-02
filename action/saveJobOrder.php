@@ -116,9 +116,9 @@
                                         WHERE id='$supp_id' ");
 
 
-                        $queryModel = mysqli_query($connect, "INSERT INTO joborders(id,  customer_city, service, commodity, wh_receipt, remark, payment, status, fecha, branch, client_id, supplier_id, agent_id) 
+                        $queryModel = mysqli_query($connect, "INSERT INTO joborders(id,  customer_city, service, value, commodity, wh_receipt, remark, payment, status, fecha, branch, client_id, supplier_id, agent_id) 
 
-                                        VALUES ('$invoice', '$customer_city','$service', '$commodity', '$wh_receipt', '$remark', '$payment', '$status', '$fecha', '$branch', '$cus_id', '$supp_id', '$agent_id')")
+                                        VALUES ('$invoice', '$customer_city','$service','$value', '$commodity', '$wh_receipt', '$remark', '$payment', '$status', '$fecha', '$branch', '$cus_id', '$supp_id', '$agent_id')")
                         or die ("");
 
 echo "<meta http-equiv=\"refresh\" content=\"0;URL= ../createJobOrder.php?message=JobOrderSaved\">";

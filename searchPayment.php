@@ -24,9 +24,10 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
 ?>
 <!doctype html>
 <html style="height: auto;">
+
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <title>Latim Cargo & Trading | Search Payments</title>
     <link rel="icon" type="image/x-icon" href="icoplane.ico" />
@@ -35,8 +36,8 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href=" https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-    <link href='plugins/datatables/jquery.dataTables.css' rel='stylesheet' type='text/css'>    
-    <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css">    
+    <link href='plugins/datatables/jquery.dataTables.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css">
     <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
     <link rel="stylesheet" href="latimstyle.css">
     <link href='assets/css/style.css' rel='stylesheet' type='text/css'>
@@ -48,21 +49,23 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     <script src="plugins/datatables/jquery.dataTables.js"></script>
     <script src="plugins/datatables/dataTables.bootstrap.min.js"></script>
     <script src="assets/js/imageuploadify.min.js"></script>
-    <script src="plugins/select2/select2.js"></script>    
-    <script src="plugins/moment.min.js"></script>    
+    <script src="plugins/select2/select2.js"></script>
+    <script src="plugins/moment.min.js"></script>
     <script src="./plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="dist/js/app.min.js"></script>   
+    <script src="dist/js/app.min.js"></script>
     <script>
-    window.addEventListener("load", function(){
-      var load_screen = document.getElementById("load_screen");
-      document.body.removeChild(load_screen);
-    });
-</script>
-<style>
-    table.dataTable, table.dataTable th, table.dataTable td {
-    height: auto;
-}
-</style>
+        window.addEventListener("load", function() {
+            var load_screen = document.getElementById("load_screen");
+            document.body.removeChild(load_screen);
+        });
+    </script>
+    <style>
+        table.dataTable,
+        table.dataTable th,
+        table.dataTable td {
+            height: auto;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -86,29 +89,25 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             <section class="content">
                 <div class="searchPage shadow2" style="background:white; width:90%; margin-left:-45%;">
                     <div class="row" style="border-bottom: 1px solid #000; margin-left: 0; margin-right: 0;">
-                        <div class="col-md-12">                            
-                            <h3 class="text-center">Search Payments</h3>                          
+                        <div class="col-md-12">
+                            <h3 class="text-center">Search Payments</h3>
                         </div>
-                    </div> 
+                    </div>
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
                                 <table id='empTable' width="100%" class='display dataTable'>
                                     <thead>
                                         <tr>
-                                            <th>Date</th>
-                                            <th style="width:250px;">Branch</th>
-                                            <th style="width:250px;">Account</th>
-                                            <th>#INV</th>
-                                            <th>Description</th>
-                                            <th>Amount</th>
-                                            <th>Paid</th>
-                                            <th>Cost Center</th>
-                                            <th>Warehouse</th>
-                                            <th>File</th>
-                                            <th>House</th>
-                                            <th>Due date</th>
-                                            <th>Action</th>
+                                            <th class="text-center">Date</th>
+                                            <th class="text-center">Checkbooks</th>
+                                            <th class="text-center">Type</th>
+                                            <th class="text-center">Check Number</th>
+                                            <th class="text-center">Accounts</th>
+                                            <th class="text-center">Print</th>
+                                            <th class="text-center">Amount</th>
+                                            <th class="text-center">Memo</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -119,10 +118,35 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             </section>
         </div>
     </div>
-    <div id="editBill" class="modal fade" role="dialog">
+    <div id="editPayment" class="modal fade" role="dialog" style="overflow: auto;">
         <div class="modal-dialog modal-lg">
         </div>
-    </div>    
+    </div>
+    <div id="file_upload" class="modal fade" role="dialog">
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="fa fa-files-o"></i>&nbsp; Add File</h4>
+                </div>
+                <div class="modal-body" style="margin:20px;">
+                    <form action="./curd_payment.php" id="addfile" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="payment_fileupload" name="payment_fileupload" value="add">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="file" id="image_file" name="image_file[]" class="file-upload" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf" multiple />
+                            </div>
+                            <div class="col-md-12 text-center" style="margin:20px auto;">
+                                <button type="submit" class="btn btn-success"><i
+                                        class="fa fa-cloud-upload"></i>&nbsp;Upload</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         $(".sidebar-menu li a").removeClass('active');
         $(".treeview").removeClass('active');
@@ -130,7 +154,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
         $("#bill_menu .sub_search_create").addClass("active");
         $("#bill_menu #search_payment_menu").addClass("active");
         $('input[type="file"]').imageuploadify();
-        
+
         //Date picker
         $('#datepicker').datepicker({
             autoclose: true
@@ -153,153 +177,273 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             'serverSide': true,
             'serverMethod': 'post',
             "order": [
-                [1, "desc"]
+                [0, "desc"]
             ],
             'columnDefs': [{
                 orderable: false,
-                targets: [8, 9, 10, 11,12]
+                targets: [8]
             }],
             'ajax': {
-                'url': 'ajaxfile_payment.php',
-                // "data": function(d) {
-                //     d.from = Getfrom();
-                //     d.to = Getto();
-                // }
+                'url': 'ajaxfile_payment.php'
             },
             'columns': [{
                 data: 'date'
             }, {
-                data: 'branch_name'
+                data: 'checkbooks_name'
+            }, {
+                data: 'type_name'
+            }, {
+                data: 'check_number'
             }, {
                 data: 'account_name'
             }, {
-                data: 'inv'
-            }, {
-                data: 'description'
+                data: 'print'
             }, {
                 data: 'amount'
             }, {
-                data: 'paid'
-            }, {
-                data: 'cost_center'
-            }, {
-                data: 'warehouse'
-            }, {
-                data: 'file'
-            },{
-                data: 'house'
-            }, {
-                data: 'due_date'
+                data: 'meno'
             }, {
                 data: 'action'
             }, ]
         });
-        function editBill(id){
-            $.get('editBill.php?id=' + id, function(response) {
-                $('#editBill .modal-dialog').html(response);
-                $(".bills_td_add").on("click", function(e){
-                    var gl_lists=<?php echo json_encode($post); ?>;
-                    var html="";
-                    html+='<tr>';
-                    html+='<td>';
-                    html+='<input type="text" required class="form-control" data-provide="datepicker" data-date-format="yyyy/m/d" laceholder="Date" value=""  name="td_date[]"  autocomplete="off"  placeholder="Date">';
-                    html+='</td>';
-                    html+='<td>';
-                    html+='<input type="text" class="form-control" value="0" name="td_file[]">';
-                    html+='</td>';
-                    html+='<td>';
-                    html+='<input type="text" class="form-control" value="0" name="td_house[]">';
-                    html+='</td>';
-                    html+='<td>';
-                    html+='<input type="text" class="form-control" value="0" name="td_wh[]">';
-                    html+='</td>';
-                    html+='<td>';
 
-                    html+='<select name="td_account[]" class="form-control select2" data-placeholder="Select G/L Account" required>';
-                    html+='<option value="">Select G/L Account</option>';
-                    for(var i=0; i<gl_lists.length;i++){
-                        html+='<option value="'+gl_lists[i].id+'">'+gl_lists[i].name+' | '+gl_lists[i].title+'</option>';      
-                    }   
-                    html+='</select>';
-                    html+='</td>';    
-                    html+='<td>';
-                    html+='<input type="text" class="form-control" name="td_desc[]">';
-                    html+='</td>';
-                    html+='<td>';
-                    html+='<input type="text" class="form-control text-right" value="0" name="td_amount[]">';
-                    html+='</td>';
-                    html+='<td>';
-                    html+='<input type="text" class="form-control text-right" value="0" name="td_iva[]">';
-                    html+='</td>';
-                    html+='<td>';
-                    html+='<i class="fa fa-trash action td_remove"></i>';
-                    html+='</td>';
-                    html+='</tr>';
-                    $(".custom_table tbody").append(html);
-                    selectRefresh();
-                    $(".td_remove").on("click", function(e){
-                        $(this).parent('td').parent('tr').remove(); 
-                        total_calculator();
-                    });
-                    $(".custom_table  tbody tr input[name='td_amount[]']").keyup(function(e){
-                        total_calculator();
+        function editPayment(id) {
+            $.get('editPayment.php?id=' + id, function(response) {
+                $('#editPayment .modal-dialog').html(response);
+                $(".file_upload_btn").on("click", function() {
+                    $("#file_upload").modal("show");
+                });
+
+                $(".td_file_remove").on("click", function(e) {
+                    var name = $(this).parent('td').parent('tr').find("td:eq(0)").text();
+                    var id = $(this).parent('td').parent('tr').find("input[name='td_fileid[]']").val();
+                    $(this).parent('td').parent('tr').remove();
+                    $.ajax({
+                        url: './curd_payment.php',
+                        data: {
+                            'deleteupdatefile': 'delete',
+                            'name': name,
+                            'id': id
+                        },
+                        type: 'POST',
+                        success: function(data) {
+                            swal({
+                                title: "Delete!",
+                                text: "Files deleted successful!!",
+                                icon: "error",
+                            });
+
+                        }
                     })
-                });
-                $(".td_remove").on("click", function(e){
-                    $(this).parent('td').parent('tr').remove(); 
-                    total_calculator();
-                });
-                $(".custom_table  tbody tr input[name='td_amount[]']").keyup(function(e){
-                        total_calculator();
                 })
-                $("#edit_bill").submit(function(e) {
-                      event.preventDefault(); //prevent default action 
-                      var post_url = $(this).attr("action"); //get form action url
-                      var form_data = $(this).serialize(); //Encode form elements for submission                      
-                      $.post( post_url, form_data, function( response ) {  
-                          table.ajax.reload( null, false );     
-                          swal({
-                              title: "Bill!",
-                              text: "Bill updated successful!!",
-                              icon: "success",
-                            });   
-                      });
-                      $("#editBill").modal('hide'); 
-                  });
-                $("#delete_bill").submit(function(e) {
-                  event.preventDefault(); //prevent default action 
-                  var post_url = $(this).attr("action"); //get form action url
-                  var form_data = $(this).serialize(); //Encode form elements for submission
+                $("#edit_payment").submit(function(e) {
+                    event.preventDefault(); //prevent default action 
+                    var post_url = $(this).attr("action"); //get form action url
+                    var form_data = $(this).serialize(); //Encode form elements for submission                      
+                    $.post(post_url, form_data, function(response) {
+                        table.ajax.reload(null, false);
+                        swal({
+                            title: "Payment!",
+                            text: "Payment updated successful!!",
+                            icon: "success",
+                        });
+                    });
+                    $("#editPayment").modal('hide');
+                });
+                $("#delete_payment").submit(function(e) {
+                    event.preventDefault(); //prevent default action 
+                    var post_url = $(this).attr("action"); //get form action url
+                    var form_data = $(this).serialize(); //Encode form elements for submission
 
-                  $.post(post_url, form_data, function(response) {
-                      $("#editBill").modal('hide');
-                      table.ajax.reload(null, false);
-                      swal({
-                          title: "Bill!",
-                          text: "Bill deleted successful!",
-                          icon: "error",
-                      }); 
-                  });
-              });
+                    $.post(post_url, form_data, function(response) {
+                        $("#editPayment").modal('hide');
+                        table.ajax.reload(null, false);
+                        swal({
+                            title: "Payment!",
+                            text: "Payment deleted successful!",
+                            icon: "error",
+                        });
+                    });
+                });
             });
-            $("#editBill").modal('show');
+            $("#editPayment").modal('show');
         }
-        
-    function selectRefresh() {
-        $('.select2').select2({   
-            allowClear: true,
-            width: '100%'
+        $("#addfile").submit(function(e) {
+            event.preventDefault(); //prevent default action 
+            var post_url = $(this).attr("action"); //get form action url
+            var fd = new FormData();
+            var totalfiles = document.getElementById('image_file').files.length;
+            for (var index = 0; index < totalfiles; index++) {
+                fd.append("image_file[]", document.getElementById('image_file').files[index]);
+            }
+            fd.append('payment_fileupload', 'add');
+            $.ajax({
+                url: './curd_payment.php',
+                data: fd,
+                processData: false,
+                cache: false,
+                contentType: false,
+                type: 'POST',
+                success: function(data) {
+                    $("#file_upload").modal('hide');
+                    swal({
+                        title: "File!",
+                        text: "New Files Uploaded successful!!",
+                        icon: "success",
+                    });
+                    $('input[type="file"]').val("");
+                    $(".imageuploadify-container").remove();
+                    var rep = JSON.parse(data);
+                    var html = "";
+                    for (var i = 0; i < rep.length; i++) {
+                        html += '<tr>';
+                        html += '<td class="" ><a href="./images/bills/' + rep[i].name + '" target="blank">' + rep[i].name + '</a><input type="hidden"  name="td_filename[]" value="' + rep[i].name + '"></td>';
+                        html += '<td class="text-center"><i class="fa fa-trash action td_file_remove"></i></td>';
+                        html += '<input type="hidden"  name="td_fileid[]" value="" >';
+                        html += '</tr>';
+                    }
+                    $(".file_table tbody").append(html);
+                    $(".td_file_remove").on("click", function(e) {
+                        var name = $(this).parent('td').parent('tr').find("td:eq(0)").text();
+                        var id = $(this).parent('td').parent('tr').find("input[name='td_fileid[]']").val();
+                        $(this).parent('td').parent('tr').remove();
+                        $.ajax({
+                            url: './curd_payment.php',
+                            data: {
+                                'deleteupdatefile': 'delete',
+                                'name': name,
+                                'id': id
+                            },
+                            type: 'POST',
+                            success: function(data) {
+                                swal({
+                                    title: "Delete!",
+                                    text: "Files deleted successful!!",
+                                    icon: "error",
+                                });
+
+                            }
+                        })
+                    })
+
+                }
+            });
         });
-    }
-    function total_calculator(){
-        var total_amount=0;
-        $(".custom_table  tbody tr").each(function(index,ele){
-            var amount=$(this)[0].children[6].children[0].value;      
-            total_amount=total_amount+parseFloat(amount);       
-        });
-        $("input[name='amount']").val(total_amount);
-    }
- 
+
+        function onpayment(ele) {
+            var bill_id = ele.parent('td').parent('tr').find("td:eq(0)").text();
+            var inv = ele.parent('td').parent('tr').find("td:eq(1)").text();
+            var account = ele.parent('td').parent('tr').find("td:eq(2)").text();
+            var currency = ele.parent('td').parent('tr').find("td:eq(3)").text();
+            var amount = ele.parent('td').parent('tr').find("td:eq(4)").text();
+            var payment = ele.parent('td').parent('tr').find("#td_payment").val();
+            var change_payment = ele.parent('td').parent('tr').find("#td_change_payment").val();
+            if (change_payment - payment > 0) {
+                var dif = Math.round((change_payment - payment) * 100) / 100;
+                ele.parent('td').parent('tr').find("#td_payment").val(dif);
+                ele.parent('td').parent('tr').find("#td_change_payment").val(dif);
+            } else if (change_payment - payment == 0) {
+                ele.parent('td').parent('tr').remove();
+            }
+            var tbody = "";
+            tbody += '<tr>';
+            tbody += '<td class="text-center">' + bill_id + '</td>';
+            tbody += '<td class="text-center">' + inv + '</td>';
+            tbody += '<td class="text-center">' + account + '</td>';
+            tbody += '<td class="text-center">' + currency + '</td>';
+            tbody += '<td class="text-center">' + amount + '</td>';
+            tbody += '<td class="text-center">' + payment + '</td>';
+            tbody += '<td class="text-center"><i class="fa fa-trash action td_remove" onclick="ontdremove($(this))"></i></td>';
+            tbody += '<input type="hidden" name="td_paid[]" value="' + payment + '" class="form-control text-right">';
+            tbody += '<input type="hidden" name="td_bill_id[]" value="' + bill_id + '" class="form-control text-right">';
+            tbody += '</tr>';
+            $(".paid_table tbody").append(tbody);
+            total_calculator();
+        }
+
+        function ontdremove(ele) {
+            var bill_id = ele.parent('td').parent('tr').find("td:eq(0)").text();
+            var element = '';
+            $(".payment_table tbody tr").each(function(index, ele1) {
+                var id = $(this).find("td:eq(0)").text();
+                if (bill_id == id) {
+                    element = $(this);
+                }
+            });
+            var paid = 0;
+            if (element) {
+                var id = element.find("td:eq(0)").text();
+                var payment = ele.parent('td').parent('tr').find("td:eq(5)").text();
+                var old_payment = element.find("#td_payment").val();
+                paid = parseFloat(payment);
+                var dif = Math.round((parseFloat(old_payment) + parseFloat(payment)) * 100) / 100;
+                element.find("#td_payment").val(dif);
+                element.find("#td_change_payment").val(dif);
+
+            } else {
+                var td_inv = ele.parent('td').parent('tr').find("td:eq(1)").text();
+                var td_account = ele.parent('td').parent('tr').find("td:eq(2)").text();
+                var td_currency = ele.parent('td').parent('tr').find("td:eq(3)").text();
+                var td_amount = ele.parent('td').parent('tr').find("td:eq(4)").text();
+
+                var td_payment = ele.parent('td').parent('tr').find("td:eq(5)").text();
+                paid = parseFloat(td_payment);
+                var html = '';
+                html += '<tr>';
+                html += '<td class="text-center">' + bill_id + '</td>';
+                html += '<td class="text-center">' + td_inv + '</td>';
+                html += '<td class="text-center">' + td_account + '</td>';
+                html += '<td class="text-center">' + td_currency + '</td>';
+                html += '<td class="text-center">' + td_amount + '</td>';
+                html += '<td class="text-center">';
+                html += '<input type="text" id="td_payment" value="' + td_payment + '" class="form-control text-right">';
+                html += '</td>';
+                html += '<td class="text-center"><button type="button"  onclick="onpayment($(this))" class="btn btn-success payment_btn btn-sm"><i class="fa fa-money"></i>&nbsp;Pay</button></td>';
+                html += '<input type="hidden" id="td_change_payment" value="' + td_payment + '" class="form-control text-right">';
+                html += '</tr>';
+                $(".payment_table tbody").append(html);
+            }
+            var payment_id = ele.parent('td').parent('tr').find("input[name='td_payment_id[]']").val();
+            if (payment_id) {
+                $.ajax({
+                    url: './curd_payment.php',
+                    data: {
+                        'deletepayment_item': 'delete',
+                        'payment_id': payment_id,
+                        'bill_id': bill_id,
+                        'paid': paid
+                    },
+                    type: 'POST',
+                    success: function(data) {
+                        swal({
+                            title: "Payment!",
+                            text: "Payment deleted successful!!",
+                            icon: "error",
+                        });
+
+                    }
+                })
+            }
+            ele.parent('td').parent('tr').remove();
+            total_calculator();
+        }
+
+        function selectRefresh() {
+            $('.select2').select2({
+                allowClear: true,
+                width: '100%'
+            });
+        }
+
+        function total_calculator() {
+            var total_amount = 0;
+            $(".paid_table  tbody tr").each(function(index, ele) {
+                var amount = $(this).find("td:eq(5)").text();
+                total_amount = total_amount + parseFloat(amount);
+            });
+            $("#amount").text(total_amount);
+            $("input[name='amount']").val(total_amount);
+        }
     </script>
 </body>
 

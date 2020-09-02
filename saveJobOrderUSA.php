@@ -66,23 +66,15 @@
           $commodity=$_POST['commodity'];
           $wh_receipt=$_POST['wh_receipt'];
           $remark=$_POST['remark'];
-
+          $value=$_POST['value'];
           $payment=$_POST['payment'];
           $tracking=$_POST['tracking'];
-
-          
-
           $dt = new DateTime($fecha_segundos);
-
           $segundos = $dt->format('H:i:s');
-
           $fecha=$_POST['fecha'];
           $hora=$_POST['hora'];
-
           $fecha.= ' '.$hora;
-
           $fecha=str_replace('/','-',$fecha);
-
           $dt = new DateTime($fecha);
 
           $fecha = $dt->format('Y-m-d H:i:s');
@@ -121,9 +113,9 @@
 
 
 
-$queryModel = mysqli_query($connect, "INSERT INTO joborders(id,  customer_city, service, commodity, wh_receipt, remark, payment, status, fecha, branch, client_id, supplier_id, agent_id, tracking) 
+$queryModel = mysqli_query($connect, "INSERT INTO joborders(id,  customer_city, service,value, commodity, wh_receipt, remark, payment, status, fecha, branch, client_id, supplier_id, agent_id, tracking) 
 
-                                        VALUES ('$invoice', '$customer_city','$service', '$commodity', '$wh_receipt', '$remark', '$payment', '$status', '$fecha', '$branch', '$cus_id', '$supp_id', '$agent_id', '$tracking')")
+                                        VALUES ('$invoice', '$customer_city','$service', '$value', '$commodity', '$wh_receipt', '$remark', '$payment', '$status', '$fecha', '$branch', '$cus_id', '$supp_id', '$agent_id', '$tracking')")
 or die ("<meta http-equiv=\"refresh\" content=\"0;URL= createJobOrder.php?message=ErrorSavingJobOrder\">");
 
 echo "<meta http-equiv=\"refresh\" content=\"0;URL= createUsaOrder.php?message=JobOrderSaved\">";
