@@ -95,7 +95,7 @@ $email = $_SESSION['username'];
         <div class="col-md-offset-2 col-md-8 shadow2" style="background: white;margin-top:50px">
           <div class="row">
             <div class="col-md-12">
-              <h3 style="text-align:center; color:black; font-weight:400; padding:20px; font-size:20px; border-bottom:1px solid #555555;">SEARCHER WAREHOUSE RECEIPT</h3>
+              <h3 style="text-align:center; color:black; font-weight:400; padding:20px; font-size:20px; border-bottom:1px solid #555555;">SEARCHER SHIPMENT</h3>
             </div>
           </div>
           <form action="searchWarehouse.php" id="step1_form"  method="get">

@@ -73,7 +73,7 @@ $data = array();
 while ($row = mysqli_fetch_assoc($empRecords)) {
 
    
-    $action = '<a href="#" onclick="editPayment('.$row['id'].')"><i class="fa fa-edit action"></i></a>';
+    $action = '<a href="#" onclick="editPayment('.$row['id'].')"><i class="fa fa-edit action"></i></a><a href="./paymentpdf.php?id='.$row['id'].'" target="blank"><i class="fa fa-file-pdf-o action"></i></a>';
    
     
         $data[] = array(

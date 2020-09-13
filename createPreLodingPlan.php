@@ -172,17 +172,17 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                   <table id='joborders_lists' style="width:100%;" class="table">
                     <thead>
                       <tr class="text-center" style="background-color:#B80008 !important;color:white">
-                          <th class="text-center" style="color:white">Date</th>
-                          <th class="text-center" style="color:white">JOB</th>
-                          <th class="text-center" style="color:white">Customer<br>Name</th>
-                          <th class="text-center" style="color:white">Supplier<br>Company</th>                          
-                          <th class="text-center" style="color:white">Service</th>
-                          <th class="text-center" style="color:white">Ship To</th>
-                          <th class="text-center" style="color:white">Agent<br>Name</th>
-                          <th class="text-center" style="color:white">Status</th>
-                          <th class="text-center" style="color:white">Tracking#</th>
-                          <th class="text-center" style="color:white">WR#</th>
-                          <th class="text-center" style="color:white">Action</th>
+                          <td class="text-center" style="color:white">Date</td>
+                          <td class="text-center" style="color:white">JOB</td>
+                          <td class="text-center" style="color:white">Customer<br>Name</td>
+                          <td class="text-center" style="color:white">Supplier<br>Company</td>                          
+                          <td class="text-center" style="color:white">Service</td>
+                          <td class="text-center" style="color:white">Ship To</td>
+                          <td class="text-center" style="color:white">Agent<br>Name</td>
+                          <td class="text-center" style="color:white">Status</td>
+                          <td class="text-center" style="color:white">Tracking#</td>
+                          <td class="text-center" style="color:white">WR#</td>
+                          <td class="text-center" style="color:white">Action</td>
                       </tr>
                     </thead>
                     <tbody>

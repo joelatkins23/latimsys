@@ -124,7 +124,7 @@ $email = $_SESSION['username'];
                   <div class="col-md-12">
                     <div class="input-group">
                       <span class="input-group-addon span_custom">Supplier</span>
-                        <select name="supplier_id" id="" class="form-control select2" data-placeholder="Select Supplier" style="width:100%" required>
+                        <select name="supplier_id" id="" class="form-control select2" data-placeholder="Select Supplier" style="min-width:100%;max-width:100%" required>
                           <option value="">--Select Supplier--</option>
                         <?php 
                           $consulta = mysqli_query($connect, "SELECT * FROM accounts where type='Supplier' order by id ")
@@ -148,7 +148,7 @@ $email = $_SESSION['username'];
                   <div class="col-md-12">
                     <div class="input-group">
                       <span class="input-group-addon span_custom">Consignee</span>
-                      <select name="consignee_id" id="" class="form-control select2" data-placeholder="Select Consignee" style="width:100%" required>
+                      <select name="consignee_id" id="" class="form-control select2" data-placeholder="Select Consignee" style="min-width:100%;max-width:100%;" required>
                           <option value="">--Select Consignee--</option>
                         <?php 
                           $consulta = mysqli_query($connect, "SELECT * FROM accounts where type='Client' or type='Agent' order by id ")
@@ -172,7 +172,7 @@ $email = $_SESSION['username'];
                   <div class="col-md-12">
                     <div class="input-group">
                       <span class="input-group-addon span_custom">Agent</span>
-                      <select name="agent_id" id="" class="form-control select2" data-placeholder="Select Agent" style="width:100%" >
+                      <select name="agent_id" id="" class="form-control select2" data-placeholder="Select Agent" style="min-width:100%;max-width:100%;" >
                           <option value="">--Select Agent--</option>
                         <?php 
                           $consulta = mysqli_query($connect, "SELECT * FROM agents  where level='Administrator' or level='Seller' order by id ")
@@ -192,7 +192,7 @@ $email = $_SESSION['username'];
                   <div class="col-md-12">
                     <div class="input-group">
                       <span class="input-group-addon span_custom">Bill to</span>
-                      <select name="bill_id" id="" class="form-control select2" data-placeholder="Select Bill" style="width:100%" required>
+                      <select name="bill_id" id="" class="form-control select2" data-placeholder="Select Bill" style="min-width:100%;max-width:100%;" required>
                           <option value="">--Select Bill--</option>
                         <?php 
                           $consulta = mysqli_query($connect, "SELECT * FROM accounts where type='Client' or type='Agent' order by id ")

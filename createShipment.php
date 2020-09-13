@@ -99,12 +99,11 @@ $email = $_SESSION['username'];
           <div class="row">
                 <div class="col-md-12">
                     <ul class="nav nav-tabs">
-                        <li ><a data-toggle="tab" href="#home"><i class="fa fa-ship"></i>&nbsp;Summary File 188 | BL HBS</a></li>
-                        <li class="active"><a data-toggle="tab" href="#shipment_update"><i class="fa fa-save"></i>&nbsp;UPDATE</a></li>
-                        <li><a data-toggle="tab" href="#shipment_charges"><i class="fa fa-files-o"></i>&nbsp;CHARGES</a></li>
+                        <li class="active"><a data-toggle="tab" href="#home"><i class="fa fa-ship"></i>&nbsp;Summary File 188 | BL HBS</a></li>
+                        <li ><a data-toggle="tab" href="#shipment_update"><i class="fa fa-save"></i>&nbsp;UPDATE</a></li>
                     </ul>
                     <div class="tab-content">
-                        <div id="home" class="tab-pane fade ">
+                        <div id="home" class="tab-pane fade in active">
                             <!-- <div class="row" >
                                 <div class="col-md-12" >
                                     <h4 class="" style="background: green;padding: 5px;color: white;width: fit-content;" >IN VERIFICATION PROCESS</h4>
@@ -434,7 +433,7 @@ $email = $_SESSION['username'];
                               </div>
                             </div>
                         </div>
-                        <div id="shipment_update" class="tab-pane fade in active">
+                        <div id="shipment_update" class="tab-pane">
                           <div class="row" style="margin-top:20px;">
                             <div class="col-md-6">
                               <div class="form-group row">
@@ -459,7 +458,7 @@ $email = $_SESSION['username'];
                               <div class="form-group row">
                                 <label for="staticEmail" class="col-md-4 control-label text-right">Consignee</label>
                                 <div class="col-md-8">
-                                  <select name="consignee_id" id="" class="form-control select2" data-placeholder="Select Consignee" style="max-width: 100%;min-width: 100%;" >
+                                  <select name="consignee_id" id="" class="form-control select2" data-placeholder="Select Consignee" style="width: 100%;min-width: 100%;" >
                                       <option value="">--Select Consignee--</option>
                                     <?php 
                                       $consulta = mysqli_query($connect, "SELECT * FROM accounts where type='Client' or type='Agent' order by id ")
@@ -480,7 +479,7 @@ $email = $_SESSION['username'];
                               <div class="form-group row">
                                 <label for="staticEmail" class="col-md-4 control-label text-right">Bill To</label>
                                 <div class="col-md-8">
-                                  <select name="bill_id" id="" class="form-control select2" data-placeholder="Select Bill" style="max-width: 100%;min-width: 100%;" >
+                                  <select name="bill_id" id="" class="form-control select2" data-placeholder="Select Bill" style="width: 100%;min-width: 100%;" >
                                     <option value="">--Select Bill--</option>
                                   <?php 
                                     $consulta = mysqli_query($connect, "SELECT * FROM accounts where type='Client' or type='Agent' order by id ")
@@ -765,16 +764,7 @@ $email = $_SESSION['username'];
                               </div>
                             </div>
                           </div>
-                        </div>
-                        <div id="shipment_charges" class="tab-pane fade">
-                            <div class="row" >
-                                <div class="col-md-12" >
-                                    <h3 style="text-align:center; color:black; font-weight:400; font-size:20px;padding-top: 20px;" >SEARCHER WAREHOUSE RECEIPT</h3>
-                                </div>
-                            </div>           
-                            <div class="row" style="margin-top:20px">
-                            </div> 
-                        </div>                                              
+                        </div>                                                             
                     </div>
                 </div>
             </div>    
@@ -782,7 +772,7 @@ $email = $_SESSION['username'];
       </div>     
 <?php } ?>
 
-    <?php if ($step=='2'){ ?>
+    <!-- <?php if ($step=='2'){ ?>
    
       <div class="row" style="margin: 0px;"> 
         <div class="col-md-offset-3 col-md-6 shadow2" style="background: white;margin-top:50px">
@@ -884,7 +874,7 @@ $email = $_SESSION['username'];
           </form>
         </div>
       </div>
-    <?php } ?>
+    <?php } ?> -->
   <!-- Form -->
   </section>
 </div>

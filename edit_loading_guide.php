@@ -206,17 +206,17 @@ $email = $_SESSION['username'];
                             <table id='warehouse_reciept_lists' style="width:100%;" class="table">
                                 <thead>
                                     <tr class="text-center" style="background-color:#B80008 !important;color:white">
-                                        <th class="text-center" style="color:white">Number</th>
-                                        <th class="text-center" style="color:white">Reference</th>
-                                        <th class="text-center" style="color:white">Date</th>
-                                        <th class="text-center" style="color:white">Dest</th>                          
-                                        <th class="text-center" style="color:white">Pieces</th>
-                                        <th class="text-center" style="color:white">Weight</th>
-                                        <th class="text-center" style="color:white">Volume</th>
-                                        <th class="text-center" style="color:white">Shipper</th>
-                                        <th class="text-center" style="color:white">Consignee</th>
+                                        <td class="text-center" style="color:#fff">Number</td>
+                                        <td class="text-center" style="color:#fff">Reference</td>
+                                        <td class="text-center" style="color:#fff">Date</td>
+                                        <td class="text-center" style="color:#fff">Dest</td>                          
+                                        <td class="text-center" style="color:#fff">Pieces</td>
+                                        <td class="text-center" style="color:#fff">Weight</td>
+                                        <td class="text-center" style="color:#fff">Volume</td>
+                                        <td class="text-center" style="color:#fff">Shipper</td>
+                                        <td class="text-center" style="color:#fff">Consignee</td>
                                         <?php if($status=='unlock'){ ?>
-                                        <th class="text-center" style="color:white">Action</th>
+                                        <td class="text-center" style="color:#fff">Action</td>
                                         <?php } ?>
                                     </tr>
                                 </thead>

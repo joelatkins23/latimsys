@@ -199,16 +199,16 @@ if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
                   <table id='warehouse_reciept_lists' style="width:100%;" class="table">
                     <thead>
                       <tr class="text-center" style="background-color:#B80008 !important;">
-                          <th class="text-center" style="color:white">Number</th>
-                          <th class="text-center" style="color:white">Reference</th>
-                          <th class="text-center" style="color:white">Date</th>
-                          <th class="text-center" style="color:white">Dest</th>                          
-                          <th class="text-center" style="color:white">Pieces</th>
-                          <th class="text-center" style="color:white">Weight</th>
-                          <th class="text-center" style="color:white">Volume</th>
-                          <th class="text-center" style="color:white">Shipper</th>
-                          <th class="text-center" style="color:white">Consignee</th>
-                          <th class="text-center" style="color:white">Action</th>
+                          <td class="text-center" style="color:white">Number</td>
+                          <td class="text-center" style="color:white">Reference</td>
+                          <td class="text-center" style="color:white">Date</td>
+                          <td class="text-center" style="color:white">Dest</td>                          
+                          <td class="text-center" style="color:white">Pieces</td>
+                          <td class="text-center" style="color:white">Weight</td>
+                          <td class="text-center" style="color:white">Volume</td>
+                          <td class="text-center" style="color:white">Shipper</td>
+                          <td class="text-center" style="color:white">Consignee</td>
+                          <td class="text-center" style="color:white">Action</td>
                       </tr>
                     </thead>
                     <tbody>

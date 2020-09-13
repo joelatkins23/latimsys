@@ -206,7 +206,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             ],
             'columnDefs': [{
                 orderable: false,
-                targets: [8, 9, 10, 11]
+                targets: [8, 9, 10, 11,12]
             }],
             'ajax': {
                 'url': 'ajaxfile_taiwan.php',

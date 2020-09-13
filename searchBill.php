@@ -176,11 +176,11 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             'serverSide': true,
             'serverMethod': 'post',
             "order": [
-                [1, "desc"]
+                [0, "desc"]
             ],
             'columnDefs': [{
                 orderable: false,
-                targets: [8, 9, 10, 11,12]
+                targets: [12]
             }],
             'ajax': {
                 'url': 'ajaxfile_bill.php',
