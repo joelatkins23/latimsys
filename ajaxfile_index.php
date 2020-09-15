@@ -200,7 +200,7 @@ while ($row = mysqli_fetch_assoc($empRecords)) {
     $consultaWR = mysqli_query($connect, "SELECT * FROM receipt WHERE jobOrderId='".$row['id']."' order by id desc limit 1 ") or die ("Error al traer los Agent");
         while ($rowWR = mysqli_fetch_assoc($consultaWR)){
             $WHReceipt=$rowWR['wr'];
-            $wr.='<a href="https://latim.cargotrack.net/appl2.0/warehouse/detail.asp?id=<?php echo $WHReceipt; ?>&redir=../accounts/warehouse.asp?id=&redir_id=738" target="blank"><i class="fa fa-barcode" style="font-size: 30px;color: black;"></i></a><p>WR#'.$WHReceipt.'</p>';
+            $wr.='<a href="https://latim.cargotrack.net/appl2.0/warehouse/detail.asp?id='.$WHReceipt.'&redir=../accounts/warehouse.asp?id=&redir_id=738" target="blank"><i class="fa fa-barcode" style="font-size: 30px;color: black;"></i></a><p>WR#'.$WHReceipt.'</p>';
         }
         $wr.='<a onclick="addwr('.$row['id'].')" href="#"><button type="button" class="btn btn-secondary btn-sm" style="color:black">ADD WR</button></a>';
     $customer=$row['customer_name'];

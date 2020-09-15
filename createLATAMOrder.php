@@ -166,7 +166,7 @@ $email = $_SESSION['username'];
                       <div class="col-md-12" >
                         <div class=" input-group">
                           <div class="input-group-addon"><i class="fa fa-user input-fa"></i></div>
-                          <select data-placeholder="Select Client" name="customer_step1" class="form-control select2"  required="required" >
+                          <select data-placeholder="Select Client" name="customer_step1" class="form-control select2" style="max-width:100%; min-width:100%" required="required" >
 
                             <option value="">Select Client</option>
                             <?php 
@@ -210,7 +210,7 @@ $email = $_SESSION['username'];
                       <div class="col-md-12" >
                         <div class=" input-group">
                           <div class="input-group-addon"><i class="fa fa-user input-fa"></i></div>
-                          <select data-placeholder="Select Supplier" name="supplier_step1" class="form-control select2" style="width:100%" required="required">
+                          <select data-placeholder="Select Supplier" name="supplier_step1" class="form-control select2" style="max-width:100%; min-width:100%" required="required">
                               <option selected="selected" value="<?php echo $supplier; ?>"><?php echo $supplier; ?></option>
                               <option value="No Supplier Information">No Supplier Information</option>
                                 

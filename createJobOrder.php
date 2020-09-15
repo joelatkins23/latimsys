@@ -172,7 +172,7 @@ date_default_timezone_set('America/La_Paz');
                           <div class="col-md-12" >
                             <div class=" input-group">
                               <div class="input-group-addon"><i class="fa fa-user input-fa"></i></div>
-                              <select data-placeholder="Select Client" name="customer_step1" class="form-control select2" style="width:100%; " required="required" >
+                              <select data-placeholder="Select Client" name="customer_step1" class="form-control select2" style="max-width:100%; min-width:100%" required="required" >
                                 <option value="">Select Client</option>
                                 <?php 
 
@@ -215,7 +215,7 @@ date_default_timezone_set('America/La_Paz');
                           <div class="col-md-12" >
                             <div class=" input-group">
                               <div class="input-group-addon"><i class="fa fa-user input-fa"></i></div>
-                              <select data-placeholder="Select Supplier" name="supplier_step1" class="form-control select2" style="width:100%" required="required">
+                              <select data-placeholder="Select Supplier" name="supplier_step1" class="form-control select2" style="max-width:100%; min-width:100%" required="required">
                                   <option value="No Supplier Information">No Supplier Information</option>
                                   <?php $consulta = mysqli_query($connect, "SELECT * FROM accounts WHERE type='Supplier' order by name ") or die ("Error al traer los datos");
                                         while ($row = mysqli_fetch_array($consulta)){ 
