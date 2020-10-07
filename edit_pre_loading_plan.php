@@ -164,11 +164,14 @@ $email = $_SESSION['username'];
                     </div>
                 </div>
                 <div class="row">
-                    <?php if($status=='unlock'){ ?>
-                        <div class="col-md-12 text-right" style="padding-right:30px;">
-                            <button type="button"  id="inculde_joborders" class="btn btn-danger"><i class="fa fa-plus"></i>Add JobOrders</button>
-                        </div>
+                 <div class="col-md-12 text-right" style="padding-right:30px;">
+                    <button type="button" class="btn btn-success download_excel"><i class="fa fa-file"></i>&nbsp;Download Excel</button>
+                    <?php if($status=='unlock'){ ?>                       
+                           
+                            <button type="button"  id="inculde_joborders" class="btn btn-danger"><i class="fa fa-plus"></i>&nbsp;Add JobOrders</button>
+                        
                     <?php } ?>
+                    </div>
                     <div class="col-md-12" style="padding:10px 30px;">
                         <div class="table-responsive">
                             <table id='joborders_lists' style="width:100%;" class="table">
@@ -200,13 +203,12 @@ $email = $_SESSION['username'];
                                             left join agents d on a.agent_id=d.id 
                                             WHERE a.branch='' and a.id='$item'") or die ('error');
                                             while ($row = mysqli_fetch_array($queryModel)){  
-                                                $statuss=$row['status'];
                                                 $id=$row['id'];
-                                                if ($row['status']=='IN WAREHOUSE') {$statuss='<div style="font-weight:600; font-size:9px; color:white; padding:5px;width:80px; border:0.5px solid gray; background:#00a75a; ">'.$status.'</div>';}
-                                                elseif ($row['status']=='PENDING') {$statuss='<div style="font-weight:600; font-size:9px; color:white; padding:5px;width:80px; border:0.5px solid gray; background:#db4c39; ">'.$status.'</div>';}
-                                                elseif ($row['status']=='READY TO CONTACT') {$statuss='<div style="font-weight:600; font-size:9px; color:white; width:80px; padding:5px; border:0.5px solid gray; background:#00c2f0; ">'.$status.'</div>';}
-                                                elseif ($row['status']=='CHECK NOTES') {$statuss='<div style="font-weight:600; font-size:9px; color:purple; padding:5px;width:80px; border:0.5px solid gray; background:#a62c0d8; ">'.$status.'</div>';}
-                                                else{$statuss='<div style="font-weight:600; color:black;">'.$statuss.'</div>';}
+                                                if ($row['status']=='IN WAREHOUSE') {$statuss='<div style="font-weight:600; font-size:9px; color:white; padding:5px;width:80px; border:0.5px solid gray; background:#00a75a; ">'.$row['status'].'</div>';}
+                                                elseif ($row['status']=='PENDING') {$statuss='<div style="font-weight:600; font-size:9px; color:white; padding:5px;width:80px; border:0.5px solid gray; background:#db4c39; ">'.$row['status'].'</div>';}
+                                                elseif ($row['status']=='READY TO CONTACT') {$statuss='<div style="font-weight:600; font-size:9px; color:white; width:80px; padding:5px; border:0.5px solid gray; background:#00c2f0; ">'.$row['status'].'</div>';}
+                                                elseif ($row['status']=='CHECK NOTES') {$statuss='<div style="font-weight:600; font-size:9px; color:purple; padding:5px;width:80px; border:0.5px solid gray; background:#a62c0d8; ">'.$row['status'].'</div>';}
+                                                else{$statuss='<div style="font-weight:600; color:black;">'.$row['status'].'</div>';}
                                                 $shipping = $row['customer_city'].'<br><img src="./img/venezuela.png" style="width:40px;">';
                                                 $service=$row['service'];
                                                 if ($service=='') {$service=' ';}

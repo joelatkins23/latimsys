@@ -192,6 +192,9 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                     table2.ajax.reload();
                     $("#joborders_for_loading").modal('show');
                 });
+                $(".download_excel").on("click", function(e){
+                    window.open("./excel_preloadingplan.php?id="+id);
+                }) 
                 $("input[name='status']").on("change", function (e) {
                     $.post("./joborder_loading_curd.php",
                         {
@@ -317,7 +320,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             'serverSide': true,
             'serverMethod': 'post',
             "order": [
-                [0, "asc"]
+                [0, "desc"]
             ],
             'columnDefs': [{
                 orderable: false,
@@ -419,7 +422,8 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                 icon: "success",
             });
             table2.ajax.reload();
-        });  
+        }); 
+        
     </script>
 </body>
 

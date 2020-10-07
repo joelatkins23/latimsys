@@ -484,6 +484,10 @@ div#load_screen>div#loading {
     background: #B80008 !important;
 }
 
+.btn {
+    margin: 2px;
+}
+
 .sidebar a:hover,
 .sidebar a:active,
 .sidebar a:focus,

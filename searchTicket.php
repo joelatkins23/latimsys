@@ -76,11 +76,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                     <div class="col-md-offset-3 col-md-5 text-center">
                       <div class="form-group">
                         <h3 class="text-center" style="font-weight:bold">SEARCH TICKETS</h3>
-                      </div>
-                        <div class="form-group" style="background: #B80008;  padding-top: 10px; padding-bottom: 10px;">
-                          <button class="btn pending_ticket">View Pending Tickets Only</button>
-                          <button class="btn all_ticket">View All Tickets</button>
-                        </div>
+                      </div>                    
                     </div>
                     <div class="col-md-4 text-center" style="margin-bottom:10px;">
                         <p class="text-center">Change Status</p>
@@ -97,6 +93,14 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                           </div>
                           <button type="button" id="statusUpdate_btn" class="btn btn-primary">Update</button>
                         </form>
+                    </div>
+                </div>
+                <div class="col-md-offset-2 col-md-8 text-center">
+                    <div class="form-group" style="background: #B80008;  padding-top: 10px; padding-bottom: 10px;">
+                        <button class="btn pending_ticket"><i class="fa fa-eye"></i>&nbsp;View Pending Tickets Only</button>
+                        <button class="btn all_ticket"><i class="fa fa-eye"></i>&nbsp;View All Tickets</button>
+                        <button class="btn  download_excel">
+                            <i class="fa fa-file"></i>&nbsp;Download EXCEL</button>
                     </div>
                 </div>
             </div>
@@ -718,9 +722,11 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             });        
       } 
         function Getfrom(){
+            from=$("#from").val();
             return $("#from").val();
         }
         function Getto(){
+            to=$("#from").val();
             return $("#to").val();
         }
         function GetjobCheck(){
@@ -764,6 +770,10 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             }
              
        });
+         // excel download
+         $(".download_excel").on("click", function(e){
+            window.open("./excel_ticket.php?from="+from+"&to="+to+"&type="+type);
+        })
     </script>
 </body>
 

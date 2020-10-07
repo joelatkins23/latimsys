@@ -104,11 +104,11 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                     <div class="row" style="border-bottom: 1px solid #000; margin-left: 0; margin-right: 0;">
                         <div class="col-md-12">
                             <div class="form-group text-center">
-                                <button class="btn quick">Quick Job Orders</button>
-                                <button class="btn warehouse">In Warehouse Only</button>
-                                <button class="btn all_job">All Job Orders</button>
-                                <a href="excel.php" class="btn download_excel"><button class="btn" style="color: #000;;">
-                                <i class="fa fa-file"></i>&nbsp;Download EXCEL</button></a>
+                                <button class="btn btn-danger quick"><i class="fa fa-eye"></i>&nbsp;Quick Job Orders</button>
+                                <button class="btn btn-danger warehouse"><i class="fa fa-eye"></i>&nbsp;In Warehouse Only</button>
+                                <button class="btn btn-danger all_job"><i class="fa fa-eye"></i>&nbsp;All Job Orders</button>
+                                <button class="btn btn-danger download_excel">
+                                <i class="fa fa-file"></i>&nbsp;Download EXCEL</button>
                             </div>
                         </div>
                     </div>
@@ -346,10 +346,12 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
         }
 
         function Getfrom() {
+            from=  $("#from").val();
             return $("#from").val();
         }
 
         function Getto() {
+            to=  $("#to").val();
             return $("#to").val();
         }
 
@@ -515,6 +517,10 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             }
 
         });
+        // excel download
+        $(".download_excel").on("click", function(e){
+            window.open("./excel_job.php?from="+from+"&to="+to+"&type="+type);
+        })
     </script>
 </body>
 

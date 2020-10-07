@@ -218,7 +218,7 @@ $email = $_SESSION['username'];
                                         <td class="text-center"><?php echo $row['currency']; ?></td>
                                         <td class="text-center"><?php echo $row['amount_val']; ?></td>
                                         <td class="text-center"><?php echo $row['paid']; ?></td>                
-                                        <td class="text-center"><i class="fa fa-trash action td_remove" onclick="ontdremove($(this))"></i></td>  
+                                        <td class="text-center"><i class="fa fa-trash action td_remove" onclick="ontdremove($(this))"></i><a href="subpaymentpdf.php?id=<?php echo  $row['id']; ?>" target="blank"><i class="fa fa-file-pdf-o action" ></i></a></td>  
                                         <input type="hidden" name="td_paid[]" value="<?php echo $row['paid']; ?>" class="form-control text-right">  
                                         <input type="hidden" name="td_bill_id[]" value="<?php echo $row['bill_id']; ?>" class="form-control text-right">
                                         <input type="hidden" name="td_payment_id[]" value="<?php echo $row['id']; ?>" class="form-control text-right">                
