@@ -1,5 +1,5 @@
 <?php 
-include 'conn.php';
+include '../conn.php';
 session_start();
 $from=$_GET['from'];
 $to=$_GET['to'];

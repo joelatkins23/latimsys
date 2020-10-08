@@ -1,5 +1,5 @@
 <?php 
-include 'conn.php';
+include '../conn.php';
 session_start();
 $id=$_GET['id'];
 $email = $_SESSION['username'];

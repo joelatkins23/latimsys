@@ -772,7 +772,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
        });
          // excel download
          $(".download_excel").on("click", function(e){
-            window.open("./excel_ticket.php?from="+from+"&to="+to+"&type="+type);
+            window.open("./excel/excel_ticket.php?from="+from+"&to="+to+"&type="+type);
         })
     </script>
 </body>

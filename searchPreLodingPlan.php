@@ -193,7 +193,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                     $("#joborders_for_loading").modal('show');
                 });
                 $(".download_excel").on("click", function(e){
-                    window.open("./excel_preloadingplan.php?id="+id);
+                    window.open("./excel/excel_preloadingplan.php?id="+id);
                 }) 
                 $("input[name='status']").on("change", function (e) {
                     $.post("./joborder_loading_curd.php",

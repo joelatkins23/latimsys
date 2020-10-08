@@ -262,6 +262,12 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                       </div>
                   </div>
               </form>
+                <div class="col-md-6">
+                  <div class="form-group text-right">                            
+                      <button type="button" class="btn btn-danger download_excel">
+                      <i class="fa fa-file"></i>&nbsp;Download EXCEL</button>
+                  </div>
+                </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -475,9 +481,11 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             $("#editJobOrder").modal('show');
         }
         function Getfrom(){
+            from=$("#from").val();
             return $("#from").val();
         }
         function Getto(){
+            to=$("#to").val();
             return $("#to").val();
         }
         function GetjobCheck(){
@@ -621,6 +629,9 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             }
              
        });
+       $(".download_excel").on("click", function(e){
+            window.open("./excel/excel_job_index.php?from="+from+"&to="+to);
+        })
     </script>
 
 
