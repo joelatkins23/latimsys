@@ -40,7 +40,7 @@ $email = $_SESSION['username'];
     <link href='plugins/datatables/jquery.dataTables.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css">
     <link rel="stylesheet" href="./plugins/datetimepicker/bootstrap-datetimepicker.css">
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css">
     <link rel="stylesheet" href="latimstyle.css">
     <link href='assets/css/style.css' rel='stylesheet' type='text/css'>  
     <link href='assets/css/imageuploadify.min.css' rel='stylesheet' type='text/css'>
@@ -55,7 +55,7 @@ $email = $_SESSION['username'];
     <script src="plugins/moment.min.js"></script>
     <script src="./plugins/datetimepicker/bootstrap-datetimepicker.js"></script>
     <script src="./plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="dist/js/app.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
    
     <script>
     window.addEventListener("load", function(){
@@ -528,7 +528,7 @@ $email = $_SESSION['username'];
               targets: [8, 9, 12,13]
           }],
           'ajax': {
-              'url': 'ajaxfile_warehouse.php',
+              'url': 'ajax/ajaxfile_warehouse.php',
               "data" :function(d){
                   d.fecha ='<?php echo $_GET['fecha'] ?>';
                   d.tracking ='<?php echo $_GET['tracking'] ?>';

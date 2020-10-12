@@ -41,7 +41,7 @@ $email = $_SESSION['username'];
     <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css">    
     
     
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css">
     <link rel="stylesheet" href="latimstyle.css">
     <link href='assets/css/style.css' rel='stylesheet' type='text/css'> 
     
@@ -61,7 +61,7 @@ $email = $_SESSION['username'];
     
     
     
-    <script src="dist/js/app.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
      
      <style>
      table.dataTable tbody th, table.dataTable tbody td {

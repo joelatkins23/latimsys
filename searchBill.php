@@ -37,7 +37,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     <link href='plugins/datatables/jquery.dataTables.css' rel='stylesheet' type='text/css'>    
     <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css">    
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css">
     <link rel="stylesheet" href="latimstyle.css">
     <link href='assets/css/style.css' rel='stylesheet' type='text/css'>
     <link href='assets/css/imageuploadify.min.css' rel='stylesheet' type='text/css'>
@@ -51,7 +51,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     <script src="plugins/select2/select2.js"></script>    
     <script src="plugins/moment.min.js"></script>    
     <script src="./plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="dist/js/app.min.js"></script>   
+    <script src="assets/js/app.min.js"></script>   
     <script>
     window.addEventListener("load", function(){
       var load_screen = document.getElementById("load_screen");
@@ -183,7 +183,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                 targets: [12]
             }],
             'ajax': {
-                'url': 'ajaxfile_bill.php',
+                'url': 'ajax/ajaxfile_bill.php',
                 // "data": function(d) {
                 //     d.from = Getfrom();
                 //     d.to = Getto();

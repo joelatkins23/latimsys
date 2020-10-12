@@ -31,7 +31,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     <link href='plugins/datatables/jquery.dataTables.css' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./plugins/datepicker/datepicker3.css">
     <link rel="stylesheet" href="./plugins/datetimepicker/bootstrap-datetimepicker.css">
-    <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+    <link rel="stylesheet" href="assets/css/AdminLTE.min.css">
     <link rel="stylesheet" href="latimstyle.css">
     <link href='assets/css/style.css' rel='stylesheet' type='text/css'>  
     <link href='assets/css/imageuploadify.min.css' rel='stylesheet' type='text/css'>
@@ -46,7 +46,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     <script src="plugins/moment.min.js"></script>
     <script src="./plugins/datetimepicker/bootstrap-datetimepicker.js"></script>
     <script src="./plugins/datepicker/bootstrap-datepicker.js"></script>
-    <script src="dist/js/app.min.js"></script>
+    <script src="assets/js/app.min.js"></script>
      
      <style>
      table.dataTable tbody th, table.dataTable tbody td {
@@ -514,7 +514,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             [0, "asc"]
         ],            
         'ajax': {
-            'url': 'ajaxfile_account.php'
+            'url': 'ajax/ajaxfile_account.php'
         },
         'columns': [{
             data: 'id'
@@ -613,7 +613,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             targets: [8, 9, 12]
         }],
         'ajax': {
-            'url': 'ajaxfile_account_warehouse.php',
+            'url': 'ajax/ajaxfile_account_warehouse.php',
             "data" :function(d){                 
                 d.from = Getfrom();
                 d.to = Getto();
@@ -1035,7 +1035,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
             targets: [7]
         }],
         'ajax': {
-            'url': 'ajaxfile_account_quotation.php',
+            'url': 'ajax/ajaxfile_account_quotation.php',
             "data" :function(d){
                 d.from = Getfrom_quotation();
                 d.to = Getto_quotation();
@@ -1307,7 +1307,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                 targets: [8, 9, 10]
             }],
             'ajax': {
-                'url': 'ajaxfile_account_cn.php',
+                'url': 'ajax/ajaxfile_account_cn.php',
                 "data": function(d) {
                     d.from = Getfrom_joborder();
                     d.to = Getto_joborder();

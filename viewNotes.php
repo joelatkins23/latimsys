@@ -122,7 +122,7 @@ window.close(); //Close child window. You may also use self.close();</script>";
   <!-- Select2 -->
   <link rel="stylesheet" href="plugins/select2/select2.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+  <link rel="stylesheet" href="assets/css/AdminLTE.min.css">
 <link href="https://fonts.googleapis.com/css?family=Be+Vietnam&display=swap" rel="stylesheet">
 </head>
 <body>
