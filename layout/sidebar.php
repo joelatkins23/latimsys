@@ -203,6 +203,18 @@
               <li><a id="search" href="searchTicket.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Search</a></li>
             </ul>
           </li>
+          <li id="ad_tickets_list" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
+            <a href="#" style="height:25px; position:relative; top:-10px;"> 
+              <i class="fa fa-info"></i> <span style="font-size:11px;">Administration Tickets</span>
+              <span class="pull-right-container" style="top:22px;">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a id="create" href="createTicket_ad.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Create</a></li>
+              <li><a id="search" href="searchTicket_ad.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Search</a></li>
+            </ul>
+          </li>
           <?php if(isset($level) && $level=='master'){ ?>
           <center><div style="width:100%; height:20px;background:#CECAC6;"><span style="  color:#630000; font-weight:600; font-size:14px;">USERS SETTINGS</span></div></center>
           <li id="users_list" class="treeview" style="border-bottom:1px solid gray; padding:5px;">

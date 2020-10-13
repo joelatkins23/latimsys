@@ -23,9 +23,9 @@ if(isset($_POST["ticket_Update"]) && !empty($_POST["ticket_Update"])){
                
                 $fecha = date('Y-m-d H:i:s');
                 $statusUpdate = $_POST["statusUpdate"];
-                $queryModel = mysqli_query($connect, "UPDATE tickets SET status='$statusUpdate' WHERE id='$jobCheck' ") or die ('error');
-                $query = mysqli_query($connect, "INSERT INTO ticket_notes(agent_name, ticket_id, note,  fecha) 
-                            VALUES ('$agent_name', '$jobCheck',  'Ticket Status Updated: $statusUpdate.','$fecha')");
+                $queryModel = mysqli_query($connect, "UPDATE tickets_ad SET status='$statusUpdate' WHERE id='$jobCheck' ");
+                $query = mysqli_query($connect, "INSERT INTO ticket_notes_ad(agent_name, ticket_id, note,  fecha) 
+                    VALUES ('$agent_name', '$jobCheck',  'Ticket Status Updated: $statusUpdate.','$fecha')");
             }
         }
     return true;
@@ -61,19 +61,19 @@ if(isset($_POST["tracking_photo"]) && !empty($_POST["tracking_photo"])){
         $uploadfile_temporal1=$_FILES['tracking_img']['tmp_name'];
         $extension1 = pathinfo($_FILES['tracking_img']['name'], PATHINFO_EXTENSION);
         if ($extension1=='') {
-                $queryModel = mysqli_query($connect, "UPDATE tickets SET tracking_number='$tracking_number' WHERE id='$ticket_id' ");
+                $queryModel = mysqli_query($connect, "UPDATE tickets_ad SET tracking_number='$tracking_number' WHERE id='$ticket_id' ");
             }else{    
                 $uploadfile_nombre1=$ruta.time().'-2.'.$extension1;         
                 if (is_uploaded_file($uploadfile_temporal1)) 
                 { 
                     move_uploaded_file($uploadfile_temporal1, $uploadfile_nombre1); 
                 } 
-                $queryModel = mysqli_query($connect, "UPDATE tickets SET tracking_number='$tracking_number', imagen1='$uploadfile_nombre1' WHERE id='$ticket_id' ");
+                $queryModel = mysqli_query($connect, "UPDATE tickets_ad SET tracking_number='$tracking_number', imagen1='$uploadfile_nombre1' WHERE id='$ticket_id' ");
 
         }
         echo $uploadfile_nombre1;
     }else{
-        $queryModel = mysqli_query($connect, "UPDATE tickets SET tracking_number='$tracking_number' WHERE id='$ticket_id' ");
+        $queryModel = mysqli_query($connect, "UPDATE tickets_ad SET tracking_number='$tracking_number' WHERE id='$ticket_id' ");
         echo '';
     }
     
@@ -85,7 +85,7 @@ if(isset($_POST["create_note"]) && !empty($_POST["create_note"])){
         $notes= $_POST['notess'];
         // $agent_name= $_POST['agent_name'];       
 
-	    $consulta_ticket = mysqli_query($connect, "SELECT * FROM ticket_notes ORDER BY id DESC LIMIT 1");
+	    $consulta_ticket = mysqli_query($connect, "SELECT * FROM ticket_notes_ad ORDER BY id DESC LIMIT 1");
          $num_rows_ticket = mysqli_num_rows($consulta_ticket);
 
         if($num_rows_ticket==0){
@@ -117,7 +117,7 @@ if(isset($_POST["create_note"]) && !empty($_POST["create_note"])){
         
     }
     $fecha = date('Y-m-d H:i:s');
-    $queryModel = mysqli_query($connect, "INSERT INTO ticket_notes(agent_name, ticket_id, note, imagen, fecha) 
+    $queryModel = mysqli_query($connect, "INSERT INTO ticket_notes_ad(agent_name, ticket_id, note, imagen, fecha) 
                 VALUES ('$agent_name', '$ticket_id', '$notes', '$uploadfile_nombre1', '$fecha')");
    
     $data['id']=mysqli_insert_id($connect);
@@ -136,7 +136,7 @@ if(isset($_POST["inquiry_informtion"]) && !empty($_POST["inquiry_informtion"])){
     $warehouse_receipt = $_POST['warehouse_receipt'];
     $supplier_phone = $_POST['supplier_phone'];
     $supplier_address = $_POST['supplier_address'];
-    $queryModel = mysqli_query($connect, "UPDATE tickets SET name='$client', job_order='$job_order', service='$service', supplier_phone='$supplier_phone', supplier_address='$supplier_address',  warehouse_receipt='$warehouse_receipt', notes='$notes' WHERE id='$ticket_id' ");
+    $queryModel = mysqli_query($connect, "UPDATE tickets_ad SET name='$client', job_order='$job_order', service='$service', supplier_phone='$supplier_phone', supplier_address='$supplier_address',  warehouse_receipt='$warehouse_receipt', notes='$notes' WHERE id='$ticket_id' ");
     return true;
 }
 if(isset($_GET["ticket"]) && !empty($_GET["ticket"])){
@@ -151,7 +151,7 @@ if(isset($_GET["ticket"]) && !empty($_GET["ticket"])){
             $data['agent']['level']=$rowAgent['level'];
             $data['agent']['noteBy']=$rowAgent['name'];     
          } 
-        $consulta2 = mysqli_query($connect, "SELECT * FROM tickets WHERE id='$id' ORDER BY id asc ") or die ("Error al traer los datos222");
+        $consulta2 = mysqli_query($connect, "SELECT * FROM tickets_ad WHERE id='$id' ORDER BY id asc ") or die ("Error al traer los datos222");
         while ($row = mysqli_fetch_array($consulta2)){  
             $data['ticket']['jobId'] = $row['id'];
             $data['ticket']['agent_id'] = $row['agent_id'];
@@ -188,7 +188,7 @@ if(isset($_GET["ticket"]) && !empty($_GET["ticket"])){
     }
     $data['agent_select']=$agent_select;
     $tbody="";
-    $consultaNotes = mysqli_query($connect, "SELECT * FROM ticket_notes WHERE ticket_id='$id' ORDER BY id DESC ") or die ("Error al traer los datos");
+    $consultaNotes = mysqli_query($connect, "SELECT * FROM ticket_notes_ad WHERE ticket_id='$id' ORDER BY id DESC ") or die ("Error al traer los datos");
         while ($rowNotes = mysqli_fetch_array($consultaNotes)){  
         $id_ticket_note = $rowNotes['id'];
         $agent_name_notes = $rowNotes['agent_name'];
@@ -214,7 +214,7 @@ if(isset($_GET["ticket"]) && !empty($_GET["ticket"])){
 }
 if(isset($_POST["note_delete"]) && !empty($_POST["note_delete"])){
     $id=$_POST["id"];   
-    $queryModel = mysqli_query($connect, "DELETE FROM ticket_notes WHERE id='$id'");
+    $queryModel = mysqli_query($connect, "DELETE FROM ticket_notes_ad WHERE id='$id'");
     return true;
 }
 
@@ -222,29 +222,29 @@ if(isset($_POST["inquiry_save"]) && !empty($_POST["inquiry_save"])){
     $ticket_id=$_POST["id"]; 
     $status=$_POST["status"];   
     $fecha=date('Y-m-d H:i:s');
-    $queryModel = mysqli_query($connect, "UPDATE tickets SET status='$status' WHERE id='$ticket_id' ")
+    $queryModel = mysqli_query($connect, "UPDATE tickets_ad SET status='$status' WHERE id='$ticket_id' ")
     or die ("<meta http-equiv=\"refresh\" content=\"0;URL= createAccount.php?message=ErrorSavingAccount\">");
     
-    $queryModel = mysqli_query($connect, "INSERT INTO ticket_notes(agent_name, ticket_id, note, fecha) 
-                    VALUES ('$agent_name', '$ticket_id', 'Ticket Status Updated: $status .', '$fecha')");
+    $queryModel = mysqli_query($connect, "INSERT INTO ticket_notes_ad(agent_name, ticket_id, note, fecha) 
+                    VALUES ('$agent_name', '$ticket_id', 'Ticket Status Updated: $status.', '$fecha')");
     return true;
 }
 if(isset($_POST["ticket_status"]) && !empty($_POST["ticket_status"])){
     $ticket_id=$_POST["id"]; 
     $type=$_POST["type"];   
     $fecha=date('Y-m-d H:i:s');
-    $queryModel = mysqli_query($connect, "UPDATE tickets SET type='$type' WHERE id='$ticket_id' ")
+    $queryModel = mysqli_query($connect, "UPDATE tickets_ad SET type='$type' WHERE id='$ticket_id' ")
     or die ("<meta http-equiv=\"refresh\" content=\"0;URL= createAccount.php?message=ErrorSavingAccount\">");
     
-    $queryModel = mysqli_query($connect, "INSERT INTO ticket_notes(agent_name, ticket_id, note, fecha) 
+    $queryModel = mysqli_query($connect, "INSERT INTO ticket_notes_ad(agent_name, ticket_id, note, fecha) 
                     VALUES ('$agent_name', '$ticket_id', 'Ticket Type Updated: $type Ticket.', '$fecha')");
     return true;
 }
 if(isset($_POST["order_ticket"]) && !empty($_POST["order_ticket"])){
     $id=$_POST["jobId"]; 
-    $queryModel = mysqli_query($connect, "DELETE FROM tickets WHERE id='$id'")
+    $queryModel = mysqli_query($connect, "DELETE FROM tickets_ad WHERE id='$id'")
     or die ("<meta http-equiv=\"refresh\" content=\"0;URL= createAccount.php?message=ErrorSavingAccount\">");
     
-    $queryModel = mysqli_query($connect, "DELETE FROM ticket_notes WHERE ticket_id='$id'");
+    $queryModel = mysqli_query($connect, "DELETE FROM ticket_notes_ad WHERE ticket_id='$id'");
     return true;
 }
