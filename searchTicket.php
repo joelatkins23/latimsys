@@ -51,6 +51,11 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
       document.body.removeChild(load_screen);
     });
 </script>
+<style>
+   #notetable th, #notetable td {
+        height: auto;
+    }
+</style>
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -99,6 +104,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                     <div class="form-group" style="background: #B80008;  padding-top: 10px; padding-bottom: 10px;">
                         <button class="btn pending_ticket"><i class="fa fa-eye"></i>&nbsp;View Pending Tickets Only</button>
                         <button class="btn all_ticket"><i class="fa fa-eye"></i>&nbsp;View All Tickets</button>
+                        <button class="btn all_ticket btn_notes"><i class="fa fa-bell-o"></i>&nbsp;Notes</button>
                         <button class="btn  download_excel">
                             <i class="fa fa-file"></i>&nbsp;Download EXCEL</button>
                     </div>
@@ -152,7 +158,36 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
       </section>
     </div>
   </div>
-  
+  <div id="noteModal" class="modal fade" role="dialog">
+      <div class="modal-dialog" style="width:800px">
+        <!-- Modal content-->
+        <div class="modal-content">  
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>               
+                 <h4 class="modal-title"><i class="fa fa-bell"></i> &nbsp;Tickets Notes</h4>                        
+            </div>        
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                            <table class="table" id="notetable">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Ticket ID</th>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">By</th>
+                                        <th class="text-center">Note</th>
+                                        <th class="text-center">File</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>        
+        </div>
+      </div>
+    </div>
     <div id="editticket" class="modal fade" role="dialog">
         <div class="modal-dialog modal-lg" >
           <style>
@@ -404,9 +439,9 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
           </div>
         </div>
     </div>  
+    
     <div id="imgModal" class="modal fade" role="dialog">
       <div class="modal-dialog">
-
         <!-- Modal content-->
         <div class="modal-content">          
           <div class="modal-body">
@@ -424,7 +459,39 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
       //Date picker
       $('#datepicker').datepicker({
         autoclose: true
-      }); 
+      });
+      var table2=$('#notetable').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                'processing': true,
+                'serverSide': true,
+                'serverMethod': 'post',
+                "order": [
+                    [0, "desc"]
+                ],
+                'ajax': {
+                    'url': 'ajax/ajaxfile_ticket_note.php',                   
+                },
+                'columns': [{
+                    data: 'ticket_id'
+                }, {
+                    data: 'fecha'
+                }, {
+                    data: 'agent_name'
+                }, {
+                    data: 'note'
+                }, {
+                    data: 'imagen'
+                }]
+            }); 
+      $('.btn_notes').on("click", function(e){
+            table2.ajax.reload( null, false );     
+            $("#noteModal").modal("show");
+      })
         function ConfirmDelete() {
             return confirm("Are you sure you want to delete?");
         }      
