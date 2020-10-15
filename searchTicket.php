@@ -471,7 +471,7 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                 'serverSide': true,
                 'serverMethod': 'post',
                 "order": [
-                    [0, "desc"]
+                    [1, "desc"]
                 ],
                 'ajax': {
                     'url': 'ajax/ajaxfile_ticket_note.php',                   
