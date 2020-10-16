@@ -92,9 +92,9 @@
                   <input type="hidden" name="create_user" value="create">
                   <div class="form-group text-center">
                     <div class="card bd-0" style="border:unset">
-                      <img class="card-img-top img-fluid user-image" id="image_upload"  alt="Image" src="./images/17-1.jpg" >
-                      <input hidden type="file" id="my_file" name="avatar"  accept=".png, .jpg, .jpeg" value=""/>
-                      <input type="hidden" id="user_logo" name="user_logo" value="" />
+                      <img class="card-img-top img-fluid user-image" id="image_upload"   alt="Image" src="./images/17-1.jpg" >
+                      <input hidden type="file" id="my_file" name="avatar"  accept=".png, .jpg, .jpeg" value="./images/17-1.jpg"/>
+                      <input type="hidden" id="user_logo" name="user_logo" value="./images/17-1.jpg" />
                     </div>
                   </div>
                   <div class="form-group row">                
@@ -116,6 +116,21 @@
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                       <input type="text" class="form-control"  name="phone" required placeholder="Enter Phone">
+                    </div>                   
+                  </div>
+                  <div class="form-group">
+                    <label >WareHouse LoGo</label>
+                    <div class="card bd-0" style="border:unset">
+                      <img class="card-img-top img-fluid" id="image_my_we_logo"  style="height:80px;" alt="Image" src="./images/logoChina.png" >
+                      <input hidden type="file" id="my_we_logo" name="my_we_logo"  accept=".png, .jpg, .jpeg" value=""/>
+                      <input type="hidden" id="wr_logo" name="wr_logo" value="" />
+                    </div>
+                  </div>
+                  <div class="form-group row">                
+                    <label >Entry Name</label>
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                      <input type="text" class="form-control"  name="wr_name" value="LATIMCARGO" required placeholder="Enter Name">
                     </div>                   
                   </div>
                   <div class="form-group row">                
@@ -166,7 +181,9 @@
     $("#image_upload").click(function() {
           $("input[id='my_file']").click();
       });
-
+    $("#image_my_we_logo").click(function() {
+        $("input[id='my_we_logo']").click();
+    });
       $(function(){
           $('#my_file').change(function(){
               var input = this;
@@ -188,6 +205,27 @@
               }
           });
       });
+      $(function(){
+          $('#my_we_logo').change(function(){
+              var input = this;
+              var url = $(this).val();
+              var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+              if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg"))
+              {
+                  var reader = new FileReader();
+
+                  reader.onload = function (e) {
+                      $('#image_my_we_logo').attr('src', e.target.result);
+                  }
+                  reader.readAsDataURL(input.files[0]);
+                  $('#wr_logo').val(null);
+              }
+              else
+              {
+                  $('#image_my_we_logo').attr('src', './images/logoChina.png');
+              }
+          });
+      });
     $(function () {
       $("#creat_form").submit(function(e) {
         event.preventDefault();
@@ -196,10 +234,13 @@
          
           var fd = new FormData();
           fd.append( 'avatar', $("input[name='avatar']").prop('files')[0]);
+          fd.append( 'wr_img', $("input[name='my_we_logo']").prop('files')[0]);
           fd.append( 'user_logo', $("input[name='user_logo']").val());
+          fd.append( 'wr_logo', $("input[name='wr_logo']").val());
           fd.append( 'create_user', $("input[name='create_user']").val());
           fd.append( 'username', $("input[name='username']").val());
           fd.append( 'email', $("input[name='email']").val());
+          fd.append( 'wr_name', $("input[name='wr_name']").val());
           fd.append( 'phone', $("input[name='phone']").val());
           fd.append( 'password', $("input[name='password']").val());
           fd.append( 'level', $("select[name='level']").val());
@@ -215,9 +256,13 @@
               if(data.status){   
                   $("#my_file").val("");
                   $("#my_file").trigger('change');
+                  $("#my_we_logo").val("");
+                  $("#my_we_logo").trigger('change');
                   $('#image_upload').attr('src', './images/17-1.jpg');  
+                  $('#image_my_we_logo').attr('src', './images/logoChina.png');  
                   $("input[name='username']").val(""); 
                   $("input[name='email']").val("");  
+                  $("input[name='wr_name']").val("LATIMCARGO");  
                   $("input[name='phone']").val("");  
                   $("input[name='password']").val(""); 
                   $("input[name='confirm_password']").val("");    

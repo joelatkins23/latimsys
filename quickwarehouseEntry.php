@@ -1,11 +1,21 @@
 <?php
 	ob_start();
-	// include(dirname(__FILE__).'/res/pdf_demo.php');
 	require_once('conn.php');
-
+	session_start();
 	$id = $_GET['id'];
-	$consulta = mysqli_query($connect, "SELECT * FROM accounts WHERE id='$id' ");
+	$email = $_SESSION['username'];
+	$consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$email' ")
+	or die ("Error al traer los Agent");
+	while ($rowAgent = mysqli_fetch_array($consultaAgent)){		   
+		$wr_name=$rowAgent['wr_name'];
+		$wr_logo=$rowAgent['wr_logo'];
+	} 
 
+	$wr_name=($wr_name) ? $wr_name :'LATIMCARGO';
+	$wr_logo=($wr_logo) ? $wr_logo :'logoChina.png';
+	
+	$consulta = mysqli_query($connect, "SELECT * FROM accounts WHERE id='$id' ");
+	
   while ($warehouse = mysqli_fetch_array($consulta)) {
 	
 		$company= $warehouse['company'];
@@ -87,10 +97,11 @@
 				<table style="width:100%; margin-top:-30px;">
 					<tr>
 						<td style="width:150px;border:none;">
-							<img src="./img/logoChina.png" alt="" style="width:100px; height:120px;">
+							<img src="./images/'.$wr_logo.'" alt="" style="width:100px; height:120px;">
 						</td>
 						<td style="width:300px;text-align:center;border:none">
-							<img src="./img/a.jpg" alt="" style="width:300px; margin-top:30px;">
+							<h3 style="margin-top:30px;font-weight:bold">'.$wr_name.'</h3>
+							<img src="./img/ab.jpeg" alt="" style="width:300px; margin-top:10px;">
 						</td>
 						<td style="width:240px; text-align:right;border:none">
 							<h4 style="margin-top:40px;margin-bottom:0px;">ACCOUNT ID <strong style="color:red">'.$id.'</strong></h4>					

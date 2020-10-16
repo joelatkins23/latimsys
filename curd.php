@@ -381,6 +381,7 @@ if(isset($_POST["question_Update"]) && !empty($_POST["question_Update"])){
 }
 if(isset($_POST["update_profile"]) && !empty($_POST["update_profile"])){
     $email=$_POST["email"];
+    $wr_name=$_POST["wr_name"];
     $picture='';
     if($_POST["user_logo"]){
         $picture = $_POST["user_logo"];
@@ -397,7 +398,26 @@ if(isset($_POST["update_profile"]) && !empty($_POST["update_profile"])){
             move_uploaded_file($uploadfile_temporal1,$picture); 
         } 
     }
-    $queryModel = mysqli_query($connect, "UPDATE agents SET picture='$picture' WHERE email='$email' ")
+    $wr_logo='';
+    if($_POST["wr_logo"]){
+        $wr_logo = $_POST["wr_logo"];
+    }else{
+            $ruta="images/";//ruta carpeta donde queremos copiar las imágenes 
+    
+            $uploadfile_temporal=$_FILES['my_we_logo']['tmp_name'];
+            $extension = pathinfo($_FILES['my_we_logo']['name'], PATHINFO_EXTENSION);    
+        
+            $wr_logo=time().'_wr.'.$extension;
+            $file_name=$ruta.$wr_logo;           
+        
+            if (is_uploaded_file($uploadfile_temporal)) 
+            { 
+                move_uploaded_file($uploadfile_temporal,$file_name); 
+            } 
+        
+        
+    }
+    $queryModel = mysqli_query($connect, "UPDATE agents SET picture='$picture',wr_name='$wr_name',wr_logo='$wr_logo' WHERE email='$email' ")
      or die ("<meta http-equiv=\"refresh\" content=\"0;URL= ./myAccount.php?message=ErrorSaving\">");
 
     echo "<meta http-equiv=\"refresh\" content=\"0;URL= ./myAccount.php?message=updateProfile\">";
@@ -410,6 +430,7 @@ if(isset($_POST["create_user"]) && !empty($_POST["create_user"])){
     $username=$_POST["username"];
     $phone=$_POST["phone"];
     $password=$_POST["password"];
+    $wr_name=$_POST["wr_name"];
     $level=$_POST["level"];
     $fecha=date('Y-m-d H:i:s');
     $mail_password=$password;
@@ -441,20 +462,40 @@ if(isset($_POST["create_user"]) && !empty($_POST["create_user"])){
             if($_POST["user_logo"]){
                 $picture = $_POST["user_logo"];
             }else{
-                $ruta="images/";//ruta carpeta donde queremos copiar las imágenes 
+                    $ruta="images/";//ruta carpeta donde queremos copiar las imágenes 
             
-                $uploadfile_temporal1=$_FILES['avatar']['tmp_name'];
-                $extension1 = pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION);    
-               
-                $picture=$ruta.time().'.'.$extension1;        
-            
-                if (is_uploaded_file($uploadfile_temporal1)) 
-                { 
-                    move_uploaded_file($uploadfile_temporal1,$picture); 
-                } 
+                    $uploadfile_temporal1=$_FILES['avatar']['tmp_name'];
+                    $extension1 = pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION);    
+                   
+                    $picture=$ruta.time().'.'.$extension1;        
+                
+                    if (is_uploaded_file($uploadfile_temporal1)) 
+                    { 
+                        move_uploaded_file($uploadfile_temporal1,$picture); 
+                    } 
+              
+                
             }
+            $wr_logo='';
+            if($_POST["wr_logo"]){
+                $wr_logo = $_POST["wr_logo"];
+            }else{
+                    $ruta="images/";//ruta carpeta donde queremos copiar las imágenes 
             
-			$queryModel = mysqli_query($connect, "INSERT INTO agents(name, phone, email, picture, level) VALUES ('$username','$phone', '$email', '".$picture."', '".$level."')") or die ("<meta http-equiv=\"refresh\" content=\"0;URL= ./createUsers.php\">");
+                    $uploadfile_temporal=$_FILES['wr_img']['tmp_name'];
+                    $extension = pathinfo($_FILES['wr_img']['name'], PATHINFO_EXTENSION);    
+                
+                    $wr_logo=time().'_wr.'.$extension;
+                    $file_name=$ruta.$wr_logo;           
+                
+                    if (is_uploaded_file($uploadfile_temporal)) 
+                    { 
+                        move_uploaded_file($uploadfile_temporal,$file_name); 
+                    } 
+               
+                
+            }
+			$queryModel = mysqli_query($connect, "INSERT INTO agents(name, phone, email, picture, level, wr_name, wr_logo) VALUES ('$username','$phone', '$email', '".$picture."', '".$level."', '".$wr_name."', '".$wr_logo."')") or die ("<meta http-equiv=\"refresh\" content=\"0;URL= ./createUsers.php\">");
 	
             $data['status']=true;
             $data['message']='New User created successful';
@@ -468,6 +509,7 @@ if(isset($_POST["update_user_no_password"]) && !empty($_POST["update_user_no_pas
     $username=$_POST["username"];
     $email=$_POST["email"];
     $phone=$_POST["phone"];
+    $wr_name=$_POST["wr_name"];
     $level=$_POST["level"];
     $picture='';
     if($_POST["user_logo"]){
@@ -485,8 +527,27 @@ if(isset($_POST["update_user_no_password"]) && !empty($_POST["update_user_no_pas
             move_uploaded_file($uploadfile_temporal1,$picture); 
         } 
     }
-   
-    $queryModel = mysqli_query($connect, "UPDATE agents SET  picture='$picture', name='$username', phone='$phone',  level='$level' WHERE email='$email' ");
+    $wr_logo='';
+    if($_POST["wr_logo"]){
+        $wr_logo = $_POST["wr_logo"];
+    }else{
+       
+            $ruta="images/";//ruta carpeta donde queremos copiar las imágenes 
+    
+            $uploadfile_temporal=$_FILES['wr_img']['tmp_name'];
+            $extension = pathinfo($_FILES['wr_img']['name'], PATHINFO_EXTENSION);    
+            $wr_logo=time().'_wr.'.$extension;
+            $file_name=$ruta.$wr_logo;        
+        
+            if (is_uploaded_file($uploadfile_temporal)) 
+            { 
+                move_uploaded_file($uploadfile_temporal,$file_name); 
+            } 
+            
+       
+        
+    }
+    $queryModel = mysqli_query($connect, "UPDATE agents SET  picture='$picture', name='$username', phone='$phone',  level='$level',  wr_name='$wr_name',  wr_logo='$wr_logo' WHERE email='$email' ");
     $data['status']=true;
     $data['message']='User Updated successful';
     
@@ -498,6 +559,7 @@ if(isset($_POST["update_user"]) && !empty($_POST["update_user"])){
     $username=$_POST["username"];
     $email=$_POST["email"];
     $phone=$_POST["phone"];
+    $wr_name=$_POST["wr_name"];
     $level=$_POST["level"];
     $password=$_POST["password"];
     $mail_password=$password;	
@@ -533,7 +595,26 @@ if(isset($_POST["update_user"]) && !empty($_POST["update_user"])){
                     move_uploaded_file($uploadfile_temporal1,$picture); 
                 } 
             }
-            $queryModel = mysqli_query($connect, "UPDATE agents SET  picture='$picture', name='$username', phone='$phone',  level='$level' WHERE email='$email' ");
+                $wr_logo='';
+                if($_POST["wr_logo"]){
+                    $wr_logo = $_POST["wr_logo"];
+                }else{
+                        $ruta="images/";//ruta carpeta donde queremos copiar las imágenes 
+                
+                        $uploadfile_temporal=$_FILES['wr_img']['tmp_name'];
+                        $extension = pathinfo($_FILES['wr_img']['name'], PATHINFO_EXTENSION);    
+                    
+                        $wr_logo=time().'_wr.'.$extension;
+                        $file_name=$ruta.$wr_logo;            
+                    
+                        if (is_uploaded_file($uploadfile_temporal)) 
+                        { 
+                            move_uploaded_file($uploadfile_temporal,$file_name); 
+                        } 
+                 
+                    
+                }
+            $queryModel = mysqli_query($connect, "UPDATE agents SET  picture='$picture', name='$username', phone='$phone',  level='$level',  wr_name='$wr_name',  wr_logo='$wr_logo' WHERE email='$email' ");
             $data['status']=true;
             $data['password']=$mail_password;
             $data['message']='User Updated successful';

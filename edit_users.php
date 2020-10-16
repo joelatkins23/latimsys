@@ -10,6 +10,8 @@ $email= $_GET['email'];
          $email=$row['email'];
          $level=$row['level'];
          $picture=$row['picture'];
+         $wr_name=$row['wr_name'];
+         $wr_logo=$row['wr_logo'];
      } 
 ?>
 
@@ -74,6 +76,21 @@ $email= $_GET['email'];
                     <input type="text" class="form-control"  name="phone"  placeholder="Enter Phone" value="<?php echo $phone; ?>">
                     </div>                   
                 </div>
+                <div class="form-group">
+                    <label >WareHouse LoGo</label>
+                    <div class="card bd-0" style="border:unset">
+                      <img class="card-img-top img-fluid" id="image_my_we_logo"  style="height:80px;" alt="Image" src="<?php if($wr_logo){ echo './images/'.$wr_logo;} else{echo './images/logoChina.png';} ?>" >
+                      <input hidden type="file" id="my_we_logo" name="my_we_logo"  accept=".png, .jpg, .jpeg" value="<?php if($wr_logo){ echo $wr_logo;} else{echo 'logoChina.png';} ?>"/>
+                      <input type="hidden" id="wr_logo" name="wr_logo" value="<?php if($wr_logo){ echo $wr_logo;} else{echo 'logoChina.png';} ?>" />
+                    </div>
+                  </div>
+                  <div class="form-group row">                
+                    <label >Entry Name</label>
+                    <div class="input-group">
+                      <span class="input-group-addon"><i class="fa fa-home"></i></span>
+                      <input type="text" class="form-control"  name="wr_name" value="<?php if($wr_name){echo $wr_name;}else{ echo "LATIMCARGO";}?>" required placeholder="Enter Name">
+                    </div>                   
+                  </div>
                 <div class="form-group row">                
                     <label >Level</label>
                     <div class="input-group">

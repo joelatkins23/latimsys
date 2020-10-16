@@ -172,7 +172,9 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                     $("#image_upload").click(function () {
                         $("input[id='my_file']").click();
                     });
-
+                    $("#image_my_we_logo").click(function() {
+                        $("input[id='my_we_logo']").click();
+                    });
                     $(function () {
                         $('#my_file').change(function () {
                             var input = this;
@@ -192,6 +194,27 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                             }
                         });
                     });
+                    $(function(){
+                        $('#my_we_logo').change(function(){
+                            var input = this;
+                            var url = $(this).val();
+                            var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
+                            if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg"))
+                            {
+                                var reader = new FileReader();
+
+                                reader.onload = function (e) {
+                                    $('#image_my_we_logo').attr('src', e.target.result);
+                                }
+                                reader.readAsDataURL(input.files[0]);
+                                $('#wr_logo').val(null);
+                            }
+                            else
+                            {
+                                $('#image_my_we_logo').attr('src', './images/logoChina.png');
+                            }
+                        });
+                    });
                     $("#update_user_form").submit(function(e) {
                         event.preventDefault();
                         console.log($("#change_password").is(':checked'));
@@ -200,12 +223,15 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                                 $("#password_error").css("display","none");                                
                                 var fd = new FormData();
                                 fd.append( 'avatar', $("input[name='avatar']").prop('files')[0]);
+                                fd.append( 'wr_img', $("input[name='my_we_logo']").prop('files')[0]);
                                 fd.append( 'update_user', 'update');
                                 fd.append( 'username', $("input[name='username']").val());
                                 fd.append( 'email', $("input[name='email']").val());
+                                fd.append( 'wr_name', $("input[name='wr_name']").val());
                                 fd.append( 'phone', $("input[name='phone']").val());
                                 fd.append( 'password', $("input[name='password']").val());
                                 fd.append( 'user_logo', $("input[name='user_logo']").val());
+                                fd.append( 'wr_logo', $("input[name='wr_logo']").val());
                                 fd.append( 'level', $("select[name='level']").val());
                                 $.ajax({
                                     url: './curd.php',
@@ -238,7 +264,10 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                         }else{
                             var fd = new FormData();
                                 fd.append( 'avatar', $("input[name='avatar']").prop('files')[0]);
+                                fd.append( 'wr_img', $("input[name='my_we_logo']").prop('files')[0]);
                                 fd.append( 'user_logo', $("input[name='user_logo']").val());
+                                fd.append( 'wr_logo', $("input[name='wr_logo']").val());
+                                fd.append( 'wr_name', $("input[name='wr_name']").val());
                                 fd.append( 'update_user_no_password', 'update');
                                 fd.append( 'username', $("input[name='username']").val());
                                 fd.append( 'email', $("input[name='email']").val());
