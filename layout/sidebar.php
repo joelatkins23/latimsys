@@ -120,6 +120,30 @@
                   </ul>
               </li>
             </ul>
+          </li>  
+          <li id="invoice_menu" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
+            <a href="#" style="height:25px; position:relative; top:-10px;">
+              <i class="fa fa-file-pdf-o"></i> <span style="font-size:11px; ">INVOICES</span>
+              <span class="pull-right-container" style="top:22px;">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="sub_menu_create"><a  href="#" style="font-size:11px;"><i class="fa fa-plus"></i>Create</a>
+                <ul class="treeview-menu">
+                  <li><a id="create_invoice" href="createInvoice.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Invoice</a></li>
+                  <li><a id="create_pending_bills" href="createPendingBills.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Pending Bills</a></li>
+                  <li><a id="create_invoice_payments" href="createInvoicePayment.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Payments</a></li>
+                </ul>
+              </li>
+                <li class="sub_search_create"><a  href="#" style="font-size:11px;"><i class="fa fa-plus"></i>Search</a>
+                  <ul class="treeview-menu">
+                    <li><a id="search_invoice" href="searchInvoice.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Invoice</a></li>
+                    <li><a id="search_pending_bills" href="searchPendingBills.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Pending Bills</a></li>
+                    <li><a id="search_invoice_payments" href="searchInvoicePayment.php" style="font-size:11px;"><i class="fa fa-circle-o"></i>Payments</a></li>
+                  </ul>
+              </li>
+            </ul>
           </li>          
           <li id="shipment" class="treeview" style="border-bottom:1px solid gray; padding:5px;">
             <a href="#" style="height:25px; position:relative; top:-10px;">
