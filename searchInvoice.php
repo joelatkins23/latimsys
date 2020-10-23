@@ -120,8 +120,8 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
                                         <thead>
                                             <tr>
                                                 <th>Date</th>
-                                                <th style="width:250px;">Branch</th>
-                                                <th style="width:250px;">Account</th>
+                                                <th>Branch</th>
+                                                <th>Account</th>
                                                 <th>Shipper</th>
                                                 <th>Consignee</th>
                                                 <th>Total Invoiced</th>
@@ -148,25 +148,53 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
     </div>
     <div id="file_upload" class="modal fade" role="dialog" >
         <div class="modal-dialog ">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><i class="fa fa-files-o"></i>&nbsp; Add File</h4>
-            </div>
-            <div class="modal-body" style="margin:20px;">
-            <form action="./curd_invoice.php" id="addfile" method="post" enctype="multipart/form-data">
-            <input type="hidden" id="bill_fileupload" name="bill_fileupload" value="add">
-            <div class="row">
-                <div class="col-md-12">
-                    <input type="file" id="image_file" name="image_file[]" class="file-upload" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"   multiple/> 
+            <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><i class="fa fa-files-o"></i>&nbsp; Add File</h4>
                 </div>
-                <div class="col-md-12 text-center" style="margin:20px auto;">
-                <button type="submit" class="btn btn-success"><i class="fa fa-cloud-upload"></i>&nbsp;Upload</button>
+                <div class="modal-body" style="margin:20px;">
+                <form action="./curd_invoice.php" id="addfile" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="bill_fileupload" name="bill_fileupload" value="add">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="file" id="image_file" name="image_file[]" class="file-upload" accept=".xlsx,.xls,image/*,.doc,audio/*,.docx,video/*,.ppt,.pptx,.txt,.pdf"   multiple/> 
+                    </div>
+                    <div class="col-md-12 text-center" style="margin:20px auto;">
+                    <button type="submit" class="btn btn-success"><i class="fa fa-cloud-upload"></i>&nbsp;Upload</button>
+                    </div>
                 </div>
+                </form>
+                </div>        
             </div>
-            </form>
-            </div>        
         </div>
+    </div>  
+    <div id="viewnoteList" class="modal fade" role="dialog" >
+        <div class="modal-dialog ">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><i class="fa fa-star"></i>&nbsp; Remarks</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive" style="overflow-y: auto;min-height: 250px;max-height: 250px;">
+                        <table  width="100%" class='display dataTable remark_table'>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Agent</th>
+                                    <th>Notes</th>                                  
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div> 
+                <div class="modal-footer text-right">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close"></i>&nbsp;Close</button>
+                </div>       
+            </div>
         </div>
     </div>    
     <script>
@@ -381,6 +409,32 @@ $consultaAgent = mysqli_query($connect, "SELECT * FROM agents WHERE email='$emai
         });
         $("#editinvoice").modal('show');
         
+    }
+    function viewNotes(id){
+        $.ajax({
+            url: './curd_invoice.php',
+            data: {
+                'get_notes':'get',
+                'id':id
+            },
+            type: 'POST',
+            success: function(rep){
+                var data=JSON.parse(rep);
+                     console.log(data);
+                     var html="";
+                     for(i=0;i<data.length;i++){
+                         html+="<tr>";
+                         html+="<td class='text-left'>"+data[i].date+"</td>";
+                         html+="<td class='text-left'>"+data[i].agent_name+"</td>";
+                         html+="<td class='text-left'>"+data[i].notes+"</td>";
+                         html+="</tr>";
+
+                     }
+                     $("#viewnoteList table tbody").html(html);
+                     $("#viewnoteList").modal("show");
+                }
+            })
+       
     }
     $("#addfile").submit(function(e) {
             event.preventDefault(); //prevent default action 

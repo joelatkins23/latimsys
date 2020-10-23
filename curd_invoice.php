@@ -133,6 +133,7 @@ if(isset($_POST["editinvoice"]) && !empty($_POST["editinvoice"])){
     $print_grouped_by_concepts= (isset($_POST['print_grouped_by_concepts']) && !empty($_POST['print_grouped_by_concepts'])) ? $_POST['print_grouped_by_concepts'] : 0;
     $print_exchange= (isset($_POST['print_exchange']) && !empty($_POST['print_exchange'])) ? $_POST['print_exchange'] : 0;
     $invoice_status= $_POST['invoice_status'];
+    $notes= $_POST['notes'];
     $fecha= date("Y-m-d H:i:s");
     $queryModel = mysqli_query($connect, "UPDATE invoices SET 
         branch='$branch',
@@ -171,6 +172,10 @@ if(isset($_POST["editinvoice"]) && !empty($_POST["editinvoice"])){
         fecha='$fecha'
        WHERE id='".$id."'");
     $invoice_id = $id; 
+    if(isset($notes) && !empty($notes)){
+        $queryModel = mysqli_query($connect, "INSERT INTO invoices_notes(invoice_id, notes, agent_name, fecha) 
+        VALUES ('$invoice_id', '$notes', '".$agent_name."', '$fecha' )");
+    }
     if(isset($_POST['td_filename'])){
         foreach($_POST['td_filename'] as $key=>$item){
             if(!$_POST['td_fileid'][$key]){
@@ -239,6 +244,19 @@ if(isset($_POST["deletefile"]) && !empty($_POST["deletefile"])){
     $uploadfile_nombre=$ruta.$name; 
     unlink($uploadfile_nombre);
     echo true;
+}
+if(isset($_POST["get_notes"]) && !empty($_POST["get_notes"])){
+    $id=$_POST['id'];
+    $consultafile = mysqli_query($connect, "SELECT * FROM invoices_notes where invoice_id='$id' order by id desc")
+    or die ("Error al traer los Agent");
+    $data=array();
+    while ($row = mysqli_fetch_array($consultafile)){  
+       $item['date']=date_format(date_create($row['fecha']),'m/d/Y H:i:s');
+       $item['agent_name']=$row['agent_name'];
+       $item['notes']=$row['notes'];
+       array_push($data,$item);
+    }
+   echo json_encode($data);
 }
 if(isset($_POST["deleteupdatefile"]) && !empty($_POST["deleteupdatefile"])){
     $id=$_POST['id'];

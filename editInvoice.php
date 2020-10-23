@@ -99,7 +99,7 @@ $wh_selected='';
                       <div class="col-md-9">
                         <div class="input-group">
                             <input type="text" class="form-control" data-provide="datepicker" id="date"
-                                    data-date-format="yyyy/m/d" laceholder="Date" value="<?php echo date('Y/n/d'); ?>"  name="date"  value="<?php echo $date; ?>" autocomplete="off"  placeholder="Date">
+                                    data-date-format="yyyy/m/d" laceholder="Date"   name="date"  value="<?php echo $date; ?>" autocomplete="off"  placeholder="Date">
                             <span class="input-group-addon"><i class="fa fa-calendar input-fa"></i></span>
                         </div>
                       </div>
@@ -556,8 +556,21 @@ $wh_selected='';
                         </tbody>                           
                       </table>
                     </div>
-                  </div>                 
+                  </div>
+                  <div class="col-md-12">
+                    <div class="card">
+                        <p><i  class="fa fa-star"></i> &nbsp;Remarks</p>
+                        <div class="row">
+                           <div class="col-md-12">
+                                <div class="form-group">
+                                <textarea name="notes" class="form-control" id="" cols="30" rows="5"></textarea>
+                                </div>
+                           </div>
+                        </div>
+                    </div>
+                  </div>              
                 </div>
+                
         </div>
         <div class="modal-footer">
             <button type="submit"  class="btn btn-success"><i class="fa fa-save"></i>&nbsp;Edit</button>

@@ -109,12 +109,18 @@ $data = array();
 
 
 while ($row = mysqli_fetch_assoc($empRecords)) {
-
+    $attr= "left=20,top=20,width=900,height=700,toolbar=1,resizable=0";
+    $result = $connect->query("SELECT COUNT(*) AS total FROM invoices_notes WHERE invoice_id='".$row["id"]."'")->fetch_array();
+    if($result[0]!='0'){
+        $brage='<span class="label label-success brage">'.$result[0].'</span>';
+    }else{
+        $brage=''; 
+    }
    
-    $action = '<a href="#" onclick="editinvoice('.$row['id'].')"><i class="fa fa-edit action"></i></a><a href="./invoicePDF.php?id='.$row['id'].'" target="blank"><i class="fa fa-file-pdf-o action"></i></a>';
+    $action = '<a href="#" data-toggle="tooltip" title="Notes" onclick="viewNotes('.$row['id'].')"><i class="fa fa-file-o action"></i>'.$brage.'</a><a href="#" data-toggle="tooltip" title="EDIT" onclick="editinvoice('.$row['id'].')"><i class="fa fa-edit action"></i></a><a href="./invoicePDF.php?id='.$row['id'].'" data-toggle="tooltip" title="PDF" target="blank"><i class="fa fa-file-pdf-o action"></i></a>';
    
-    if ($row['invoice_status']=='PrePaid') {$status='<div style="font-weight:600; font-size:11px; color:white; padding:5px;width:80px; border:0.5px solid gray; background:#00a75a; ">'.$row['invoice_status'].'</div>';}
-    else {$status='<div style="font-weight:600; font-size:11px; color:white; padding:5px;width:80px; border:0.5px solid gray; background:#db4c39; ">'.$row['invoice_status'].'</div>';}
+    if ($row['invoice_status']=='PrePaid') {$status='<div style="font-weight:600; font-size:11px; color:white; padding:5px;width:70px; border:0.5px solid gray; background:#00a75a; ">'.$row['invoice_status'].'</div>';}
+    else {$status='<div style="font-weight:600; font-size:11px; color:white; padding:5px;width:70px; border:0.5px solid gray; background:#db4c39; ">'.$row['invoice_status'].'</div>';}
     
         $data[] = array(
                 "date"=>date_format(date_create($row['date']),'m/d/Y'),
