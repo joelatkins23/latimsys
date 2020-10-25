@@ -165,14 +165,23 @@ $comments= $row['comments'];
 					</thead>
 					<tbody>	';
 						$consulta_content = mysqli_query($connect, "SELECT * FROM invoicepayments_contents WHERE invoice_payment_id='$id' group by id ");
-
-						while ($result_content = mysqli_fetch_array($consulta_content)) {					  
-							
-							$content.='<tr>
-											<td>'.$result_content['invoice_id'].'</td>								
-											<td style="text-align:right">'.$result_content['currency'].' '.$result_content['paid'].'</td>						
-										</tr>';
+						if(mysqli_num_rows($consulta_content)>0){
+							while ($result_content = mysqli_fetch_array($consulta_content)) {					  
+								$content.='<tr>
+												<td>'.$result_content['invoice_id'].'</td>								
+												<td style="text-align:right">'.$result_content['currency'].' '.$result_content['paid'].'</td>						
+											</tr>';
+							}
+						}else{
+							$consulta_content = mysqli_query($connect, "SELECT * FROM invoicepayments WHERE id='$id' group by id ");
+							while ($result_content = mysqli_fetch_array($consulta_content)) {
+								$content.='<tr>
+												<td>Credit Note</td>								
+												<td style="text-align:right">'.$result_content['currency'].' '.$result_content['amount'].'</td>						
+											</tr>';
+							}
 						}
+						
 					$content.='</tbody>
 				</table>
 			</div>

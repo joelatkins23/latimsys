@@ -303,61 +303,66 @@ $email = $_SESSION['username'];
                             aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title"><i class="fa fa-money"></i>&nbsp; Payment Received Wire Transfer</h4>
                       </div>
-                      <div class="modal-body" style="margin:20px; margin-top:0px">
-                        <div class="row">
+                      <div class="modal-body" style="padding:20px; margin-top:0px">
+                        <div class="row" style="margin:0">
                           <div class="col-md-12">
                             <h4 style="color:red; font-weight:bold">Amount to apply can't be larger than the amount due on the invoice.</h4>
                             <p style="margin-bottom: 0px;">Processing receipts for : <strong id="account_name">Prueba Diaz</strong></p>
                             <p>Amount Available to process : <strong id="available_amout" style="color:red">USD 350.00</strong></p>
                             <button type="submit" class="btn btn-danger">APPLY CREDIT</button>
+                            <p style="margin-bottom: 0px;margin-top: 10px; color:red">No Invoices have been processed yet</p>
+                            <h4 class="text-right" id="available_invoice_element" style="color:red; font-weight:bold;display:none">Amount Available to process <strong id="available_invoice_amount" style="color:red">USD 350.00</strong></h4>
                           </div>
-                          <div class="col-md-12" style="margin-top:30px;">
-                            <small for="" style="color:#B80008">Selected on this Reference</small>
-                          </div>
-                          <dic class="col-md-12" style="margin-top:10px;">
-                            <div class="table-responsive">
-                              <table style="width:100%;" class='custom_table paid_table table table-bordered'>
-                                <thead>
-                                  <tr class="text-center">
-                                    <th class="text-center">Date</th>
-                                    <th class="text-center">Number</th>
-                                    <th class="text-center">Account</th>
-                                    <th class="text-center">Currency</th>
-                                    <th class="text-center">Amount</th>
-                                    <th class="text-center">Paid</th>
-                                    <th class="text-center">Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-                              </table>
+                          <div id="available_element" style="display:none">
+                            <div class="col-md-12" style="margin-top:30px;">
+                              <small for="" style="color:#B80008">Selected on this Reference</small>
                             </div>
-                          </dic>
-                          <div class="col-md-12">
-                            <small for="" style="color:#B80008">Avaliable for selection</small>
-                          </div>
-                          <div class="col-md-12" style="margin-top:10px;">
-                            <div class="table-responsive">
-                              <table style="width:100%;" class='custom_table payment_table table table-bordered'>
-                                <thead>
-                                  <tr class="text-center">
-                                    <th class="text-center">Date</th>
-                                    <th class="text-center">Number</th>
-                                    <th class="text-center">Account</th>
-                                    <th class="text-center">Currency</th>
-                                    <th class="text-center">Amount</th>
-                                    <th class="text-center">Toatal Paid</th>
-                                    <th class="text-center">&nbsp;</th>
-                                    <th class="text-center">Action</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
+                            <div class="col-md-12" style="margin-top:10px;">
+                              <div class="table-responsive">
+                                <table style="width:100%;" class='custom_table paid_table table table-bordered'>
+                                  <thead>
+                                    <tr class="text-center">
+                                      <th class="text-center">Date</th>
+                                      <th class="text-center">Number</th>
+                                      <th class="text-center">Account</th>
+                                      <th class="text-center">Currency</th>
+                                      <th class="text-center">Amount</th>
+                                      <th class="text-center">Paid</th>
+                                      <th class="text-center">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
 
-                                </tbody>
-                              </table>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>                          
+                            <div class="col-md-12">
+                              <small for="" style="color:#B80008">Avaliable for selection</small>
+                            </div>
+                            <div class="col-md-12" style="margin-top:10px;">
+                              <div class="table-responsive">
+                                <table style="width:100%;" class='custom_table payment_table table table-bordered'>
+                                  <thead>
+                                    <tr class="text-center">
+                                      <th class="text-center">Date</th>
+                                      <th class="text-center">Number</th>
+                                      <th class="text-center">Account</th>
+                                      <th class="text-center">Currency</th>
+                                      <th class="text-center">Amount</th>
+                                      <th class="text-center">Toatal Paid</th>
+                                      <th class="text-center">&nbsp;</th>
+                                      <th class="text-center">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+
+                                  </tbody>
+                                </table>
+                              </div>
                             </div>
                           </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -409,16 +414,31 @@ $email = $_SESSION['username'];
     function fade_out() {
       $("#mydiv").fadeOut().empty();
     }
+    var total_val=0, count=0;
     $(".file_upload_btn").on("click", function () {
       $("#file_upload").modal("show");
     });
     $(".open_payment_modal").on("click", function(){
       if($("select[name='account']").val() && $("input[name='amount']").val() && $("select[name='type']").val() && $("select[name='currency']").val()){
-        var amount_text = $("select[name='currency']").val()+" "+$("input[name='amount']").val();
+        if(total_val==0){
+          total_val=$("input[name='amount']").val();
+        }
+        var amount_text = $("select[name='currency']").val()+" "+total_val;
         $("#available_amout").text(amount_text);
+        if(count>0){
+            $("#available_element").css("display","block");
+            $("#available_invoice_element").css("display","block");  
+        }else{
+            $("#available_element").css("display","none");
+            $("#available_invoice_element").css("display","none");  
+        }
         $("#paymentmodal").modal("show");
       }else{
-        alert("treu");
+        swal({
+              title: "Error!",
+              text: "Insert Account, Amount, Type and Currency values!",
+              icon: "error",
+          });
       }
       
     })
@@ -495,8 +515,11 @@ $email = $_SESSION['username'];
           $("#account_name").html(account_name);
           var rep = respo.post;
           var html = "";
+          count=rep.length;
+          total_val=0;
           for (var i = 0; i < rep.length; i++) {
             var diff_val = rep[i].total_invoiced - rep[i].paid;
+            total_val = total_val + diff_val;
             html += '<tr>';
             html += '<td class="text-center">' + rep[i].date + '</td>';
             html += '<td class="text-center">' + rep[i].id + '</td>';
@@ -510,6 +533,16 @@ $email = $_SESSION['username'];
             html += '<td class="text-center"><button type="button" onclick="onpayment($(this))" class="btn btn-success payment_btn btn-sm"><i class="fa fa-money"></i>&nbsp;Pay</button></td>';
             html += '<input type="hidden" id="td_change_payment" value="' + diff_val + '" class="form-control text-right">';
             html += '</tr>';
+          }
+          if(count>0){
+            $("#available_element").css("display","block");
+            $("#available_invoice_element").css("display","block");  
+            var amount_text = "USD "+total_val;
+            $("#available_amout").text(amount_text); 
+            $("input[name='amount']").val(total_val); 
+            $("#available_invoice_amount").text(amount_text);          
+          }else{
+            $("input[name='amount']").val(0); 
           }
           $(".payment_table tbody").html(html);
         }

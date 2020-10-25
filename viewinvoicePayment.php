@@ -91,13 +91,27 @@ $id= $_GET['id'];
                         <tbody>
                             <?php 
                             $consulta2 = mysqli_query($connect, "SELECT * FROM invoicepayments_contents WHERE invoice_payment_id='$id' ORDER BY id asc ") or die ("Error al traer los datos222");
+                            if(mysqli_num_rows($consulta2)>0){
+                            
                                 while ($row = mysqli_fetch_array($consulta2)){
-                            ?> 
-                            <tr>
-                                <td class="text-left"><?php  echo $row['invoice_id']?></td>
-                                <td class="text-right"><?php  echo $row['currency']?> <?php  echo $row['paid']?></td>
-                            </tr>
-                            <?php } ?>
+                                    ?> 
+                                    <tr>
+                                        <td class="text-left"><?php  echo $row['invoice_id']?></td>
+                                        <td class="text-right"><?php  echo $row['currency']?> <?php  echo $row['paid']?></td>
+                                    </tr>
+                             <?php } ?>     
+                            <?php }else{ ?>
+                                <?php 
+                                    $consulta2 = mysqli_query($connect, "SELECT * FROM invoicepayments WHERE id='$id' ORDER BY id asc ") or die ("Error al traer los datos222");
+                            
+                                while ($row = mysqli_fetch_array($consulta2)){
+                                    ?> 
+                                    <tr>
+                                        <td class="text-left">Credit Note</td>
+                                        <td class="text-right"><?php  echo $row['currency']?> <?php  echo $row['amount']?></td>
+                                    </tr>
+                             <?php } ?> 
+                             <?php } ?> 
                         </tbody>
                     </table>
                 </div>
