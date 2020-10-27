@@ -41,7 +41,7 @@ $email = $_SESSION['username'];
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>System | Create Invoices</title>
+    <title>System | Create Pending Bills</title>
     <link rel="icon" type="image/x-icon" href="icoplane.ico" />
     <!-- CSS -->
     <link href='plugins/select2/select2.css' rel='stylesheet' type='text/css'>
@@ -94,12 +94,12 @@ $email = $_SESSION['username'];
       <!-- Content Header (Page header) -->
       <section class="content-header">
         <h1>
-        Invoices 
+        Pending Bills 
           <small>Create</small>
         </h1>
         <ol class="breadcrumb">
           <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-          <li class="active">Create Invoices</li>
+          <li class="active">Create Pending Bills</li>
         </ol>
       </section>
       <?php if ($message=='success'){ ?>
@@ -121,7 +121,7 @@ $email = $_SESSION['username'];
             <div class="col-md-offset-1 col-md-10 shadow2" style="background: white;margin-top:50px">
               <div class="row">
                 <div class="col-md-12 text-center" style="border-bottom:1px solid #555555; padding-bottom:10px;">
-                  <h3 style="text-align:center; color:black; font-weight:800; font-size:20px;    margin-top: 30px; ">Create Invoices</h3>
+                  <h3 style="text-align:center; color:black; font-weight:800; font-size:20px;    margin-top: 30px; ">Create Pending Bills</h3>
                 </div>
               </div>
                 <div class="row" style="margin:30px 20px">
@@ -556,7 +556,7 @@ $email = $_SESSION['username'];
   $(".treeview").removeClass('active');
   $("#invoice_menu").addClass("active");
   $("#invoice_menu .sub_menu_create").addClass("active");
-  $("#invoice_menu #create_invoice").addClass("active");
+  $("#invoice_menu #create_pending_bills").addClass("active");
   $(".select2").select2();
   $('input[type="file"]').imageuploadify();
   setTimeout(fade_out, 3000);

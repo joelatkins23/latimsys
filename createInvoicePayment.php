@@ -159,7 +159,7 @@ $email = $_SESSION['username'];
                         required style="width:100%; max-width:100%; min-width:100%">
                         <option value="">--Select Account--</option>
                         <?php 
-                              $consulta = mysqli_query($connect, "SELECT * FROM accounts where type='Supplier' order by id ")
+                              $consulta = mysqli_query($connect, "SELECT * FROM accounts where type='Client' order by id ")
                               or die ("Error al traer los Agent");
                               while ($row = mysqli_fetch_array($consulta)){
                           
@@ -530,7 +530,7 @@ $email = $_SESSION['username'];
             html += '<td class="text-center">';
             html += '<input type="text" id="td_payment" value="' + diff_val + '" class="form-control text-right">';
             html += '</td>';
-            html += '<td class="text-center"><button type="button" onclick="onpayment($(this))" class="btn btn-success payment_btn btn-sm"><i class="fa fa-money"></i>&nbsp;Pay</button></td>';
+            html += '<td class="text-center"><button type="button" onclick="onpayment($(this))" class="btn btn-success payment_btn btn-sm"><i class="fa fa-money"></i>&nbsp;Pay</button><button type="button" onclick="onhalfpayment($(this))" class="btn btn-success payment_btn btn-sm"><i class="fa fa-money"></i>&nbsp;Pay(50%)</button></td>';
             html += '<input type="hidden" id="td_change_payment" value="' + diff_val + '" class="form-control text-right">';
             html += '</tr>';
           }
@@ -581,6 +581,40 @@ $email = $_SESSION['username'];
       $(".paid_table tbody").append(tbody);
       total_calculator();
     }
+    function onhalfpayment(ele) {
+      var date = ele.parent('td').parent('tr').find("td:eq(0)").text();
+      var invoice_id = ele.parent('td').parent('tr').find("td:eq(1)").text();
+      var account = ele.parent('td').parent('tr').find("td:eq(2)").text();
+      var currency = ele.parent('td').parent('tr').find("td:eq(3)").text();
+      var total_invoiced = ele.parent('td').parent('tr').find("td:eq(4)").text();
+      var total_paid = ele.parent('td').parent('tr').find("td:eq(5)").text();
+      var paid = ele.parent('td').parent('tr').find("#td_payment").val();
+      var change_payment = ele.parent('td').parent('tr').find("#td_change_payment").val();
+      paid=parseFloat(paid)/2;
+      total_paid = Math.round((parseFloat(total_paid) + parseFloat(paid)) * 100) / 100;    
+      ele.parent('td').parent('tr').find("td:eq(5)").text(total_paid);
+      if (change_payment - paid > 0) {
+        var dif = Math.round((change_payment - paid) * 100) / 100;
+        ele.parent('td').parent('tr').find("#td_payment").val(dif);
+        ele.parent('td').parent('tr').find("#td_change_payment").val(dif);
+      } else if (change_payment - paid == 0) {
+        ele.parent('td').parent('tr').remove();
+      }
+      var tbody = "";
+      tbody += '<tr>';
+      tbody += '<td class="text-center">' + date + '</td>';
+      tbody += '<td class="text-center">' + invoice_id + '</td>';
+      tbody += '<td class="text-center">' + account + '</td>';
+      tbody += '<td class="text-center">' + currency + '</td>';
+      tbody += '<td class="text-center">' + total_invoiced + '</td>';
+      tbody += '<td class="text-center">' + paid + '</td>';
+      tbody += '<td class="text-center"><i class="fa fa-trash action td_remove" onclick="ontdremove($(this))"></i></td>';
+      tbody += '<input type="hidden" name="td_paid[]" value="' + paid + '" class="form-control text-right">';
+      tbody += '<input type="hidden" name="td_invoice_id[]" value="' + invoice_id + '" class="form-control text-right">';
+      tbody += '</tr>';
+      $(".paid_table tbody").append(tbody);
+      total_calculator();
+    }
     function ontdremove(ele) {
       var invoice_id = ele.parent('td').parent('tr').find("td:eq(1)").text();
       var element = '';
@@ -594,7 +628,7 @@ $email = $_SESSION['username'];
         var id = element.find("td:eq(1)").text();
         var total_paid = element.find("td:eq(5)").text();
         var payment = ele.parent('td').parent('tr').find("td:eq(5)").text();
-        total_paid = Math.round((parseFloat(total_paid) + parseFloat(payment)) * 100) / 100;
+        total_paid = Math.round((parseFloat(total_paid) - parseFloat(payment)) * 100) / 100;
         element.find("td:eq(5)").text(total_paid);
         var old_payment = element.find("#td_payment").val();
         var dif = Math.round((parseFloat(old_payment) + parseFloat(payment)) * 100) / 100;
@@ -609,6 +643,7 @@ $email = $_SESSION['username'];
         var td_currency = ele.parent('td').parent('tr').find("td:eq(3)").text();
         var td_amount = ele.parent('td').parent('tr').find("td:eq(4)").text();
         var td_payment = ele.parent('td').parent('tr').find("td:eq(5)").text();
+        total_paid = Math.round((parseFloat(td_amount) - parseFloat(td_payment)) * 100) / 100;
         var html = '';
         html += '<tr>';
         html += '<td class="text-center">' + date + '</td>';
@@ -616,11 +651,11 @@ $email = $_SESSION['username'];
         html += '<td class="text-center">' + td_account + '</td>';
         html += '<td class="text-center">' + td_currency + '</td>';
         html += '<td class="text-center">' + td_amount + '</td>';
-        html += '<td class="text-center">' + td_payment + '</td>';
+        html += '<td class="text-center">' + total_paid + '</td>';
         html += '<td class="text-center">';
         html += '<input type="text" id="td_payment" value="' + td_payment + '" class="form-control text-right">';
         html += '</td>';
-        html += '<td class="text-center"><button type="button"  onclick="onpayment($(this))" class="btn btn-success payment_btn btn-sm"><i class="fa fa-money"></i>&nbsp;Pay</button></td>';
+        html += '<td class="text-center"><button type="button"  onclick="onpayment($(this))" class="btn btn-success payment_btn btn-sm"><i class="fa fa-money"></i>&nbsp;Pay</button><button type="button" onclick="onhalfpayment($(this))" class="btn btn-success payment_btn btn-sm"><i class="fa fa-money"></i>&nbsp;Pay(50%)</button></td>';
         html += '<input type="hidden" id="td_change_payment" value="' + td_payment + '" class="form-control text-right">';
 
         html += '</tr>';

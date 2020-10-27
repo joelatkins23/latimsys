@@ -5,23 +5,22 @@
 	$id = $_GET['id'];
 
 	$consulta2 = mysqli_query($connect, "select a.*, b.station as branch_name, c.name as type_name, d.name as account_name from invoicepayments a 
-	left join branches b on a.branch=b.id 
-	left join bill_type c on a.type=c.id 
-	left join accounts d on a.account=d.id 
-	WHERE a.id='$id' ORDER BY id asc ") or die ("Error al traer los datos222");
-while ($row = mysqli_fetch_array($consulta2)){  
-$branch=$row['branch_name'];
-$date=$row['date'];
-$account= $row['account_name'];
-$type= $row['type_name'];
-$amount= $row['amount'];
-$currency= $row['currency'];
-$id= $row['id'];
-$date= date_format(date_create($row['exchange']),'m/d/Y');
-$number= $row['number'];
-$reference= $row['reference'];
-$comments= $row['comments'];
-}
+										left join branches b on a.branch=b.id 
+										left join bill_type c on a.type=c.id 
+										left join accounts d on a.account=d.id 
+										WHERE a.id='$id' ORDER BY id asc ") or die ("Error al traer los datos222");
+	while ($row = mysqli_fetch_array($consulta2)){  
+	$branch=$row['branch_name'];
+	$account= $row['account_name'];
+	$type= $row['type_name'];
+	$amount= $row['amount'];
+	$currency= $row['currency'];
+	$id= $row['id'];
+	$date= date_format(date_create($row['date']),'m/d/Y');
+	$number= $row['number'];
+	$reference= $row['reference'];
+	$comments= $row['comments'];
+	}
 
 	$content = ob_get_clean();
 	$content = '
